@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" targetNamespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.000" id="AMA2017E">
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:element name="AMA_PAY_ListVirtualCardsRQ">
+    <xs:annotation>
+      <xs:documentation>Service to display the list of created Virtual cards on the basis of given criterias</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:annotation>
+          <xs:documentation>Criteria of search</xs:documentation>
+        </xs:annotation>
+        <xs:element name="SubType" type="ama_ct:AlphaNumericStringLength1to30" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>The type of card. Could be prepaid, credit or debit etc.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="VendorCode" type="ama_ct:AlphaNumericStringLength2" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>2 char Vendor code of the Virtual Card ex VI,CA</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="AmountRange" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>To search the card within an requested amount range</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="Max" type="xs:nonNegativeInteger">
+              <xs:annotation>
+                <xs:documentation>Maximum value of amount</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="Min" type="xs:nonNegativeInteger">
+              <xs:annotation>
+                <xs:documentation>Minimum value of amount</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CurrencyCode" type="ota:AlphaLength3" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Currency requested by user. Uppercase ISO 4217 Currency of the amount</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Period" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>To filter cards based on their creation dates</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:complexContent>
+              <xs:extension base="ota:DateTimeSpanType">
+                <xs:attribute name="EventType" type="ama_ct:AlphaNumericStringLength1to30" use="required">
+                  <xs:annotation>
+                    <xs:documentation>Type of event to search</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:extension>
+            </xs:complexContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CardStatus" type="ama_ct:AlphaNumericStringLength1to10" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Search cards based on their current status. Active, frozen or deleted</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Reservation" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Search cards based on reservation information</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="ID" type="ama_ct:AlphaNumericStringLength1to10">
+              <xs:annotation>
+                <xs:documentation>Identifier of the trip (either a PNR or a booking identified by an ID of 6 or 10 characters long)</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="ExternalID">
+              <xs:annotation>
+                <xs:documentation>Identifier of the trip in an external system (eg GLC)</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:NMTOKEN">
+                  <xs:minLength value="1" />
+                  <xs:maxLength value="16" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attributeGroup ref="ota:OTA_PayloadStdAttributes" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+

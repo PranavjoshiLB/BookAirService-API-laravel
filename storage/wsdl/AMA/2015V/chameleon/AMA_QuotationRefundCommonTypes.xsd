@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iata="http://www.iata.org/IATA/2007/00/IATA2010.1" elementFormDefault="qualified" version="2.001" id="AMA2015V">
+  <xs:include schemaLocation="AMA_QuotationElementCommonTypes.xsd" />
+  <xs:import namespace="http://www.iata.org/IATA/2007/00/IATA2010.1" schemaLocation="../../../IATA/2010.1/IATA_Proxy.xsd" />
+  <!--*******************************************************************-->
+  <!-- Declaration of QtOCFees type that includes the real data (group) -->
+  <!--*******************************************************************-->
+  <xs:group name="RefundPricingInfoGroup">
+    <xs:sequence>
+      <xs:group ref="PricingInfoGroup" />
+      <xs:element name="RefundedItinerary" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Refunded Itinerary</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9 ]+" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="WaiverCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Waiver Code</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DataSourceIdentifier" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>R REFUND RECORD AGT-38262475 AA/17FEB12 F TKT-Y
+• M for manual refund;
+• F for automated refund;
+• L for mixed (manual and automated) refund;
+• A for full refund with commission penalty (CP element);
+• C for ATC refund;
+• P for ATC refund with commission penalty or miscellaneous fee (MF element) update;
+• N for ATC refund with other updates in the refund record.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CancellationFeeCom" minOccurs="0">
+        <xs:complexType>
+          <xs:attributeGroup ref="AmountCurrencyAndDecimalPlaceGroup" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="PricingCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The pricing code is extracted from the TST. The meaning of the different values is:
+• I IATA priced by Fare Serve;
+• A ATAF priced by Fare Server;
+• M Priced by Manually created TST (with fare server interaction);
+• N Priced by Manually created TST (without fare server interaction for future use);
+• B Negotiated Rate (F) or (G) that has been manually updated;
+• G Negotiated Rate with Agent/Consolidator as net updater;
+• F Negotiated Rate with Airline as net updater;
+• O RBD override;
+• T IATA priced Inclusive Tour (IT) priced by Fare Server.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SettlementAuthorizationCode" type="xs:string" minOccurs="1" maxOccurs="21">
+        <xs:annotation>
+          <xs:documentation>SAC is a number provided at refund processing time (TRFP) and automatically added in correspondent refund record. Or it could be manually added to the refund record.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:complexType name="QtRefundType">
+    <xs:annotation>
+      <xs:documentation>This is the Quotation Refund Record Type declaration.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:group ref="QtElementGroup" />
+      <xs:element name="PricingInfo" minOccurs="0" maxOccurs="2">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="RefundPricingInfoGroup" />
+          </xs:sequence>
+          <xs:attributeGroup ref="TypedContextAttributeGroup" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="TypedContextAttributeGroup" />
+  </xs:complexType>
+  <xs:element name="QtRefund" type="QtRefundType" />
+</xs:schema>
+<!--  -->
+

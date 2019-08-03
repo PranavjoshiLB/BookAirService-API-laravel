@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:iata="http://www.iata.org/IATA/2007/00/IATA2010.1" elementFormDefault="qualified" version="2.001" id="AMA2015V">
+  <xs:include schemaLocation="AMA_QuotationCommonTypes.xsd" />
+  <xs:import namespace="http://www.iata.org/IATA/2007/00/IATA2010.1" schemaLocation="../../../IATA/2010.1/IATA_Proxy.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:include schemaLocation="AMA_QuotationComponentCommonTypes.xsd" />
+  <!--*************************************************************************-->
+  <!-- Declaration of QtFareComponent type that includes the real data (group) -->
+  <!--*************************************************************************-->
+  <xs:attributeGroup name="FareComponentPricingInfoAttributeGroup">
+    <xs:attributeGroup ref="ComponentPricingInfoAttributeGroup" />
+    <xs:attribute name="TripIndicator" type="iata:AlphaNumericStringLength1to14" use="optional">
+      <xs:annotation>
+        <xs:documentation>Define the trip (e.g. Round trip, One Way...)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:group name="FareComponentPricingInfoGroup">
+    <xs:sequence>
+      <xs:group ref="ComponentPricingInfoGroup" />
+      <xs:element name="FareBasis" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="FareBasisCode" type="StringLength1to15" use="optional">
+            <xs:annotation>
+              <xs:documentation>Fare Basis Code</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="TicketDesignator" type="StringLength1to13" use="optional">
+            <xs:annotation>
+              <xs:documentation>Ticket Designator</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Upsell" type="UpsellType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Upsell is sales technique whereby a seller induces the customer to purchase more expensive items</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!-- Same as Upsell: some future info may come in there -->
+      <xs:element name="FareFamily" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Fare Family groups certain number of fares</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="Code" type="iata:AlphaNumericStringLength1to30" use="optional">
+            <xs:annotation>
+              <xs:documentation>Code</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="Owner" type="ota:AlphaNumericStringLength1to3">
+            <xs:annotation>
+              <xs:documentation>CompanyOwner</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:complexType name="QtFareComponentType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">This is the Quotation Fare Component Type declaration. Quotation Fare
+                Component is a quotation type to store pricing data relative to a group of Coupons.
+                It includes, like all others quotations types, Quotation Element.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:group ref="QtElementGroup" />
+      <xs:element name="PricingInfo" minOccurs="0" maxOccurs="2">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="FareComponentPricingInfoGroup" />
+          </xs:sequence>
+          <xs:attributeGroup ref="FareComponentPricingInfoAttributeGroup" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="TypedContextAttributeGroup" />
+  </xs:complexType>
+  <!--xs:element name="QtFareComponent" type="QtFareComponentType"/-->
+</xs:schema>
+

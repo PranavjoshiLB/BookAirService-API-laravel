@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="2.001" id="AMA2015V">
+  <xs:include schemaLocation="AMA_QuotationElementCommonTypes.xsd" />
+  <!--*******************************************************************-->
+  <!-- Declaration of QtCoupon type that includes the real data (group) -->
+  <!--*******************************************************************-->
+  <xs:group name="CouponPricingInfoGroup">
+    <xs:annotation>
+      <xs:documentation>This is the Quotation Coupon Pricing context Type declaration.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:group ref="PricingInfoGroup" />
+    </xs:sequence>
+  </xs:group>
+</xs:schema>
+

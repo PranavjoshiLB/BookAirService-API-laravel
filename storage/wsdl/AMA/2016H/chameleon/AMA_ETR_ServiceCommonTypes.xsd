@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.003" id="AMA2016H">
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:include schemaLocation="AMA_ETR_CommonTypes.xsd" />
+  <xs:complexType name="ETR_ServiceType">
+    <xs:sequence>
+      <xs:element name="serviceProvider" type="ProviderType" minOccurs="0" />
+      <xs:element name="text" minOccurs="0" maxOccurs="2">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="label">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                    <xs:minLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="start" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="dateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Service start date</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="end" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="dateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Service end date</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:group ref="ETRCommonElements" />
+    </xs:sequence>
+    <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength1to4orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error facet="use" code="31999">MANDATORY SSR CODE MISSING</ama:error>
+          <ama:error code="8110">INVALID SSR</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">The SSR code is used to identify the service type</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="description" type="ama_ct:StringLength1to109orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32999">DESCRIPTION FIELD TOO LONG</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Free Text</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="NIP" type="ama_ct:NumericStringLength1to99orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="31979">INVALID QUANTITY</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Quantity: the number of services of the same type</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="status" type="ETRStatusCodeOrString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Status code</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="overrideStatus" type="ama_ct:AlphaNumericStringLength1to2orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Enable to override status code (e.g. for Offers)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="rfic" type="ama_ct:AlphaNumericStringLength3orString0" />
+    <xs:attribute name="rfisc" type="ama_ct:AlphaNumericStringLength3orString0" />
+    <xs:attribute name="chargeable" type="xs:boolean" />
+    <xs:attribute name="pricingMode" type="ama_ct:AlphaNumericStringLength1to2orString0">
+      <xs:annotation>
+        <xs:documentation>P (Pack), M (Manual), B (Auto), E (Exempted)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>
+

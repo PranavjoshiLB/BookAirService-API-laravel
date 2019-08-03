@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.000" id="AMA2017E">
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:complexType name="NotificationType">
+    <xs:annotation>
+      <xs:documentation>Information about the notification</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="To" maxOccurs="2">
+        <xs:annotation>
+          <xs:documentation>Recipient(s) of the notification that contains the VCN details</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="ota:StringLength1to128">
+              <xs:attribute name="Type" type="ama_ct:AlphaNumericStringLength1to25" use="required">
+                <xs:annotation>
+                  <xs:documentation>type of address: Email, Phone, Pager, unstructured postal address, ...</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Comment" minOccurs="0" maxOccurs="9">
+        <xs:annotation>
+          <xs:documentation>Additional information that will be in the notification</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="ama_ct:StringLength1to256">
+              <xs:attribute name="Type" type="ama_ct:AlphaNumericStringLength1to25" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Type" type="ama_ct:AlphaNumericStringLength1to25">
+      <xs:annotation>
+        <xs:documentation>Template to be used for the notification generation</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Language" type="xs:language">
+      <xs:annotation>
+        <xs:documentation>2 letter ISO 639 language definition, "en"by default</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="NotificationDetailsType">
+    <xs:annotation>
+      <xs:documentation>Information about the notification</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Type" type="ama_ct:StringLength1to99">
+          <xs:annotation>
+            <xs:documentation>The purpose of notification, could be for a hotel new booking, hotel booking modification or hotel booking cancellation for example</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="SubType" type="ama_ct:StringLength1to30">
+          <xs:annotation>
+            <xs:documentation>The subtype of notification, could be fax, email, sms etc</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Timestamp" type="xs:dateTime">
+          <xs:annotation>
+            <xs:documentation>Timestamp when notification has been sent</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Reference" type="ama_ct:StringLength1to99">
+          <xs:annotation>
+            <xs:documentation>The unique reference of notification transaction</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="SequenceNbr" type="xs:int">
+          <xs:annotation>
+            <xs:documentation>The number of notification. For ex, there will be 3 faxes sent in different days for a hotel booking</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Status" type="ama_ct:AlphaNumericStringLength1to20">
+          <xs:annotation>
+            <xs:documentation>The status of notification, could be delivered, sent, failed etc.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ReportingInfoType">
+    <xs:sequence>
+      <xs:element name="AdditionalInfo" minOccurs="0" maxOccurs="99">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:documentation>Data that will be used for reporting</xs:documentation>
+          </xs:annotation>
+          <xs:simpleContent>
+            <xs:extension base="ama_ct:StringLength1to256">
+              <xs:attribute name="CodeContext" type="ama_ct:StringLength0to64">
+                <xs:annotation>
+                  <xs:documentation>Key that is used to identify the reporting group of the following Key (e.g. DBI)</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+              <xs:attribute name="Code" type="ama_ct:StringLength0to64" use="required" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

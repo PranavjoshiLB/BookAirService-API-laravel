@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xml.amadeus.com/RCPORR_05_1_1A" xmlns="http://xml.amadeus.com/RCPORR_05_1_1A" elementFormDefault="qualified">
+  <xs:element name="Car_PolicyReply">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="scrollingInfo" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="scrollingInformation" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="numberOfItems" minOccurs="0">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:annotation>
+                            <xs:documentation xml:lang="en">Format limitations: an..6</xs:documentation>
+                          </xs:annotation>
+                          <xs:minLength value="1" />
+                          <xs:maxLength value="6" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="lastItemRetrieved" minOccurs="0">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:annotation>
+                            <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                          </xs:annotation>
+                          <xs:minLength value="1" />
+                          <xs:maxLength value="3" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="errorDetails" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="applicationError">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="applicationErrorDetail">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="errorNumber">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..5</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="5" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="responseType">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="3" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="responsibleAgency">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="3" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="errorFreeText">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="freeTextDetails" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="freeTextQualifier">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="3" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="freeText" minOccurs="0">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:annotation>
+                            <xs:documentation xml:lang="en">Format limitations: an..64</xs:documentation>
+                          </xs:annotation>
+                          <xs:minLength value="1" />
+                          <xs:maxLength value="64" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="locationAndCompanyGroup" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="companyInfo">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="companyInformation">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="companyCode">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="3" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="companyName" minOccurs="0">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..20</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="20" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="locationInformation" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="cityOrAirportTag">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:annotation>
+                            <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                          </xs:annotation>
+                          <xs:minLength value="1" />
+                          <xs:maxLength value="3" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="locationInfo">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="locationCode" minOccurs="0">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..6</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="6" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="locationName" minOccurs="0">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..20</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="20" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="address" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="addressDetails">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="format">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="3" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="line1">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..70</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="70" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="city" minOccurs="0">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:annotation>
+                            <xs:documentation xml:lang="en">Format limitations: an..35</xs:documentation>
+                          </xs:annotation>
+                          <xs:minLength value="1" />
+                          <xs:maxLength value="35" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="zipCode" minOccurs="0">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:annotation>
+                            <xs:documentation xml:lang="en">Format limitations: an..7</xs:documentation>
+                          </xs:annotation>
+                          <xs:minLength value="1" />
+                          <xs:maxLength value="7" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="countryCode" minOccurs="0">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:annotation>
+                            <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                          </xs:annotation>
+                          <xs:minLength value="1" />
+                          <xs:maxLength value="3" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="regionDetails" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="code">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="3" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="phone" minOccurs="0" maxOccurs="3">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="phoneOrEmailType">
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:annotation>
+                            <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                          </xs:annotation>
+                          <xs:minLength value="1" />
+                          <xs:maxLength value="3" />
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
+                    <xs:element name="telephoneNumber">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="telephoneNumber">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..25</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="25" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="openingHours" minOccurs="0" maxOccurs="14">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="beginDateTime">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="hour">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: n..2</xs:documentation>
+                                </xs:annotation>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="minutes">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: n..2</xs:documentation>
+                                </xs:annotation>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="endDateTime">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="hour">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: n..2</xs:documentation>
+                                </xs:annotation>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="minutes">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:decimal">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: n..2</xs:documentation>
+                                </xs:annotation>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="frequency">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="qualifier">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="3" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="value" maxOccurs="7">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an1</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="1" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="companyAccessType" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="accessTypeInfo">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="companyAccessIndicator">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="3" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="accessType" minOccurs="0">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="3" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="scrollingGroup" minOccurs="0" maxOccurs="150">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="itemReference">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="policyItemReference" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="policyItemNumber" minOccurs="0">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..5</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="5" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="policyDetails" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="taxSurchargeCoverageInfo">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="policyInfo" minOccurs="0" maxOccurs="9">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="policyType" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="3" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="policyAmount" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: n..12</xs:documentation>
+                                      </xs:annotation>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="insuranceIndicator" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..5</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="5" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="maxDaySurcharge" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..4</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="4" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="periodIndicator" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="3" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="currency" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="3" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="policyName" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..70</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="70" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="percentage" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: n..10</xs:documentation>
+                                      </xs:annotation>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="vehicleTypeList" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="vehicleIdentificationInfo" minOccurs="0" maxOccurs="24">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="vehicleType">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..4</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="4" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="vehicleAllOption" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: a1</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="1" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="policyFreeText" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="freeTextDetails" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="freeTextQualifier">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="3" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="freeText" minOccurs="0" maxOccurs="14">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..55</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="55" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="vehiclePolicyDetails" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="vehicleIndicator">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ruleDetails" minOccurs="0" maxOccurs="10">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="ruleType">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="3" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="ruleQuantity" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:decimal">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: n..4</xs:documentation>
+                                      </xs:annotation>
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="ruleQuantityUnit" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="3" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="ruleQualifier" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="3" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="ruleDescription" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..55</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="55" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="vehicleInfo" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="vehicleIdentificationInfo" minOccurs="0" maxOccurs="24">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="vehicleType">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..4</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="4" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                                <xs:element name="vehicleAllOption" minOccurs="0">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: a1</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="1" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="vehicleFreeText" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="freeTextDetails" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="freeTextQualifier">
+                                  <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                      <xs:annotation>
+                                        <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+                                      </xs:annotation>
+                                      <xs:minLength value="1" />
+                                      <xs:maxLength value="3" />
+                                    </xs:restriction>
+                                  </xs:simpleType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="freeText" minOccurs="0" maxOccurs="14">
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:annotation>
+                                  <xs:documentation xml:lang="en">Format limitations: an..55</xs:documentation>
+                                </xs:annotation>
+                                <xs:minLength value="1" />
+                                <xs:maxLength value="55" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+<!-- SchemaRules="2009/09"-->
+<!--Created with SchemaBuilder 4.1 by Amadeus S.A.S.-->
+<!--Build Key:
+1F8B080000000000000085903F6FC23010C5777F0AF6AAC4B462205286481026D20AA83A22631F60C97F529F5335427CF79E9350B155F2F07C777EEFE75BAFEAD5B6DCAF9687B7BA78E133FECCE774269FA01CA012DD842FF2F96B3E9B4DD69BFD13E739E7CC090BD80809C535760DDC0ED76F08A8BD2315C080C054136770B2BB31E9AD0517B1380983C08C77E76450C4D00253BE3D1AD8C1574BC3F02EA2BC0C8D9336B06D0D14CE5724FB7BFFAC8F4CEA9F584244D24B88421B241B07540B6718397EACD993D3D0283765B2C5EA9EC2505EC08A4480B417BEC8F882A511B5EB1BA349E3B58B35C407F031B7C4DE7D18935E01421C298E045AFFADF01263936719E14C85150A5A9CD2C63216BC8F0F9F65684588497E382D75EC46EB81132B1F4AA3C918EF14F4D34A8351B8F321821AC77F018D3F782EF0010000
+-->
+

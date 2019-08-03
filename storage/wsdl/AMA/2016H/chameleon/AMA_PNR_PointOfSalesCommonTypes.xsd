@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.002" id="AMA2016H">
+  <xs:include schemaLocation="AMA_PNR_CommonTypes.xsd" />
+  <xs:attributeGroup name="DCDTypeGroup">
+    <xs:attribute name="AccessType" use="required">
+      <xs:annotation>
+        <xs:documentation>DCD Information</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="999" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Product" use="required">
+      <xs:annotation>
+        <xs:documentation>DCD Information</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="999" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="SubProduct" use="required">
+      <xs:annotation>
+        <xs:documentation>DCD Information</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="999" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:complexType name="PointOfSaleType">
+    <xs:annotation>
+      <xs:documentation>PointOfSale data. This is an internal representation only, please use PointOfSale definition from AMA_CommonTypes to show POS data outside of Amadeus</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Office">
+        <xs:complexType>
+          <xs:attributeGroup ref="CommonOfficeTypeGroup" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Login" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Channel" minOccurs="0">
+              <xs:complexType>
+                <xs:attributeGroup ref="DCDTypeGroup" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attributeGroup ref="AgentLoginTypeGroup" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Actor" use="required">
+      <xs:annotation>
+        <xs:documentation>Type: Owner, Creator, Updator</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Creator" />
+          <xs:enumeration value="Owner" />
+          <xs:enumeration value="Updator" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>
+

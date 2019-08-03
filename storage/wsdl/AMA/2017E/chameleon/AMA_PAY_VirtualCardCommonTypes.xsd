@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:etr="http://xml.amadeus.com/2010/06/ETR_Types_v4" xmlns:ttr="http://xml.amadeus.com/2010/06/TTR_Types_v3" xmlns:fop="http://xml.amadeus.com/2010/06/FOP_Types_v6" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.000" id="AMA2017E">
+  <xs:import namespace="http://xml.amadeus.com/2010/06/ETR_Types_v4" schemaLocation="../../2016H/AMA_ETR_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/TTR_Types_v3" schemaLocation="../../2016H/AMA_TTR_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/FOP_Types_v6" schemaLocation="../../2016H/AMA_FOP_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:complexType name="FundsTransferDetailsType">
+    <xs:complexContent>
+      <xs:extension base="FundsTransferType">
+        <xs:attribute name="Status" type="ota:StringLength1to128" use="required">
+          <xs:annotation>
+            <xs:documentation>Status of the scheduling: Scheduled, Completed or Cancelled</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="Reference" type="ota:StringLength1to128" use="required">
+          <xs:annotation>
+            <xs:documentation>Unique Amadeus reference for the schedule load.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="UserID" type="ama_ct:AlphaNumericStringLength1to30">
+          <xs:annotation>
+            <xs:documentation>The ID of the user who performed the transaction</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="OfficeID" type="ama_ct:AlphaNumericStringLength1to30">
+          <xs:annotation>
+            <xs:documentation>The office where the transaction has been performed</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="CreationDate" type="ota:DateOrDateTimeType">
+          <xs:annotation>
+            <xs:documentation>Date when the transaction has been requested</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="VirtualCardAccountType">
+    <xs:simpleContent>
+      <xs:extension base="ota:StringLength1to128">
+        <xs:attribute name="Type" type="ama_ct:AlphaNumericStringLength1to25" use="required">
+          <xs:annotation>
+            <xs:documentation>Type of funding, Amadeus, ....</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="UserId" type="ota:StringLength1to128">
+          <xs:annotation>
+            <xs:documentation>User ID that override the ABR value to be sent to the VCN provider.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="AgencyId" type="ota:StringLength1to128">
+          <xs:annotation>
+            <xs:documentation>Agency ID that override the ABR value to be sent to the VCN provider.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FundsTransferType">
+    <xs:annotation>
+      <xs:documentation>Validity period of the Virtual Card</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Value" type="VirtualCardAmountType" maxOccurs="2" />
+      <xs:element name="Scheduling" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="Date" type="ota:DateOrDateTimeType">
+            <xs:annotation>
+              <xs:documentation>Date when the funds are loaded on the VCN</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Action" type="ama_ct:AlphaNumericStringLength1to19">
+      <xs:annotation>
+        <xs:documentation>Add or reduce amount. By default, if not provided, value is set to Add.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="CardRestrictionsType">
+    <xs:sequence>
+      <xs:element name="AllowedTransactions" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="Maximum" type="xs:integer">
+            <xs:annotation>
+              <xs:documentation>Cumulative transaction number limitation</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CurrencyList" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Uppercase ISO 4217 Currency to which the Virtual Card is able to pay</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="CurrencyCode" type="ota:AlphaLength3" maxOccurs="9" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Merchant" minOccurs="0" maxOccurs="9">
+        <xs:annotation>
+          <xs:documentation>Could be MCC or Airline code</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="ama_ct:AlphaNumericStringLength1to20">
+              <xs:attribute name="Type" type="ama_ct:AlphaNumericStringLength1to20" use="required">
+                <xs:annotation>
+                  <xs:documentation>Gives the type of merchant</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ValidityPeriod" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Validity period of the Virtual Card</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:annotation>
+            <xs:documentation>Validity period of the Virtual Card</xs:documentation>
+          </xs:annotation>
+          <xs:attribute name="StartDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>Date when the VCN becomes active</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="EndDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>Date of clearing and cancellation of the card. Warning: once the end date is reached, no update is possible on the card</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReservationType">
+    <xs:sequence>
+      <xs:element name="Travelers" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Traveler" type="ttr:TTR_ActorType" maxOccurs="9" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Transport" minOccurs="0" maxOccurs="12">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="etr:ETR_TransferType">
+              <xs:attribute name="type" type="ama_ct:AlphaNumericStringLength1to70" use="required">
+                <xs:annotation>
+                  <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                    <ama_ct:error code="13114">INVALID BOOKING CLASS CODE</ama_ct:error>
+                  </xs:appinfo>
+                  <xs:documentation xml:lang="en">Type of booking</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Accommodation" minOccurs="0">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="etr:ETR_SleepMiscellaneousType">
+              <xs:sequence>
+                <xs:element name="identifier" type="ama_ct:StringLength1to60" minOccurs="0">
+                  <xs:annotation>
+                    <xs:documentation xml:lang="en">Commercial product name (eg marketing Flight Number)</xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute name="type" type="ama_ct:AlphaNumericStringLength1to70" use="required" />
+              <xs:attribute name="bkgClass" use="optional">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">Room category: U-Unknown, B-Budget , T-Standard, S-Superior, X-Deluxe, E-Executive, J-Junior Suite, D-Suite standard, I-Suite Deluxe.
+Temporary solution waiting to define Room as real elements linkned to the ETR Hotel and Pax.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:pattern value="[UBTSXEJDI]" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Activity" minOccurs="0">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="etr:ETR_ShowAndEventType">
+              <xs:sequence>
+                <xs:element name="identifier" type="ama_ct:StringLength1to60" minOccurs="0">
+                  <xs:annotation>
+                    <xs:documentation xml:lang="en">Commercial product name (eg marketing Flight Number)</xs:documentation>
+                  </xs:annotation>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute name="type" type="ama_ct:AlphaNumericStringLength1to70" use="required" />
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="ID" type="ama_ct:AlphaNumericStringLength1to10">
+      <xs:annotation>
+        <xs:documentation>Identifier of the trip (either a PNR or a booking folder type to be changed to support ID 6 or 10 characters long)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ExternalID">
+      <xs:annotation>
+        <xs:documentation>Identifier of the trip in an external system (eg GLC)</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:minLength value="1" />
+          <xs:maxLength value="16" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="CreationDate" type="xs:date">
+      <xs:annotation>
+        <xs:documentation>Creation date of the trip.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="VirtualCardAmountType">
+    <xs:attribute name="Type" type="ama_ct:AlphaNumericStringLength1to99">
+      <xs:annotation>
+        <xs:documentation>Gives the type of value of the amount</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Amount" type="xs:nonNegativeInteger" use="required" />
+    <xs:attribute name="DecimalPlaces" type="xs:nonNegativeInteger" use="required">
+      <xs:annotation>
+        <xs:documentation>Indicate the number of decimal for the provided amount</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CurrencyCode" type="ota:AlphaLength3" use="required">
+      <xs:annotation>
+        <xs:documentation>Uppercase ISO 4217 Currency of the amount</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="VirtualCardDetailsType">
+    <xs:sequence>
+      <xs:element name="Card" type="fop:CardType" />
+      <xs:element name="References">
+        <xs:annotation>
+          <xs:documentation>References of the Virtual Card, External and/or internal</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Reference" maxOccurs="10">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="ama_ct:StringLength1to128">
+                    <xs:attribute name="Type" type="ama_ct:AlphaNumericStringLength1to99" use="required">
+                      <xs:annotation>
+                        <xs:documentation>Gives the type of reference. Amadeus or External</xs:documentation>
+                      </xs:annotation>
+                    </xs:attribute>
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Provider" type="ama_ct:AlphaNumericStringLength1to70" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of Virtual Card provider</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Values" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used to define the amounts</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Value" type="VirtualCardAmountType" maxOccurs="4" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Account" type="VirtualCardAccountType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Parameter used to select or override a specific account to generate a virtual card</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Limitations" type="CardRestrictionsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Limitation of the usage of the card</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="LastUpdatedTime" type="xs:dateTime">
+      <xs:annotation>
+        <xs:documentation>The timestamp of the lastest action applied to card.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CreationTime" type="xs:dateTime" use="required" />
+    <xs:attribute name="CreationUser" type="ama_ct:AlphaNumericStringLength1to30">
+      <xs:annotation>
+        <xs:documentation>The ID of the user who created the card</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CreationOffice" type="ama_ct:AlphaNumericStringLength1to30">
+      <xs:annotation>
+        <xs:documentation>The office where the card has been created</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CardStatus" type="ama_ct:AlphaNumericStringLength1to10" use="required">
+      <xs:annotation>
+        <xs:documentation>Could be Active,Inactive,Deleted</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>
+

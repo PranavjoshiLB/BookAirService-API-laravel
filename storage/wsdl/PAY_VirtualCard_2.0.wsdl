@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://wsdl.amadeus.com/PAY_VirtualCard_v2" xmlns:ama_2010_06_PAY_VirtualCard_v2="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" targetNamespace="http://wsdl.amadeus.com/PAY_VirtualCard_v2" name="PAY_VirtualCard_2.0">
+  <wsdl:documentation>Version 2.0</wsdl:documentation>
+  <wsdl:types>
+    <xs:schema>
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_CancelVirtualCardLoadRQ.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_CancelVirtualCardLoadRS.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_DeleteVirtualCardRQ.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_DeleteVirtualCardRS.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_GenerateVirtualCardRQ.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_GenerateVirtualCardRS.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_GetVirtualCardDetailsRQ.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_GetVirtualCardDetailsRS.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_ListVirtualCardsRQ.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_ListVirtualCardsRS.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_ScheduleVirtualCardLoadRQ.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_ScheduleVirtualCardLoadRS.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_UpdateVirtualCardRQ.xsd" />
+      <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" schemaLocation="AMA/2017E/AMA_PAY_UpdateVirtualCardRS.xsd" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="AMA_PAY_CancelVirtualCardLoadRQ_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_CancelVirtualCardLoadRQ" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_CancelVirtualCardLoadRS_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_CancelVirtualCardLoadRS" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_DeleteVirtualCardRQ_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_DeleteVirtualCardRQ" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_DeleteVirtualCardRS_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_DeleteVirtualCardRS" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_GenerateVirtualCardRQ_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_GenerateVirtualCardRQ" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_GenerateVirtualCardRS_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_GenerateVirtualCardRS" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_GetVirtualCardDetailsRQ_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_GetVirtualCardDetailsRQ" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_GetVirtualCardDetailsRS_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_GetVirtualCardDetailsRS" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_ListVirtualCardsRQ_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_ListVirtualCardsRQ" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_ListVirtualCardsRS_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_ListVirtualCardsRS" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_ScheduleVirtualCardLoadRQ_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_ScheduleVirtualCardLoadRQ" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_ScheduleVirtualCardLoadRS_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_ScheduleVirtualCardLoadRS" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_UpdateVirtualCardRQ_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_UpdateVirtualCardRQ" />
+  </wsdl:message>
+  <wsdl:message name="AMA_PAY_UpdateVirtualCardRS_2.000">
+    <wsdl:part name="body" element="ama_2010_06_PAY_VirtualCard_v2:AMA_PAY_UpdateVirtualCardRS" />
+  </wsdl:message>
+  <wsdl:portType name="PAY_VirtualCard_PT">
+    <wsdl:operation name="PAY_CancelVirtualCardLoad">
+      <wsdl:documentation>Version 2.0</wsdl:documentation>
+      <wsdl:input message="tns:AMA_PAY_CancelVirtualCardLoadRQ_2.000" />
+      <wsdl:output message="tns:AMA_PAY_CancelVirtualCardLoadRS_2.000" />
+    </wsdl:operation>
+    <wsdl:operation name="PAY_DeleteVirtualCard">
+      <wsdl:documentation>Version 2.0</wsdl:documentation>
+      <wsdl:input message="tns:AMA_PAY_DeleteVirtualCardRQ_2.000" />
+      <wsdl:output message="tns:AMA_PAY_DeleteVirtualCardRS_2.000" />
+    </wsdl:operation>
+    <wsdl:operation name="PAY_GenerateVirtualCard">
+      <wsdl:documentation>Version 2.0</wsdl:documentation>
+      <wsdl:input message="tns:AMA_PAY_GenerateVirtualCardRQ_2.000" />
+      <wsdl:output message="tns:AMA_PAY_GenerateVirtualCardRS_2.000" />
+    </wsdl:operation>
+    <wsdl:operation name="PAY_GetVirtualCardDetails">
+      <wsdl:documentation>Version 2.0</wsdl:documentation>
+      <wsdl:input message="tns:AMA_PAY_GetVirtualCardDetailsRQ_2.000" />
+      <wsdl:output message="tns:AMA_PAY_GetVirtualCardDetailsRS_2.000" />
+    </wsdl:operation>
+    <wsdl:operation name="PAY_ListVirtualCards">
+      <wsdl:documentation>Version 2.0</wsdl:documentation>
+      <wsdl:input message="tns:AMA_PAY_ListVirtualCardsRQ_2.000" />
+      <wsdl:output message="tns:AMA_PAY_ListVirtualCardsRS_2.000" />
+    </wsdl:operation>
+    <wsdl:operation name="PAY_ScheduleVirtualCardLoad">
+      <wsdl:documentation>Version 2.0</wsdl:documentation>
+      <wsdl:input message="tns:AMA_PAY_ScheduleVirtualCardLoadRQ_2.000" />
+      <wsdl:output message="tns:AMA_PAY_ScheduleVirtualCardLoadRS_2.000" />
+    </wsdl:operation>
+    <wsdl:operation name="PAY_UpdateVirtualCard">
+      <wsdl:documentation>Version 2.0</wsdl:documentation>
+      <wsdl:input message="tns:AMA_PAY_UpdateVirtualCardRQ_2.000" />
+      <wsdl:output message="tns:AMA_PAY_UpdateVirtualCardRS_2.000" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>
+

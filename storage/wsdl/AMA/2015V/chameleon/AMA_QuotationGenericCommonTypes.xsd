@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<!-- Edited with Notepad++ (true men use no tool) by Giuliano Quarta & Simon Ruiz - Approved by Mehdi Lefouili -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:iata="http://www.iata.org/IATA/2007/00/IATA2010.1" elementFormDefault="qualified" version="2.001" id="AMA2015V">
+  <xs:import namespace="http://www.iata.org/IATA/2007/00/IATA2010.1" schemaLocation="../../../IATA/2010.1/IATA_Proxy.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:include schemaLocation="AMA_QuotationElementCommonTypes.xsd" />
+  <!--*******************************************************************-->
+  <!-- Declaration of QtGeneric type that includes the real data (group) -->
+  <!--*******************************************************************-->
+  <xs:group name="GenericPricingInfoGroup">
+    <xs:annotation>
+      <xs:documentation>This is the Quotation Generic Pricing context Type declaration.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:group ref="PricingInfoGroup" />
+      <xs:element name="LoyaltyProgram" type="LoyaltyProgramType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Represent the Loyalty program used:
+0 Undefined,
+1 Miles and Cash,
+2 Promo Certificate,
+3 Transitional Certificate,
+4 Companions Certificate,
+5 Award Pricing</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!--xs:element name="OverrideInformation" minOccurs="0" maxOccurs="999">
+				<xs:annotation>
+					<xs:documentation>ReasonCode for fields being in TST/TSM</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="Type"  use="required">
+						<xs:annotation>
+							<xs:documentation>Field being updated or pricing option override</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:pattern value="[a-zA-Z]{1,25}"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>			
+					<xs:attribute name="ReasonCode" use="required">
+						<xs:annotation>
+							<xs:documentation>Code</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:pattern value="[a-zA-Z0-9]{1,320}"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="Comments"  use="optional">
+						<xs:annotation>
+							<xs:documentation>Code Description</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:minLength value="1"/>
+								<xs:maxLength value="320"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element-->
+    </xs:sequence>
+  </xs:group>
+  <!-- ***************************************************************-->
+  <xs:attributeGroup name="GenericPricingInfoAttributeGroup">
+    <xs:attributeGroup ref="TypedContextAttributeGroup" />
+    <xs:attribute name="DateTime" type="xs:dateTime" />
+  </xs:attributeGroup>
+  <xs:attributeGroup name="GenericTicketingInfoAttributeGroup">
+    <xs:attributeGroup ref="TypedContextAttributeGroup" />
+  </xs:attributeGroup>
+  <!--
+	<xs:element name="QtGeneric">
+		<xs:complexType>
+			<xs:sequence minOccurs="1" maxOccurs="1">
+				<xs:group ref="GenericPricingInfoGroup"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="TypedContextAttributeGroup"/>
+		</xs:complexType>
+	</xs:element> 
+    -->
+</xs:schema>
+

@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.003" id="AMA2016H">
+  <xs:include schemaLocation="AMA_ETR_CommonTypes.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:simpleType name="CarCategoryTypeEnum">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Definition of possible rate categories for Car bookings. (Standard, Leisure, Corporate,...)</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Association" />
+      <xs:enumeration value="Business" />
+      <xs:enumeration value="Convention" />
+      <xs:enumeration value="Consortium" />
+      <xs:enumeration value="Corporate" />
+      <xs:enumeration value="Credential" />
+      <xs:enumeration value="General" />
+      <xs:enumeration value="Government" />
+      <xs:enumeration value="Inclusive" />
+      <xs:enumeration value="Industry" />
+      <xs:enumeration value="Leisure - Package" />
+      <xs:enumeration value="Standard" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CarCategoryTypeEnumOrString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a CarCategoryTypeEnum or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="CarCategoryTypeEnum ama_ct:String0" />
+  </xs:simpleType>
+  <xs:simpleType name="CarLocationTypeEnum">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Definition of possible car location types</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AMA" />
+      <xs:enumeration value="CPY" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CarLocationTypeEnumOrString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a CarLocationTypeEnum or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="CarLocationTypeEnum ama_ct:String0" />
+  </xs:simpleType>
+  <xs:complexType name="CarLocationCodeType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Location Code: when the "type" attribute is not present then the Location Code value is IATA (in this case, the IATA location code is checked against RFD). Else, the location code value is not IATA and the "type"  attribute gives an indication about the type of location code.For ETR Car, the Location Code value must be 3 to 10 char-length (3 for IATA, 6 for Amadeus location code, 4 to 10 for provider location code).</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ama_ct:AlphaNumericStringLength3to10">
+        <xs:attribute name="type" type="CarLocationTypeEnum" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="CarLocationCodeTypeOrString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Location Code: when the "type" attribute is not present then the Location Code value is IATA (in this case, the IATA location code is checked against RFD). Else, the location code value is not IATA and the "type"  attribute gives an indication about the type of location code.For ETR Car, the Location Code value must be 3 to 10 char-length (3 for IATA, 6 for Amadeus location code, 4 to 10 for provider location code).</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ama_ct:AlphaNumericStringLength3to10orString0">
+        <xs:attribute name="type" type="CarLocationTypeEnumOrString0" use="optional">
+          <xs:annotation>
+            <xs:documentation>The type allows to identify the system in which this location code is defined. CPY for provider location code, AMA for Amadeus location code.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ETR_CarType">
+    <xs:sequence>
+      <xs:element name="serviceProvider" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used to convey Car rental company's information.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="ref" type="ama_ct:AlphaNumericStringLength1to6orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation>Car rental company associated profile reference</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength2to3orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="10426">INVALID CAR COMPANY CODE</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Car rental company code</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="name" type="ama_ct:StringLength1to70orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32696">INVALID CAR COMPANY NAME</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Car rental company name</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="start" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used to convey the pickup information  (pickup date, pickup time, pickup location..) of the car booking.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="CarLocationCodeTypeOrString0" minOccurs="0" maxOccurs="3">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error code="11177">INVALID CITY / AIRPORT IATA CODE</ama:error>
+                  <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                </xs:appinfo>
+                <xs:documentation xml:lang="en">Pickup location code, can be an IATA code (no type), a provider location code (type=CPY) or an amadeus location code (type=AMA)</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="address" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="en">Pickup location address information.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attributeGroup ref="AddressWithCommonAttributesGroup" />
+                <xs:attribute name="cityName" type="ama_ct:StringLength1to35orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32123">INVALID FIELD LENGTH CITY NAME</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">City (e.g. Dublin), town, or postal station (i.e. a postal service territory, often used in a military address).</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="stateCode" type="ama_ct:AlphaNumericStringLength2orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="12701">INVALID STATE CODE</ama:error>
+                      <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                    </xs:appinfo>
+                    <xs:documentation>State code (2 characters standard IATA state code)</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="contact" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Pickup location phone information.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attribute name="phone" type="ama_ct:AlphaNumericStringLength1to20orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32804">INVALID PHONE NUMBER</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">Equipment description</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error facet="use" code="32699">MISSING PICKUP DATE</ama:error>
+                <ama:error code="32698">INVALID PICKUP DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Pickup date (service date) with optional time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="providerLocationCode" type="ama_ct:AlphaNumericStringLength1to10orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="11361">INVALID LOCATION CODE</ama:error>
+              </xs:appinfo>
+              <xs:documentation>Used to specify a non airport Location Code for Pickup.  This code should be unique to clearly identify the location.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="end" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used to convey the drop-off information (drop-off date, drop-off time, drop-off location..) of the car booking.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="CarLocationCodeTypeOrString0" minOccurs="0" maxOccurs="3">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error code="11177">INVALID CITY / AIRPORT IATA CODE</ama:error>
+                  <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility  -->
+                </xs:appinfo>
+                <xs:documentation xml:lang="en">Drop-off location code, can be an IATA code (no type), a provider location code (type=CPY) or an amadeus location code (type=AMA)</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="address" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="en">Drop-off location address information.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attributeGroup ref="AddressWithCommonAttributesGroup" />
+                <xs:attribute name="cityName" type="ama_ct:StringLength1to35orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32123">INVALID FIELD LENGTH CITY NAME</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">City (e.g. Dublin), town, or postal station (i.e. a postal service territory, often used in a military address).</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="stateCode" type="ama_ct:AlphaNumericStringLength2orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="12701">INVALID STATE CODE</ama:error>
+                      <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                    </xs:appinfo>
+                    <xs:documentation>State code (2 characters standard IATA state code)</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="contact" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Drop-off location phone information.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attribute name="phone" type="ama_ct:AlphaNumericStringLength1to20orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32804">INVALID PHONE NUMBER</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">Equipment description</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error facet="use" code="32802">MISSING DROP-OFF DATE</ama:error>
+                <ama:error code="32801">INVALID DROP-OFF DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Drop-off date (service date) with optional time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="providerLocationCode" type="ama_ct:AlphaNumericStringLength1to10orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="11361">INVALID LOCATION CODE</ama:error>
+              </xs:appinfo>
+              <xs:documentation>Used to specify a non airport Location Code for Drop-off. This code should be unique to clearly identify the location.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="vehicle" minOccurs="0">
+        <xs:annotation>
+          <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+            <ama:error facet="minOccurs" code="32807">MISSING VEHICLE INFORMATION</ama:error>
+            <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against ACRISS Special equipment is under creation BE's responsibility  -->
+          </xs:appinfo>
+          <xs:documentation>Information on the vehicle booked.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="option" minOccurs="0" maxOccurs="99">
+              <xs:annotation>
+                <xs:documentation>Used to convey information about special equipments (GPS, Baby seat,..) associated to the car booking.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength3orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="00534">INVALID SPECIAL EQUIPMENT CODE</ama:error>
+                      <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against ACRISS Special equipment is under creation BE's responsibility  -->
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">Equipment code</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="description" type="ama_ct:StringLength1to70orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32811">INVALID SPECIAL EQUIPMENT DESCRIPTION FORMAT</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">Equipment description</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength4orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32805">INVALID VEHICLE CODE</ama:error>
+                <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against ACRISS Vehicle code is under creation BE's responsibility  -->
+              </xs:appinfo>
+              <xs:documentation>The ACRISS Code defining the Vehicle.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="description" type="ama_ct:StringLength1to70orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32806">INVALID VEHICLE DESCRIPTION FORMAT</ama:error>
+              </xs:appinfo>
+              <xs:documentation>Description of the vehicle booked.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="conditions" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used to convey all information about the rate.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="rate" minOccurs="0">
+              <xs:complexType>
+                <xs:attribute name="category" type="CarCategoryTypeEnumOrString0">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="00422">RATE CATEGORY NOT IN SYSTEM</ama:error>
+                      <!-- NB: this is defined there only for the case when the value does not match the grammar format  -->
+                    </xs:appinfo>
+                    <xs:documentation>The RateCategory attribute defines a set of valid values for the category of a rate. Typically rates are offered as either Leisure rates or Business (Corporate) rates, with a business rate usually including additional costs such as the cost of insurance, etc.  This set of values defines the rate categories.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength1to6orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="00533">INVALID RATE CODE</ama:error>
+                      <!-- NB: this is defined there only for the case when the value does not match the grammar format  -->
+                    </xs:appinfo>
+                    <xs:documentation>Car rental company's code for the rate.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="identifier" type="ama_ct:AlphaNumericStringLength1to32orString0">
+                  <xs:annotation>
+                    <xs:documentation>unique identifier of the rate on provider side</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="description" type="ama_ct:StringLength1to70orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="00984">INVALID RATE DESCRIPTION FLD</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation>Rate Code description</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <!-- The promotional Code is not yet included in ETR SOR, this information is thus commented for now
+					<xs:attribute name="promotionalCode">
+						<xs:annotation>
+							<xs:documentation>Used to convey the value of a promotional Code applied to the rate.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					-->
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="delivery" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used to convey Delivery information.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="address" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="en">Collection or Delivery addresses</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attributeGroup ref="AddressWithCommonAttributesGroup" />
+                <xs:attribute name="cityName" type="ama_ct:StringLength1to35orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32123">INVALID FIELD LENGTH CITY NAME</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">City (e.g. Dublin), town, or postal station (i.e. a postal service territory, often used in a military address).</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="stateCode" type="ama_ct:AlphaNumericStringLength2orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="12701">INVALID STATE CODE</ama:error>
+                      <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                    </xs:appinfo>
+                    <xs:documentation>State code (2 characters standard IATA state code)</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="siteID" type="ama_ct:AlphaNumericStringLength1to10orString0">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="23150">INVALID FORMAT SITE ID FIELD SR</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation>Used to convey the Site Identifier Reference as defined in Car rental company's system.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="siteName" type="ama_ct:AlphaNumericStringLength1to30orString0">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="23151">INVALID FORMAT SITE NAME FIELD SN</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation>Used to convey the Site Name as defined in Car rental company's system.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="contact" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection or Delivery phone information.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attribute name="phone" type="ama_ct:AlphaNumericStringLength1to20orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32804">INVALID PHONE NUMBER</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">Equipment description</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="collection" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used to convey Collection information.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="address" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="en">Collection or Delivery addresses</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attributeGroup ref="AddressWithCommonAttributesGroup" />
+                <xs:attribute name="cityName" type="ama_ct:StringLength1to35orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32123">INVALID FIELD LENGTH CITY NAME</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">City (e.g. Dublin), town, or postal station (i.e. a postal service territory, often used in a military address).</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="stateCode" type="ama_ct:AlphaNumericStringLength2orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="12701">INVALID STATE CODE</ama:error>
+                      <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                    </xs:appinfo>
+                    <xs:documentation>State code (2 characters standard IATA state code)</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="siteID" type="ama_ct:AlphaNumericStringLength1to10orString0">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="23150">INVALID FORMAT SITE ID FIELD SR</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation>Used to convey the Site Identifier Reference as defined in Car rental company's system.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="siteName" type="ama_ct:AlphaNumericStringLength1to30orString0">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="23151">INVALID FORMAT SITE NAME FIELD SN</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation>Used to convey the Site Name as defined in Car rental company's system.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="contact" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Collection or Delivery phone information.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attribute name="phone" type="ama_ct:AlphaNumericStringLength1to20orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32804">INVALID PHONE NUMBER</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">Equipment description</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="payment" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Used to convey payment information. (including Voucher)</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="voucher" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Details of voucher information indicating prepayment.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attribute name="type" type="ama_ct:StringLength1to70orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="08340">INVALID VOUCHERVALUE</ama:error>
+                      <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against Voucher value list is under creation BE's responsibility  -->
+                    </xs:appinfo>
+                    <xs:documentation>Indicates what part of the amount the Voucher covers. (e.g. Full credit, partial credit)</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="amount" type="nonNegativeIntegerOrString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32813">INVALID PARTIAL CREDIT VOUCHER VALUE</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation>Indicates the amount covered in case of partial credit voucher.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="currency" type="ama_ct:AlphaNumericStringLength1to3orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32814">INVALID PARTIAL CREDIT VOUCHER CURRENCY</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation>Indicates the currency in case of partial credit voucher.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="decimalPlace" type="nonNegativeIntegerOrString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32813">INVALID PARTIAL CREDIT VOUCHER VALUE</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation>Indicates the decimal place in case of partial credit voucher.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="billingNumber" type="ama_ct:AlphaNumericStringLength1to25orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="08342">INVALID BILLING NUMBER</ama:error>
+                      <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against Voucher value list is under creation BE's responsibility  -->
+                    </xs:appinfo>
+                    <xs:documentation>Reference number of the Billing Account that will be charged for the payment.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="providerReference" type="ama_ct:AlphaNumericStringLength1to20orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32812">INVALID PROVIDER VOUCHER SEQUENCE NUMBER</ama:error>
+                    </xs:appinfo>
+                    <xs:documentation>Unique Identifier created by the Car rental provider to identify this voucher.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!-- The loyalty numebrs (CD, ID) are not yet included in ETR SOR, this information is thus commented for now
+			<xs:element name="customerReferences" minOccurs="0" maxOccurs="5">
+				<xs:annotation>
+					<xs:documentation>Used to convey information about the customer's loyalty programs.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="type">
+						<xs:annotation>
+							<xs:documentation>Used to specify the type of loyalty program. (eg. Corporate ID, Customer ID,..)</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="value">
+						<xs:annotation>
+							<xs:documentation>Used to pass the identifier of the customer within the loyalty program.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		-->
+      <xs:group ref="ETRCommonElements" />
+    </xs:sequence>
+    <xs:attribute name="description" type="ama_ct:StringLength1to199orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32999">DESCRIPTION FIELD TOO LONG</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Description or Free Text</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="status" type="ETRStatusCodeOrString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">status code (usual list, allowed values are HK, HX, HN, HL, TT, NB)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="NIP" type="ama_ct:NumericStringLength1to99orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="1194">INVALID NUMBER IN PARTY</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Number in party</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="confirmNbr" type="ama_ct:AlphaNumericStringLength1to20orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="00973">INVALID CONFIRMATION NUMBER</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Confirmation Number</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="cancelNbr" type="ama_ct:AlphaNumericStringLength1to20orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32808">INVALID CANCELLATION NUMBER</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Cancellation Number</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="overrideStatus" type="ama_ct:AlphaNumericStringLength1to2orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Enable to override status code (e.g. for Offers)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="MBOProductCode" type="ama_ct:StringLength1to20orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">MBO product code = freetext on 20 char. Sub product of the MBO. E.g. for EC Air : international, domestic, european</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <!-- xs:attributeGroup ref="ETRCommonAttributes"/ -->
+  </xs:complexType>
+</xs:schema>
+

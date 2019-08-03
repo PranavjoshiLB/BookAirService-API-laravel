@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 rel. 3 (http://www.altova.com) by Amadeus s.a.s. (Amadeus s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.opentravel.org/OTA/2003/05/OTA2011A" targetNamespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="chameleon/OTA_InsuranceCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_HotelRFP.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_CommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_GolfCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_VehicleCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_DynamicPkgCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_HotelContentDescription.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_AirPreferences.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_SimpleTypes.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_HotelReservation.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_TourInformation.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_PkgReservation.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_HotelEvent.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_CruiseCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_PkgCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_GroundCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_Profile.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_RailPreferences.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_CommonPrefs.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_LoyaltyCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_HotelPreferences.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_HotelRatePlan.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_HotelCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/OTA_AirCommonTypes.xsd" />
+  <xs:element name="Success" type="SuccessType" />
+  <xs:element name="Warnings" type="WarningsType" />
+  <xs:element name="Errors" type="ErrorsType" />
+</xs:schema>
+

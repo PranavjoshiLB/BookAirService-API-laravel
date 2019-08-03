@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.001" id="AMA2016F">
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:complexType name="OtherServiceRequestBasicType">
+    <xs:annotation>
+      <xs:documentation>Basic OSI element containing only the text representation of the request</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="serviceProvider" type="ProviderType" />
+      <xs:element name="text" minOccurs="0" maxOccurs="3">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="label">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                    <xs:minLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="NIP">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minExclusive value="1" />
+          <xs:maxExclusive value="99" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="status" type="ama_ct:AlphaNumericStringLength2" />
+    <xs:attribute name="previousStatus" type="ama_ct:AlphaNumericStringLength2" />
+    <xs:attribute name="description">
+      <xs:annotation>
+        <xs:documentation>service description issued by provider</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="8" />
+          <xs:maxLength value="55" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="code" type="SSR_CodeType" use="required">
+      <xs:annotation>
+        <xs:documentation>Product or service code</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="SpecialServiceRequestBasicType">
+    <xs:annotation>
+      <xs:documentation>Basic SSR element containing only the text representation of the request</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="OtherServiceRequestBasicType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SSR_FlightIdentifierType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Flight Number possibly with a Suffix</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ama_ct:NumericStringLength1to4">
+        <xs:attribute name="suffix" type="ama_ct:AlphaStringLength1" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ProviderType">
+    <xs:attribute name="name" type="ama_ct:StringLength1to70" use="optional">
+      <xs:annotation>
+        <xs:documentation>supplier name</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ref" type="ama_ct:AlphaNumericStringLength1to6" use="optional">
+      <xs:annotation>
+        <xs:documentation>Provides suppliers profile reference</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="externalRef" type="ama_ct:AlphaNumericStringLength1to10" use="optional">
+      <xs:annotation>
+        <xs:documentation>External profile reference for imported profiles</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength1to35" use="optional">
+      <xs:annotation>
+        <xs:documentation>supplier code</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:simpleType name="SSR_CodeType">
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:maxLength value="8" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

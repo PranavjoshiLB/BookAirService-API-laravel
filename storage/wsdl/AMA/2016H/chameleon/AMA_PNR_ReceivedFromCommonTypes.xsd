@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.000" id="AMA2016H">
+  <xs:include schemaLocation="AMA_PNR_CommonTypes.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:complexType name="ReceivedFromType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">To specify an Amadeus PNR Received From element</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Text" maxOccurs="2">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="ama_ct:StringLength1to199">
+              <xs:attribute name="label" type="ama_ct:StringLength1to60" use="optional" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Office" minOccurs="0">
+        <xs:complexType>
+          <xs:attributeGroup ref="CommonOfficeTypeGroup" />
+          <xs:attribute name="Qualifier" use="optional">
+            <xs:simpleType>
+              <xs:restriction base="xs:nonNegativeInteger">
+                <xs:maxInclusive value="9" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Login" minOccurs="0">
+        <xs:complexType>
+          <xs:attributeGroup ref="AgentLoginTypeGroup" />
+          <xs:attribute name="PseudoCityCode" use="optional">
+            <xs:annotation>
+              <xs:documentation>Terminal pseudo city code of the agent</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:minLength value="3" />
+                <xs:maxLength value="3" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="ATID" use="optional">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:minLength value="8" />
+                <xs:maxLength value="8" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="UseHistory" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:boolean" />
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="dateTime" type="xs:dateTime" />
+  </xs:complexType>
+</xs:schema>
+

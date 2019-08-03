@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:iata="http://www.iata.org/IATA/2007/00/IATA2010.1" xmlns:tkt="http://xml.amadeus.com/2010/06/PayIssueTypes_v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.002" id="AMA2014S">
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://www.iata.org/IATA/2007/00/IATA2010.1" schemaLocation="../../../IATA/2010.1/IATA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/PayIssueTypes_v1" schemaLocation="../../2014I/AMA_Ticket_PayIssueCommonType_Proxy.xsd" />
+  <xs:complexType name="FPElementType">
+    <xs:sequence>
+      <xs:element name="MeanOfPayment" type="tkt:MethodOfPaymentType" minOccurs="0" maxOccurs="4" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

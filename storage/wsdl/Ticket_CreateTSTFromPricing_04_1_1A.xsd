@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xml.amadeus.com/TAUTCQ_04_1_1A" xmlns="http://xml.amadeus.com/TAUTCQ_04_1_1A" elementFormDefault="qualified">
+  <xs:element name="Ticket_CreateTSTFromPricing">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Create a TST from a pricing on PNR</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="pnrLocatorData" minOccurs="0" type="ReservationControlInformationTypeI">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">PNR record locator information for this transaction. This PNR record locator is used for tracing purpose, no internal retrieve.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="psaList" maxOccurs="1980">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">List of fares to take into account for TST creation. A fare has been calculated for several . As we can have 10 TST per Pax, 99 passenger per PNR, and a TST split with the Infant , the max number of TST is 1980.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="itemReference" type="ItemReferencesAndVersionsType">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">Reference of the fare selected. A fare may have been calculated by Fare Quote for several passengers but there is still the possibility to create a TST only for a part of these passengers.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="paxReference" minOccurs="0" type="ReferenceInformationTypeI">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">Reference information on passengers.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ItemReferencesAndVersionsType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Exchange and link unique identifiers</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="referenceType" minOccurs="0" type="AlphaNumericString_Length1To3">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">qualifies the type of the reference used. Code set to define</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="uniqueReference" minOccurs="0" type="NumericInteger_Length1To5">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Tattoo number : It is in fact the TST display number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReferenceInformationTypeI">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">To provide specific reference identification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="refDetails" minOccurs="0" maxOccurs="99" type="ReferencingDetailsTypeI">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Passenger/segment/TST/fare reference details</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReferencingDetailsTypeI">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">To provide reference identification.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="refQualifier" minOccurs="0" type="AlphaNumericString_Length1To3">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Qualifyer of the reference (Pax/Seg/Tst/Fare tattoo)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="refNumber" minOccurs="0" type="NumericInteger_Length1To5">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Passenger/segment/TST/fare tattoo reference number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReservationControlInformationDetailsTypeI">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">To specify the information required to identify a reservation.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="controlNumber" type="AlphaNumericString_Length1To20">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Record locator.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReservationControlInformationTypeI">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">To specify a reference to a reservation.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="reservationInformation" type="ReservationControlInformationDetailsTypeI">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Reservation control information</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AlphaNumericString_Length1To3">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Format limitations: an..3</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="3" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NumericInteger_Length1To5">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Format limitations: n..5</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:integer">
+      <xs:pattern value="-?[0-9]{1,5}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericString_Length1To20">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Format limitations: an..20</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="20" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+<!-- SchemaRules="2010/01"-->
+<!--Created with SchemaBuilder 5.0.0 by Amadeus S.A.S.-->
+<!--"Amadeus Proprietary and Confidential Information: unauthorized use and disclosure strictly forbidden. 2010 - Amadeus s.a.s - All Rights Reserved."-->
+<!--Build Key:
+1F8B080000000000000095534D6FDB3810BDF35710BDEC6161596EB345618007D596D362D7496A2B3703064D8E6DA214A9E55041D420FFBD43496ED24BBB7B116686A3F978EFCD7579536E8AAA5CEE6F6FC4DB7C7635C93F4C6639DFB64ECB8EE77FCDDFBD9B5FBDE7D7EBEACF3C9FE7392BD645EC1AC095B1E0640D8202FB8F128DAA52387B44CD0E12E186DEB0910AC439C6663E9D3ED63693B5D4D062A67C3D6507EA616169829822C468DC09A7DA2864EA0CEAEB96BEB51431B4C094D74029289C77C9AB6B70E48D6F75235D97DA09D75A4B81A60BE6748EE24D31B4E377C137C14094A1E3D269BEF0EE6834D530D2F2CFEEE8432DA3F16ECE5B27DB78F6C17C03CD5B843E5D1B54D6631B80630C4645DB71FAE76034D5C838C196F309BF34C34C66987C6BF926CD817C43D38707D0D91BA6E1285B1BAF4393E0D2E2282D02D3BE3D58D8C2BF2D38057732AAF3F802EEE37F0213DC4BCE5322E879FFF40001692BB20258A03264C91375E89ED991E8DBB49630F389C9DEEFE9EC7F4ED66F0A58AFA41D21B7FEA489C6E57CF7A92C96BB529BA354B1F2DEE2AEACF64B8351BAB820A6883F626EB796E12B24C6871CECB9C6DD3FFE44B5DCA91FC4E85B673B564338C108466FAF0C588D5B1FE20FF86871A4B90A4C98FE1C5B12EBC68ECA71FF0BA2C61B176F200E74F4620BDEC75708F57E1270C6861512A298EE289FE6B331862B1F0A6BA8F6A8D8A405A30097A424EA4DA21C50C45A8698EADE3BA34CECC64562900E6DAF4FC24710D6381D2B57C57AFAA4C11A5A4392809E337A65693CFDFA7C482C8BCBCD0C3529D243D55FB2718A3DA28DB76D6CDAB8F256431029C0D864B21E60FC03B979B993C9840D208959C15EF517C55DB1AF8C226EF7B35C1E48D7B5344E547F970C1E1BA26C2F71BF2CAF45B5B92F2F147119408AB7EF2FBEA88AFB6AF18535741306CFC4F280FD40909891F560126B64F6E0C81E4731365E50B508D5B65A055FDFD1B992CCD885B25F268D6210F915FB0E7B91C96F18050000
+-->
+

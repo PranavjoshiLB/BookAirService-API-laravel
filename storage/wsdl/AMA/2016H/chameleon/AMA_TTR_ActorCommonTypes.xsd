@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:pnr="http://xml.amadeus.com/2010/06/PNR_Types_v4" xmlns:etr="http://xml.amadeus.com/2010/06/ETR_Types_v4" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.000" id="AMA2016H">
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/PNR_Types_v4" schemaLocation="../AMA_PNR_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/ETR_Types_v4" schemaLocation="../AMA_ETR_CommonTypes_Proxy.xsd" />
+  <xs:complexType name="TTR_ActorType">
+    <xs:complexContent>
+      <xs:extension base="pnr:PassengerNameType">
+        <xs:sequence>
+          <xs:element name="nationality" minOccurs="0" maxOccurs="5">
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength2orString0" use="optional" />
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="contact" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Contact information.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="phone" minOccurs="0" maxOccurs="10">
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="ama_ct:StringLength1to20orString0">
+                        <xs:attribute name="label" type="xs:string">
+                          <xs:annotation>
+                            <xs:documentation>Type of phone number: eg. Mobile, Home, Office, ...</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="purpose" type="xs:string">
+                          <xs:annotation>
+                            <xs:documentation>Purpose of phone: eg. Standard, Notification, Emergency...</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="overseasCode" type="ama_ct:AlphaNumericStringLength1to9orString0" use="optional">
+                          <xs:annotation>
+                            <xs:documentation>International country calling code</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="countryCode" type="ama_ct:AlphaNumericStringLength2orString0" use="optional">
+                          <xs:annotation>
+                            <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                              <ama:error code="47">INVALID COUNTRY CODE</ama:error>
+                              <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                            </xs:appinfo>
+                            <xs:documentation xml:lang="en">Country code (2 character standard IATA country code)</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="addresseeName" use="optional">
+                          <xs:annotation>
+                            <xs:documentation>Adressee name, if different from actor name.</xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:normalizedString">
+                              <xs:maxLength value="30" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="email" minOccurs="0" maxOccurs="5">
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="ama_ct:StringLength1to99orString0">
+                        <xs:attribute name="label" type="xs:string">
+                          <xs:annotation>
+                            <xs:documentation>Type of email address: eg. Mobile, Home, Office, ...</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="purpose" type="xs:string">
+                          <xs:annotation>
+                            <xs:documentation>Purpose of email: eg. Standard, Notification, Emergency...</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="addresseeName">
+                          <xs:annotation>
+                            <xs:documentation>Adressee name, if different from actor name.</xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:normalizedString">
+                              <xs:maxLength value="30" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="address" minOccurs="0" maxOccurs="3">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Home Address, Billing Address</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute name="label" type="ama_ct:StringLength1to199orString0" use="optional">
+                <xs:annotation>
+                  <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                    <ama:error code="32804">INVALID PHONE NUMBER</ama:error>
+                  </xs:appinfo>
+                  <xs:documentation>Home address, Billing address, ...</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+              <xs:attributeGroup ref="etr:AddressGroup" />
+              <xs:attribute name="companyName">
+                <xs:annotation>
+                  <xs:documentation>Adressee company name if applicable.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:normalizedString">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+              <xs:attribute name="addresseeName">
+                <xs:annotation>
+                  <xs:documentation>Adressee name, T/O name if different from actor name.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                  <xs:restriction base="xs:normalizedString">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="event" minOccurs="0" maxOccurs="10">
+            <xs:annotation>
+              <xs:documentation>Information about special events, dates (wedding, honeymoon,...)</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute name="description" type="ama_ct:StringLength1to99orString0" use="optional">
+                <xs:annotation>
+                  <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                    <ama:error code="32804">INVALID PHONE NUMBER</ama:error>
+                  </xs:appinfo>
+                  <xs:documentation>Event description (wedding, honeymoon, ...)</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+              <xs:attribute name="date" type="etr:DateOrString0" use="optional" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="loyalty" minOccurs="0" maxOccurs="5">
+            <xs:annotation>
+              <xs:documentation>Loyalty program</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:attribute name="companyCode" type="ama_ct:AlphaNumericStringLength1to99">
+                <xs:annotation>
+                  <xs:documentation>Loyalty program code</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+              <xs:attribute name="cardNumber" type="ama_ct:AlphaNumericStringLength1to99">
+                <xs:annotation>
+                  <xs:documentation>Loyalty card number</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+              <xs:attribute name="tierLevel" type="ama_ct:AlphaNumericStringLength1to99">
+                <xs:annotation>
+                  <xs:documentation>Loyalty card tier level</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+              <xs:attribute name="alliance" type="ama_ct:AlphaNumericStringLength1to99">
+                <xs:annotation>
+                  <xs:documentation>Alliance identifier</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="docRef" minOccurs="0" maxOccurs="10">
+            <xs:annotation>
+              <xs:documentation>Reference to iidentify the actor in a given document (Passport, Fiscal system)</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="type" type="ama_ct:StringLength1to99orString0" use="optional">
+                    <xs:annotation>
+                      <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                        <ama:error code="32804">INVALID PHONE NUMBER</ama:error>
+                      </xs:appinfo>
+                      <xs:documentation>Passport Number, MR (Membership reward), CPF, email, Partner Code, ...FF (Freqent Flyer)</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="description" type="ama_ct:StringLength1to99orString0" use="optional">
+                    <xs:annotation>
+                      <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                        <ama:error code="32804">INVALID PHONE NUMBER</ama:error>
+                      </xs:appinfo>
+                      <xs:documentation>Description of the document reference</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="issuer" type="ama_ct:StringLength1to99orString0" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Entity or organization that issued the document which this element refer to</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="issuanceDate" type="etr:DateOrString0" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Indicates the issuance date of the document</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="expirationDate" type="etr:DateOrString0" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Indicates the ending date of the document</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="externalID" type="xs:NMTOKEN">
+          <xs:annotation>
+            <xs:documentation>Identifier of the actor in an external system</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="roles" type="xs:NMTOKENS">
+          <xs:annotation>
+            <xs:documentation>List of roles for the actor: 
+- Traveller, 
+- Buyer,
+- Payer 
+- OwnerOffice
+- CreatorOffice
+- UpdatorOffice
+Multiple roles allowed
+(eg "Traveller Buyer")</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>
+

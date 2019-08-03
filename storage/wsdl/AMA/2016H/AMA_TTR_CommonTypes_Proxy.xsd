@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.amadeus.com/2010/06/TTR_Types_v3" targetNamespace="http://xml.amadeus.com/2010/06/TTR_Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.000" id="AMA2016H">
+  <xs:include schemaLocation="chameleon/AMA_TTR_AttachmentCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_TTR_FeeCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_TTR_PackageCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_TTR_CommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_TTR_ActorCommonTypes.xsd" />
+</xs:schema>
+

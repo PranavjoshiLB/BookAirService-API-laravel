@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.000" id="AMA2014S">
+  <xs:complexType name="Queue">
+    <xs:sequence>
+      <xs:element name="Message" minOccurs="0">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="199" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Number" type="xs:positiveInteger" use="required" />
+    <xs:attribute name="Category" type="xs:string" use="required" />
+    <xs:attribute name="Application" type="xs:string" use="required" />
+    <xs:attribute name="TargetOffice" type="xs:string" use="required" />
+  </xs:complexType>
+</xs:schema>
+

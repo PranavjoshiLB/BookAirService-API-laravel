@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:pnr="http://xml.amadeus.com/2010/06/PNR_Types_v4" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.003" id="AMA2016H">
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/PNR_Types_v4" schemaLocation="../AMA_PNR_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:include schemaLocation="AMA_ETR_CommonTypes.xsd" />
+  <xs:simpleType name="AirSeatNumberType">
+    <xs:annotation>
+      <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+        <ama:error code="101">INVALID SEAT NUMBER</ama:error>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="4" />
+      <xs:pattern value="([0-9])+[a-zA-Z]" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AirSeatNumberTypeOrString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a AirSeatNumberType or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AirSeatNumberType ama_ct:String0" />
+  </xs:simpleType>
+  <xs:complexType name="ETR_AirSeatType">
+    <xs:sequence>
+      <xs:element name="seatNbr" minOccurs="0" maxOccurs="9">
+        <xs:annotation>
+          <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+            <ama:error facet="minOccurs" code="31998">MANDATORY SEAT NUMBER MISSING</ama:error>
+            <ama:error facet="maxOccurs" code="32003">9 SEAT NUMBERS MAXIMUM PER AIR EXTENDED CONTENT ARE ALLOWED</ama:error>
+          </xs:appinfo>
+          <xs:documentation xml:lang="en">Seat number, maximum of 9 occurences</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="AirSeatNumberTypeOrString0">
+              <xs:attribute name="pricingMode" type="ama_ct:AlphaNumericStringLength1to4orString0">
+                <xs:annotation>
+                  <xs:documentation>B (chargeable), E/A (exempted), N (nonChargeable), P (pack)</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+              <xs:attribute name="rfic" type="ama_ct:AlphaNumericStringLength3orString0" />
+              <xs:attribute name="rfisc" type="ama_ct:AlphaNumericStringLength3orString0" />
+              <xs:attributeGroup ref="pnr:DisplayedElement" />
+              <xs:attribute name="characteristics" type="characteristicList">
+                <xs:annotation>
+                  <xs:documentation>W (window), A (aisle), E (exit row), CH (chargeable)...</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="start" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error facet="minOccurs" code="31766">MANDATORY DEPARTURE POINT MISSING</ama:error>
+                  <ama:error code="11177">INVALID CITY / AIRPORT IATA CODE</ama:error>
+                </xs:appinfo>
+                <xs:documentation xml:lang="en">Departure Location IATA code</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="end" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error facet="minOccurs" code="31767">MANDATORY ARRIVAL POINT MISSING</ama:error>
+                  <ama:error code="11177">INVALID CITY / AIRPORT IATA CODE</ama:error>
+                </xs:appinfo>
+                <xs:documentation xml:lang="en">Arrival Location IATA code</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="serviceProvider" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength2to3orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="817">INVALID AIRLINE CODE</ama:error>
+              </xs:appinfo>
+              <xs:documentation>service provider code (airline code)</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="creation" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="dateTime" type="DateTimeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Creation date time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="modification" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="dateTime" type="DateTimeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Modification date time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="areaOfPreference" type="ama_ct:AlphaNumericStringLength1to9orString0" minOccurs="0" maxOccurs="64">
+        <xs:annotation>
+          <xs:documentation>A (aisle seat), W (window seat), E (exit row)...</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="additionalSeatInfo" type="ama_ct:StringLength1to256orString0" minOccurs="0" maxOccurs="2">
+        <xs:annotation>
+          <xs:documentation>SSR ADST</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="type" type="ama_ct:AlphaNumericStringLength1to8orString0">
+      <xs:annotation>
+        <xs:documentation>SSR code</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="status" type="ETRStatusCodeOrString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Status code</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="overrideStatus" type="ama_ct:AlphaNumericStringLength1to2orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Enable to override status code (e.g. for Offers)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="quantity" type="ota:Numeric0to99">
+      <xs:annotation>
+        <xs:documentation>Number in party</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="rfic" type="ama_ct:AlphaNumericStringLength3orString0" />
+    <xs:attribute name="rfisc" type="ama_ct:AlphaNumericStringLength3orString0" />
+    <xs:attribute name="nonSmoking" type="xs:boolean" />
+    <xs:attribute name="boardingPassStatus" type="ama_ct:AlphaNumericStringLength1to4orString0">
+      <xs:annotation>
+        <xs:documentation>ex: RS (inhibit boarding pass issuance)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="description" type="ama_ct:StringLength1to199orString0">
+      <xs:annotation>
+        <xs:documentation>Additional information for the end user</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:simpleType name="valuelist">
+    <xs:list itemType="xs:string" />
+  </xs:simpleType>
+  <xs:simpleType name="characteristicList">
+    <xs:restriction base="valuelist">
+      <xs:length value="64" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

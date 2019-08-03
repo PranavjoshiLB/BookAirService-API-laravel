@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by Haresh Gedia (Amadeus Services Ltd) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="1.004" id="AMA2016B">
+  <xs:annotation>
+    <xs:documentation xml:lang="en">.</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="CodePatternType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used for codes. It may contain merely codes or integer codes associated to a value in AMA_CodeTable.xls.
+Pattern is composed on 3 parts: Standard (AMA or OTA or IATA), ListCode (3 upper case letters) and Code (1 to 3 digits). Code is mandatory. ListName is mandatory if Standard is precised, else it is optional. Standard is optional.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9A-Z]{1,3}((\.[0-9A-Z]{3,4})((\.(AMA|OTA|IATA|UIC)){0,1})){0,1}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="String0">
+    <xs:annotation>
+      <xs:documentation>Used for String length 0</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0" />
+      <xs:maxLength value="0" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaStringLength1">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1" />
+      <xs:pattern value="([a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaStringLength1orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an AlphaStringLength1 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaStringLength1 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaStringLength1to2">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="2" />
+      <xs:pattern value="([a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaStringLength1to2orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an AlphaStringLength1to2 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaStringLength1to2 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaStringLength1to3">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="3" />
+      <xs:pattern value="([a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaStringLength1to4">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="4" />
+      <xs:pattern value="([a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaStringLength1to4orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an AlphaStringLength1to4 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaStringLength1to4 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaStringLength3">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="3" />
+      <xs:pattern value="([a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaStringLength3orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an AlphaStringLength3 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaStringLength3 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used for Numeric Strings, length 1.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="1" />
+      <xs:pattern value="([0-9])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a Numeric Strings, length 1 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="NumericStringLength1 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1to2">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used for Numeric Strings, length 1 to 2.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="2" />
+      <xs:pattern value="([0-9])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1to2orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a Numeric Strings, length 1 to 2 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="NumericStringLength1to2 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength4">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used for Numeric Strings, length exactly 4.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="4" />
+      <xs:maxLength value="4" />
+      <xs:pattern value="[0-9]{4}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1to4">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used for Numeric Strings, length 1 to 4.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="4" />
+      <xs:pattern value="([0-9])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1to4orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a Numeric Strings, length 1 to 4 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="NumericStringLength1to4 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1to5">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used for Numeric Strings, length 1 to 5.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="5" />
+      <xs:pattern value="([0-9])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1to5orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a Numeric Strings, length 1 to 5 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="NumericStringLength1to5 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="Numeric0to99999">
+    <xs:annotation>
+      <xs:documentation>Use for numeric values, from 0 to 99999 inclusive.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="99999" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Numeric0to999999">
+    <xs:annotation>
+      <xs:documentation>Use for numeric values, from 0 to 999999 inclusive.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="999999" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Numeric0to9999999">
+    <xs:annotation>
+      <xs:documentation>Use for numeric values, from 0 to 9999999 inclusive.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="9999999" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Numeric0to9999999999">
+    <xs:annotation>
+      <xs:documentation>Use for numeric values, from 0 to 9999999999 inclusive.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:long">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="9999999999" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1to8">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used for Numeric Strings, length 1 to 8.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="8" />
+      <xs:pattern value="([0-9])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1to8orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a Numeric Strings, length 1 to 8 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="NumericStringLength1to8 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1to99">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used for Numeric Strings, length 1 to 99.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="99" />
+      <xs:pattern value="([0-9])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1to99orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a Numeric Strings, length 1 to 99 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="NumericStringLength1to99 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to2">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="2" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to2orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to2 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to2 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to3">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="3" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to3orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to3 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to3 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to4">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="4" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to4orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to4 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to4 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to6">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="6" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to6orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to6 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to6 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to7">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="7" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to7orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to7 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to7 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to8">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="8" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to8orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to8 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to8 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to10">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to12">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="12" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to10orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to10 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to10 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to14">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="14" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to14orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to14 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to14 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to16">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="16" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to17">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="17" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to17orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to17 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to17 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to19">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="19" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to19orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to19 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to19 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to20">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="20" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to20orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to20 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to20 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to25">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="25" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to25orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to25 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to25 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to30">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="30" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to30orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to30 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to30 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to31">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="31" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to31orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to31 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to31 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to32">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="32" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to32orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to32 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to32 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to35">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="35" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to35orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to35 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to35 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to70">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="70" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to70orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to70 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to70 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to9">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="9" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to9orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to9 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to9 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to99">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="99" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to99orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to99 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to99 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to256">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="256" />
+      <xs:pattern value="([0-9a-zA-Z])+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength1to256orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 1to256 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength1to256 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength2">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="2" />
+      <xs:maxLength value="2" />
+      <xs:pattern value="([0-9a-zA-Z])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength2orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 2 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength2 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength2to3">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="2" />
+      <xs:maxLength value="3" />
+      <xs:pattern value="([0-9a-zA-Z])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength2to6">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="2" />
+      <xs:maxLength value="6" />
+      <xs:pattern value="([0-9a-zA-Z])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength2to3orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 2to3 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength2to3 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength3">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="3" />
+      <xs:maxLength value="3" />
+      <xs:pattern value="([0-9a-zA-Z])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength3orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 3 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength3 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength3to7">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="3" />
+      <xs:maxLength value="7" />
+      <xs:pattern value="([0-9a-zA-Z])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength3to7orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 3to7 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength3to7 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength3to10">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="3" />
+      <xs:maxLength value="10" />
+      <xs:pattern value="([0-9a-zA-Z])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength3to10orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 3to10 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength3to10 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength4">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="4" />
+      <xs:maxLength value="4" />
+      <xs:pattern value="([0-9a-zA-Z])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength4orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 4 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength4 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to3">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="3" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to4">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="4" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to12">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="12" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to20">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="20" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to20orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to 20 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to20 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to25">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="25" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to25orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to 25 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to25 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to30">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to30orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to 30 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to30 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to31">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="31" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to31orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to 31 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to31 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to35">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="35" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to35orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to35 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to35 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to60">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="60" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to60orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to 60 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to60 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to64">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="64" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to64orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to 64 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to64 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to70">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="70" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to70orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to 70 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to70 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to99">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="99" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to99orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to 99 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to99 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to109">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="109" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to109orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to 109 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to109 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to128">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="128" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to128orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to 128 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to128 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to199">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="199" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to199orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to 199 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to199 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to256">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="256" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength1to256orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 1 to 256 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength1to256 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength3">
+    <xs:annotation>
+      <xs:documentation>Used for String length 3</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="3" />
+      <xs:maxLength value="3" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength3orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 3 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength3 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength4">
+    <xs:annotation>
+      <xs:documentation>Used for String length 4</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="4" />
+      <xs:maxLength value="4" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength4orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a String length 4 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength4 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength0to15">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0" />
+      <xs:maxLength value="15" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength0to15orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a StringLength0to15 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength0to15 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength0to64">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0" />
+      <xs:maxLength value="64" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength0to64orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a StringLength0to64 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength0to64 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength0to128">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0" />
+      <xs:maxLength value="128" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength0to128orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a StringLength0to128 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength0to128 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="StringLength0to140">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0" />
+      <xs:maxLength value="140" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength0to140orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a StringLength0to140 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="StringLength0to140 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength10">
+    <xs:annotation>
+      <xs:documentation>Used for Numeric Strings, length 10</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="10" />
+      <xs:maxLength value="10" />
+      <xs:pattern value="[0-9]{10}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength10orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a NumericStringLength10 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="NumericStringLength10 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength6">
+    <xs:annotation>
+      <xs:documentation>Used for  Alpha-Numeric Strings, length 6</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="6" />
+      <xs:maxLength value="6" />
+      <xs:pattern value="[0-9a-zA-Z]{6}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaStringLength2">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used for Alpha String Length 2</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z]{2}" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

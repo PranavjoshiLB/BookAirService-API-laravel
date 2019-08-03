@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 rel. 3 (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.003" id="AMA2016H">
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:include schemaLocation="AMA_ETR_CommonTypes.xsd" />
+  <xs:attributeGroup name="CurrencyAmount">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Provides a monetary amount and the currency code to reflect the currency in which this amount is expressed.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="amount" type="nonNegativeIntegerOrString0" use="optional" />
+    <xs:attribute name="currency" type="ama_ct:AlphaNumericStringLength1to31orString0" use="optional" />
+    <xs:attribute name="decimalPlace" type="nonNegativeIntegerOrString0" use="optional" />
+  </xs:attributeGroup>
+  <xs:complexType name="ETR_InsuranceType">
+    <xs:sequence>
+      <xs:element name="serviceProvider" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="ref" type="ama_ct:AlphaNumericStringLength1to6orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation>Provides provider's profile reference</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="code" type="ama_ct:StringLength1to35orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="09471">INVALID INSURANCE PROVIDER</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Provider code (Insurance provider code)</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="name" type="ama_ct:StringLength1to35orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Provider name (Insurance provider name)</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="start" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="dateTime" type="DateOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">First day insured</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="end" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="dateTime" type="DateOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Last day insured</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="validity" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence minOccurs="0">
+            <xs:element name="countryCode" type="ISO3166orString0" minOccurs="0" maxOccurs="198">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error code="47">INVALID COUNTRY CODE</ama:error>
+                </xs:appinfo>
+                <xs:documentation>List of covered countries (IATA country code on 2 char)</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="zoneCode" type="ama_ct:AlphaNumericStringLength1to70orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="833">INVALID GEOGRAPHICAL ZONE</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Geographical zone covered by the insurance</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <!--
+			<xs:element name="insuredPeople" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence minOccurs="0">
+						<xs:element name="insuredPerson" type="insuredPersonType" minOccurs="0" maxOccurs="99"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			-->
+      <!--
+			<xs:element name="policySubscriber" type="insuredPersonType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Insurance policy subscriber</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			-->
+      <xs:element name="option" minOccurs="0" maxOccurs="7">
+        <xs:annotation>
+          <xs:documentation>Insurance product options (e.g. extra coverages)</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength1to17orString0" />
+          <xs:attribute name="description" type="ama_ct:StringLength1to99orString0" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="conditions" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="coverage" minOccurs="0" maxOccurs="50">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="deductible" minOccurs="0">
+                    <xs:complexType>
+                      <xs:attributeGroup ref="CurrencyAmount" />
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element name="upperLimit" minOccurs="0">
+                    <xs:complexType>
+                      <xs:attributeGroup ref="CurrencyAmount" />
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength1to17orString0" />
+                <xs:attribute name="name" type="ama_ct:StringLength1to70orString0" use="required" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="url" type="xs:string" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="emergency" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="contact" minOccurs="0">
+              <xs:complexType>
+                <xs:attribute name="firstName" type="ama_ct:StringLength1to70orString0" />
+                <xs:attribute name="lastName" type="ama_ct:StringLength1to70orString0" />
+                <xs:attribute name="phone" type="xs:string" use="optional" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:group ref="ETRCommonElements" />
+    </xs:sequence>
+    <xs:attribute name="description" type="ama_ct:StringLength1to199orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32999">DESCRIPTION FIELD TOO LONG</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Description or Free Text</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="insuranceType" type="xs:string" use="optional" />
+    <xs:attribute name="name" type="ama_ct:StringLength1to99orString0">
+      <xs:annotation>
+        <xs:documentation>Insurance product name</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength1to4orString0">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="10161">INVALID PRODUCT CODE</ama:error>
+        </xs:appinfo>
+        <xs:documentation>Insurance product code</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="contractId" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Policy number</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="NIP" type="ama_ct:NumericStringLength1to99orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="1194">INVALID NUMBER IN PARTY</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Number in party</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="status" type="ETRStatusCodeOrString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">status code (usual list, allowed values are HK, HX, HN, HL, TT, NB)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attributeGroup ref="ETRCommonAttributes" />
+  </xs:complexType>
+  <!-- <xs:element minOccurs="0" name="root" type="ETR_InsType"/> -->
+  <!--
+	<xs:complexType name="insuredPersonType">
+		<xs:attribute name="firstName" type="AlphaNumericStringLength1to70" use="optional"/>
+		<xs:attribute name="lastName" type="AlphaNumericStringLength1to70" use="optional"/>
+		<xs:attribute name="title" type="AlphaNumericStringLength1to7"/>
+		<xs:attribute name="age" type="xs:nonNegativeInteger"/>
+		<xs:attribute name="email" type="AlphaNumericStringLength1to99"/>
+	</xs:complexType>
+	-->
+</xs:schema>
+

@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.003" id="AMA2016H">
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:include schemaLocation="AMA_ETR_CommonTypes.xsd" />
+  <xs:complexType name="ETR_TransferType">
+    <xs:sequence>
+      <xs:element name="serviceProvider" type="RailProviderType" minOccurs="0" />
+      <xs:element name="identifier" type="ama_ct:AlphaNumericStringLength1to6orString0" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Line number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="start" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error facet="minOccurs" code="31766">MANDATORY DEPARTURE POINT MISSING</ama:error>
+                  <ama:error code="11177">INVALID CITY / AIRPORT IATA CODE</ama:error>
+                  <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                </xs:appinfo>
+                <xs:documentation xml:lang="en">Departure Location IATA code</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="address" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="en">Departure Location Address</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attributeGroup ref="AddressGroup" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error facet="use" code="31768">MANDATORY DEPARTURE DATE MISSING</ama:error>
+                <ama:error code="32682">INVALID DEPARTURE DATE/TIME</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Departure date (Service date) with optional time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="locationName" type="ama_ct:StringLength1to60orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Name of the departure point</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="terminal" type="ama_ct:StringLength1to25orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32089">DEPARTURE/ARRIVAL TERMINAL TOO LONG</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Departure Terminal</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="end" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error facet="minOccurs" code="31767">MANDATORY ARRIVAL POINT MISSING</ama:error>
+                  <ama:error code="11177">INVALID CITY / AIRPORT IATA CODE</ama:error>
+                  <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                </xs:appinfo>
+                <xs:documentation xml:lang="en">Arrival Location IATA code</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="address" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="en">Arrival Location Address</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attributeGroup ref="AddressGroup" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error facet="use" code="31770">MANDATORY ARRIVAL DATE MISSING</ama:error>
+                <ama:error code="32684">INVALID ARRIVAL DATE/TIME</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Arrival date with optional time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="locationName" type="ama_ct:StringLength1to60orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Name of the arrival point</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="terminal" type="ama_ct:StringLength1to256orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32089">DEPARTURE/ARRIVAL TERMINAL TOO LONG</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Arrival Terminal</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="vehicle" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength1to3orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">vehicle code</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="description" type="ama_ct:StringLength1to70orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32187">EQUIPMENT DESCRIPTION TOO LONG</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">vehicle description</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="mileage" type="MileageType" minOccurs="0" />
+      <xs:element name="baggage" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="quantity" type="ama_ct:NumericStringLength1to99orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="12712">INVALID BAGGAGE PIECES - CHECK FORMAT</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Number of Baggage Items</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="checkIn" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="endDateTime" type="TimeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="31980">INVALID CHECK-IN TIME</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Check-in deadline time - Only the time is stored for now</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ticket" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="number" type="ama_ct:AlphaNumericStringLength1to20orString0">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32088">TICKET NUMBER TOO LONG</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Ticket number</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:group ref="ETRCommonElements" />
+    </xs:sequence>
+    <xs:attribute name="description" type="ama_ct:StringLength1to199orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32999">DESCRIPTION FIELD TOO LONG</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Description or Free Text</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="bkgClass" type="ama_ct:AlphaNumericStringLength1to2orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Booking class</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="status" type="ETRStatusCodeOrString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">status code (usual list, allowed values are HK, HX, HN, HL, NB)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="NIP" type="ama_ct:NumericStringLength1to99orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="1194">INVALID NUMBER IN PARTY</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Number in party</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attributeGroup ref="ETRCommonAttributes" />
+  </xs:complexType>
+  <xs:complexType name="TransferBaseType">
+    <xs:sequence>
+      <xs:element name="serviceProvider" type="RailProviderType" minOccurs="0" />
+      <xs:element name="identifier" type="ama_ct:AlphaNumericStringLength1to6orString0" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Line number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="start" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error facet="minOccurs" code="31766">MANDATORY DEPARTURE POINT MISSING</ama:error>
+                  <ama:error code="11177">INVALID CITY / AIRPORT IATA CODE</ama:error>
+                  <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                </xs:appinfo>
+                <xs:documentation xml:lang="en">Departure Location IATA code</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="address" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="en">Departure Location Address</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attributeGroup ref="AddressGroup" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error facet="use" code="31768">MANDATORY DEPARTURE DATE MISSING</ama:error>
+                <ama:error code="32682">INVALID DEPARTURE DATE/TIME</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Departure date (Service date) with optional time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="locationName" type="ama_ct:StringLength1to60orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Name of the departure point</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="terminal" type="ama_ct:StringLength1to25orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32089">DEPARTURE/ARRIVAL TERMINAL TOO LONG</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Departure Terminal</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="end" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error facet="minOccurs" code="31767">MANDATORY ARRIVAL POINT MISSING</ama:error>
+                  <ama:error code="11177">INVALID CITY / AIRPORT IATA CODE</ama:error>
+                  <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                </xs:appinfo>
+                <xs:documentation xml:lang="en">Arrival Location IATA code</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="address" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="en">Arrival Location Address</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attributeGroup ref="AddressGroup" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error facet="use" code="31770">MANDATORY ARRIVAL DATE MISSING</ama:error>
+                <ama:error code="32684">INVALID ARRIVAL DATE/TIME</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Arrival date with optional time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="locationName" type="ama_ct:StringLength1to60orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Name of the arrival point</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="terminal" type="ama_ct:StringLength1to256orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32089">DEPARTURE/ARRIVAL TERMINAL TOO LONG</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Arrival Terminal</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="vehicle" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength1to3orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">vehicle code</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="description" type="ama_ct:StringLength1to70orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32187">EQUIPMENT DESCRIPTION TOO LONG</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">vehicle description</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="mileage" type="MileageType" minOccurs="0" />
+      <xs:element name="baggage" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="quantity" type="ama_ct:NumericStringLength1to99orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="12712">INVALID BAGGAGE PIECES - CHECK FORMAT</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Number of Baggage Items</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="checkIn" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="endDateTime" type="TimeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="31980">INVALID CHECK-IN TIME</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Check-in deadline time - Only the time is stored for now</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ticket" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="number" type="ama_ct:AlphaNumericStringLength1to20orString0">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32088">TICKET NUMBER TOO LONG</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Ticket number</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="descriptions" minOccurs="0" maxOccurs="100">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="ProductDescriptionType" />
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="description" type="ama_ct:StringLength1to199orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32999">DESCRIPTION FIELD TOO LONG</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Description or Free Text</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="bkgClass" type="ama_ct:AlphaNumericStringLength1to2orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Booking class</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="NIP" type="ama_ct:NumericStringLength1to99orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="1194">INVALID NUMBER IN PARTY</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Number in party</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>
+

@@ -1,0 +1,1379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iata="http://www.iata.org/IATA/2007/00/IATA2010.1" xmlns:pnr="http://xml.amadeus.com/2010/06/PNR_Types_v4" xmlns:qt="http://xml.amadeus.com/2010/06/QuotationTypes_v2" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:etr="http://xml.amadeus.com/2010/06/ETR_Types_v4" elementFormDefault="qualified" attributeFormDefault="unqualified" version="6.006" id="AMA2016H">
+  <xs:import namespace="http://xml.amadeus.com/2010/06/QuotationTypes_v2" schemaLocation="../AMA_QuotationCommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/PNR_Types_v4" schemaLocation="../AMA_PNR_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/ETR_Types_v4" schemaLocation="../AMA_ETR_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://www.iata.org/IATA/2007/00/IATA2010.1" schemaLocation="../../../IATA/2010.1/IATA_Proxy.xsd" />
+  <xs:complexType name="MethodOfPaymentType">
+    <xs:choice>
+      <xs:element name="Card" type="CardType">
+        <xs:annotation>
+          <xs:documentation>Credit or Debit cards</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Loyalty">
+        <xs:annotation>
+          <xs:documentation>Loyalty accounts, Miles or Points for example</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="SubType" type="AccountSubTypeType">
+            <xs:annotation>
+              <xs:documentation>Identify the process subtype</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="Process" type="ama_ct:StringLength1to30" use="optional" />
+          <xs:attribute name="Vendor" type="ama_ct:StringLength1to30">
+            <xs:annotation>
+              <xs:documentation>Identify the brand of the Loyalty provider</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="Program" type="ama_ct:StringLength1to30">
+            <xs:annotation>
+              <xs:documentation>Used to identify if a Vendor offers different sub-programs/brands.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="Identifier" type="ama_ct:StringLength1to99" use="optional">
+            <xs:annotation>
+              <xs:documentation>The member loyalty number.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AlternativeMethods" type="AlternativeMethodsType">
+        <xs:annotation>
+          <xs:documentation>Other methods of payment that are processed by Amadeus</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Miscellaneous">
+        <xs:annotation>
+          <xs:documentation>Other methods of payment not processed by Amadeus</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="SubType" type="MiscellaneousSubTypeType" />
+          <xs:attribute name="Process" type="ama_ct:StringLength1to30" use="optional" />
+          <xs:attribute name="Vendor" type="ama_ct:StringLength1to30" />
+          <xs:attribute name="Program" type="ama_ct:StringLength1to30" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Account">
+        <xs:annotation>
+          <xs:documentation>Account FOPs are idendified by a reusable account number, like cards and unlike vouchers for example.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="SubType" type="ama_ct:StringLength1to30" />
+          <xs:attribute name="Process" type="ama_ct:StringLength1to30" use="optional" />
+          <xs:attribute name="Vendor" type="ama_ct:StringLength1to30" />
+          <xs:attribute name="Program" type="ama_ct:StringLength1to30" />
+          <xs:attribute name="Identifier" type="ama_ct:StringLength1to99" use="optional">
+            <xs:annotation>
+              <xs:documentation>The account identifier</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Voucher">
+        <xs:annotation>
+          <xs:documentation>Voucher are loyalty method of payment that have a limited number of uses (one generally).</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Validity" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Period" minOccurs="0">
+                    <xs:complexType>
+                      <xs:attribute name="startDateTime" type="DateOrDateTimeType" />
+                      <xs:attribute name="endDateTime" type="DateOrDateTimeType" />
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="SecurityCode" type="ama_ct:StringLength1to99" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Used to specify a security code of a voucher. This code is provided by the client to authenticate him.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="SubType" type="ama_ct:StringLength1to30">
+            <xs:annotation>
+              <xs:documentation>Identify the process subtype</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="Process" type="ama_ct:StringLength1to30" use="optional" />
+          <xs:attribute name="Vendor" type="ama_ct:StringLength1to30">
+            <xs:annotation>
+              <xs:documentation>Identify the brand of the Loyalty provider</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="Program" type="ama_ct:StringLength1to30">
+            <xs:annotation>
+              <xs:documentation>Used to identify if a Vendor offers different sub-programs/brands.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="ID" type="ama_ct:StringLength1to99">
+            <xs:annotation>
+              <xs:documentation>The voucher identifier</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Cheque" type="ChequeType">
+        <xs:annotation>
+          <xs:documentation>A bank cheque or other types of cheque</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+    <xs:attribute name="Code" type="ama_ct:StringLength1to30">
+      <xs:annotation>
+        <xs:documentation>The FOP code, identifying type of FOP for Amadeus</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="PaymentItemType">
+    <xs:annotation>
+      <xs:documentation>The Payment Item regroups all the financial transaction that have occured for a Method of Payment in a Payment Group</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Transaction" minOccurs="0" maxOccurs="100">
+        <xs:annotation>
+          <xs:documentation>A Transaction is one atomic operation. Can be a fraud check OR (exculsive OR) an  author OR ...</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:choice>
+              <xs:annotation>
+                <xs:documentation>This represent that a Transaction isexclusively of one type</xs:documentation>
+              </xs:annotation>
+              <xs:element name="Validation" type="ValidationStatusType">
+                <xs:annotation>
+                  <xs:documentation>Represent the validation of the syntax, the acceptance by the merchant of the Method Of Payment and the combinability between MEP</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Authorization">
+                <xs:annotation>
+                  <xs:documentation>This element describes the Authorization step, This element also applies to Credit card and IRU processes for example</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Status">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="AuthorizationStatusType">
+                            <xs:attribute name="ProviderCategory" type="AuthorizationProviderType" use="required">
+                              <xs:annotation>
+                                <xs:documentation>Indicate the source and responsible of the Authorization. Can be 1A if use Amadeus Payment Server for example. Can be External Automated System if an external payment server is used. Can be Manual if it is inputed by an agent from an unprecised source. Can be N/A for a form of payment that does not require a "real" Authorization, like Cash/Cheque/Miscellaneous</xs:documentation>
+                              </xs:annotation>
+                            </xs:attribute>
+                            <xs:attributeGroup ref="StatusDescriptionAttributeGroup" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ApprovalCode" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>A series of characters assigned by the authorization system to confirm the approval of a credit card sale transaction.</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="StringLength0to30">
+                            <xs:attribute name="Source" type="ama_ct:AlphaNumericStringLength1to30">
+                              <xs:annotation>
+                                <xs:documentation>Can be A if it comes from Amadeus Payment Server, or N if entered manually by an Agent</xs:documentation>
+                              </xs:annotation>
+                            </xs:attribute>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="CertificateNumber" type="StringLength0to99" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Equivalent of an approval code for an IRU system</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LinkCode" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>The link used to perform the Authorization</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="StringLength0to30">
+                            <xs:attribute name="Name" type="ama_ct:StringLength1to99" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="AVSCheckResult" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="CheckResultType">
+                            <xs:attributeGroup ref="StatusDescriptionAttributeGroup" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="CvvCheckResult" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="CheckResultType">
+                            <xs:attributeGroup ref="StatusDescriptionAttributeGroup" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="FraudScreening">
+                <xs:annotation>
+                  <xs:documentation>Describes the result of a Fraud Check. Can be OK, KO or Review (pending).</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="FraudStatusType">
+                      <xs:attribute name="Provider" type="ama_ct:StringLength1to99">
+                        <xs:annotation>
+                          <xs:documentation>Service used to perform the fraud cehck</xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Capture">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Status" type="StringLength0to99">
+                      <xs:annotation>
+                        <xs:documentation>Can be "Pending" "Denied" "Processed" "Error"</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Identifier" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="StringLength0to99">
+                            <xs:attribute name="Type" type="ama_ct:StringLength1to30" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Authentication">
+                <xs:annotation>
+                  <xs:documentation>This element describes the Authentication step, which is an optional step before the Authorization.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Status" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="AuthorizationStatusType">
+                            <xs:attributeGroup ref="StatusDescriptionAttributeGroup" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ThreeDSecure" minOccurs="0">
+                      <xs:annotation>
+                        <xs:documentation>Contain information related to 3D secure.</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="XID" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>ID of the ThreeDSecure transaction</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="1000" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="PAREQ" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Payer Authentication Request verb</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:base64Binary" />
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="PARES" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Payer Authentication Response verb</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute name="StatusCode" type="PARESStatusCodeType">
+                                    <xs:annotation>
+                                      <xs:documentation>Result of the Authentication, as codeset. N for Authentication Failed. U Unable to Authenticate. A for attemps of processing performed. Y for Authentication succesful.</xs:documentation>
+                                    </xs:annotation>
+                                  </xs:attribute>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="VERES" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Result of the Enrolment, full text</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute name="StatusCode" type="VERESStatusCodeType">
+                                    <xs:annotation>
+                                      <xs:documentation>N for CardHolder not particpating. U for Unable to process. E for Error message received from directory server. Y for Authentication available</xs:documentation>
+                                    </xs:annotation>
+                                  </xs:attribute>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="IssuerAuthenticationValue" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Refernce generated by card issuer that proves the authentication took place</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="ama_ct:StringLength0to128">
+                                  <xs:attribute name="Type">
+                                    <xs:annotation>
+                                      <xs:documentation>can be AAV if generated by Mastercard or CAVV if generated by Visa.</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                      <xs:restriction base="xs:string">
+                                        <xs:maxLength value="10" />
+                                      </xs:restriction>
+                                    </xs:simpleType>
+                                  </xs:attribute>
+                                  <xs:attribute name="Algorithm">
+                                    <xs:annotation>
+                                      <xs:documentation>The algorithm used to generate the Issuer Authentication Value. 0 for HMAC, 1 for CVV, 2 for CVV with ATN, 3 for Mastercard SPA algorithm</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:simpleType>
+                                      <xs:restriction base="xs:string">
+                                        <xs:maxLength value="1" />
+                                        <xs:pattern value="[0-9A-Za-z]{1,2}" />
+                                      </xs:restriction>
+                                    </xs:simpleType>
+                                  </xs:attribute>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="ElectronicCommerceIndicator" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Electronic Commerce Indicator (ECI), indicator of liability shift.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="2" />
+                                <xs:pattern value="[0-9A-Za-z]{1,2}" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="DirectoryServer" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>The Directory Server used for the enrollment process</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute name="Code">
+                                    <xs:simpleType>
+                                      <xs:restriction base="xs:string">
+                                        <xs:maxLength value="10" />
+                                      </xs:restriction>
+                                    </xs:simpleType>
+                                  </xs:attribute>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+            <xs:element name="ExternalIdentifier" minOccurs="0" maxOccurs="100">
+              <xs:annotation>
+                <xs:documentation>Equivalent of a PRI for an external system</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="StringLength0to99">
+                    <xs:attribute name="Provider" type="ama_ct:StringLength1to30">
+                      <xs:annotation>
+                        <xs:documentation>Provider of the external identifier</xs:documentation>
+                      </xs:annotation>
+                    </xs:attribute>
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="MerchantReference" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>The unique reference of the transaction that will be transmitted accross all parties involved in the transaction, and shared to the end customer.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:maxLength value="1000" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="Value" minOccurs="0" maxOccurs="4">
+              <xs:annotation>
+                <xs:documentation>Monetary Amount, in a currency or in points. Repetable 4 times:  to indicate a Global value (bulked across mutliple products) versus the value that is used to pay one product; and to indicate a value in points and in currency if directly convertible.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attributeGroup ref="PriceAttributeGroup" />
+                <xs:attribute name="Type" type="ValueCategoryType">
+                  <xs:annotation>
+                    <xs:documentation>Can be an ISO Currency, or a currency related to a loyalty program (e.g. points or miles)</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="Global" type="xs:boolean">
+                  <xs:annotation>
+                    <xs:documentation>Used to specify if the value represented in this element applies to a global value (bulked across multiple products) or, if false, is the part that applies to the quotation linked to the paymentGroup only.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="ConversionRate" type="qt:ConversionRateType" minOccurs="0" maxOccurs="9">
+              <xs:annotation>
+                <xs:documentation>used to store conversion rates that are given by the client.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="InstalmentPlan" minOccurs="0" maxOccurs="2">
+              <xs:complexType>
+                <xs:complexContent>
+                  <xs:extension base="InstalmentPlanType">
+                    <xs:attribute name="Global" type="xs:boolean">
+                      <xs:annotation>
+                        <xs:documentation>Used to specify if the value represented in this element refers to a global value (bulked amounts in case of multi product) or, if false, is the part that applies to the quotation linked to the paymentGroup only.</xs:documentation>
+                      </xs:annotation>
+                    </xs:attribute>
+                  </xs:extension>
+                </xs:complexContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="Status" type="FOPStatusType">
+            <xs:annotation>
+              <xs:documentation>Identify if the transaction described is considered "Old" or not. Old contains the information that were used in previous transactions in the same booking. They are only informative information</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="Timestamp" type="xs:dateTime">
+            <xs:annotation>
+              <xs:documentation>Date and Time of the transaction"s creation</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="PaymentRecordIdentifier" type="ama_ct:AlphaNumericStringLength1to99">
+            <xs:annotation>
+              <xs:documentation>The Identifier given to the transaction by the Amadeus Payment Server</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="Merchant" type="ama_ct:StringLength1to99">
+            <xs:annotation>
+              <xs:documentation>Merchant (entity) for which the transaction is performed</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="ReportedFreeFlow">
+      <xs:annotation>
+        <xs:documentation>The Free Flow to be reported to the Airline</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="1000" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="InputMethodOfPaymentType">
+    <xs:complexContent>
+      <xs:extension base="MethodOfPaymentType">
+        <xs:sequence>
+          <xs:element name="Value" type="ValueType" minOccurs="0" maxOccurs="2">
+            <xs:annotation>
+              <xs:documentation>Monetary Amount, in a currency or in points. Repetable 4 times:  to indicate a Global value (bulked across mutliple products) versus the value that is used to pay one product; and to indicate a value in points and in currency if directly convertible.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="InstalmentPlan" type="InstalmentPlanType" minOccurs="0" />
+          <xs:element name="Redirection" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="backUrl" minOccurs="0" maxOccurs="3">
+                  <xs:annotation>
+                    <xs:documentation>URL to redirect to after payment confirmation</xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:anyURI">
+                        <xs:attribute name="UseCase" type="URLUseCaseType" use="required">
+                          <xs:annotation>
+                            <xs:documentation>Possibilities: Success, Failure, Cancel</xs:documentation>
+                            <xs:appinfo>
+                              <exampleValues>
+                                <example value="Success" />
+                                <example value="Failure" />
+                                <example value="Cancel" />
+                              </exampleValues>
+                            </xs:appinfo>
+                          </xs:annotation>
+                        </xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ContextualInformation" minOccurs="0">
+                  <xs:annotation>
+                    <xs:documentation>This element contains inforamtion about the client that can be automatically obtained.</xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:attribute name="EndUserIP" type="iata:StringLength1to128">
+                      <xs:annotation>
+                        <xs:documentation>The IP of the client.</xs:documentation>
+                      </xs:annotation>
+                    </xs:attribute>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="ConfirmationInformation" minOccurs="0">
+                  <xs:annotation>
+                    <xs:documentation>Once the user has done the action expected on the Payment Provider website</xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="HttpGetURL" type="xs:string" minOccurs="0" />
+                    </xs:sequence>
+                    <xs:attribute name="TimeStamp" type="xs:dateTime" use="required">
+                      <xs:annotation>
+                        <xs:documentation>The Date and Time where the user went back from the Payment Provider website.</xs:documentation>
+                      </xs:annotation>
+                    </xs:attribute>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="CustomParameters" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="lang" type="xs:language">
+                <xs:annotation>
+                  <xs:documentation>Lang used by the client, to adapt the redirection website display</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Authentication" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ThreeDSecure" minOccurs="0">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="XID" minOccurs="0">
+                        <xs:annotation>
+                          <xs:documentation>ID of the ThreeDSecure transaction</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:maxLength value="1000" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:element>
+                      <xs:element name="PARES" type="xs:base64Binary" minOccurs="0">
+                        <xs:annotation>
+                          <xs:documentation>Payer Authentication Response verb</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="ConversionRate" type="qt:ConversionRateType" minOccurs="0" maxOccurs="9">
+            <xs:annotation>
+              <xs:documentation>Conversion rates relative to the payment.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PaymentGroupType">
+    <xs:attribute name="Function" type="PaymentGroupFunctionType" />
+  </xs:complexType>
+  <xs:complexType name="SalesFormOfPaymentType">
+    <xs:complexContent>
+      <xs:extension base="PaymentGroupType">
+        <xs:sequence>
+          <xs:element name="PaymentInfo" maxOccurs="199">
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:extension base="PaymentItemType">
+                  <xs:attributeGroup ref="pnr:DisplayedElement" />
+                </xs:extension>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PendingPaymentProcessInformationType">
+    <xs:sequence>
+      <xs:element name="WebRedirection" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The URL of the external payment website where teh client should be redirected</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="HttpGetUrl" type="xs:anyURI" minOccurs="0" />
+            <xs:element name="CustomParameters" minOccurs="0">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:maxLength value="10000" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="Authentication" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ThreeDSecure" minOccurs="0">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="XID" minOccurs="0">
+                          <xs:annotation>
+                            <xs:documentation>ID of the ThreeDSecure transaction</xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:maxLength value="1000" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="PAREQ" type="xs:base64Binary" minOccurs="0">
+                          <xs:annotation>
+                            <xs:documentation>Payer Authentication Request verb</xs:documentation>
+                          </xs:annotation>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FPType">
+    <xs:sequence minOccurs="0">
+      <xs:element name="Payment" maxOccurs="4">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="PaymentInfo" type="PaymentItemType" />
+            <xs:element name="MethodOfPayment" type="MethodOfPaymentType" />
+          </xs:sequence>
+          <xs:attribute name="SequenceNumber" type="iata:Numeric0to4">
+            <xs:annotation>
+              <xs:documentation>Corresponds to the position of the Payment in the FP elment</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Function" type="PaymentGroupFunctionType" />
+  </xs:complexType>
+  <xs:complexType name="ValueType">
+    <xs:attributeGroup ref="qt:AmountCurrencyAndDecimalPlaceGroup" />
+  </xs:complexType>
+  <xs:complexType name="InstalmentPlanType">
+    <xs:sequence>
+      <xs:element name="Instalment" minOccurs="0" maxOccurs="99">
+        <xs:annotation>
+          <xs:documentation>Describes each Instalment separetely. The value described in the attributes of this element is the total price.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="ValueType">
+              <xs:sequence>
+                <xs:element name="Price" minOccurs="0" maxOccurs="99">
+                  <xs:annotation>
+                    <xs:documentation>Breakdown of the different components of the total value of the instalment.</xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:complexContent>
+                      <xs:extension base="ValueType">
+                        <xs:attribute name="Type" type="ama_ct:StringLength1to30">
+                          <xs:annotation>
+                            <xs:documentation>Can be "Taxes" "Total" "Interest" "Base Fare"</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                      </xs:extension>
+                    </xs:complexContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+              <xs:attribute name="Order" type="xs:integer">
+                <xs:annotation>
+                  <xs:documentation>Value : 1 to represent the first instalment (if it has a different amount). If 0 or absent, this represent all the other instalments of the instalment plan.</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Interest" type="ValueType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Describes the total interest amount of the instalment plan.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="InstalmentAttributeGroup" />
+  </xs:complexType>
+  <xs:complexType name="FormOfPaymentDefinitionType">
+    <xs:sequence>
+      <xs:element name="MOPMask" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Values that are fixed (predefined) in the Form Of Payment Definition. When using this Form Of Payment, the fixed values have to provided.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="MethodOfPaymentType" />
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Process" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="IsCombinable" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>Indicates if a form of payment is combinable or not.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="CatalogIdentifier">
+      <xs:annotation>
+        <xs:documentation>The unique identifier of a form of payment definition within Amadeus</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="1000" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Name" type="iata:StringLength0to128">
+      <xs:annotation>
+        <xs:documentation>Functional description of the FOP</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="CardIssuanceInformationType">
+    <xs:sequence>
+      <xs:element name="Bank" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="Name" type="ama_ct:StringLength1to99">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Full name of the issuing bank</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="ID" type="ama_ct:StringLength1to99">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Code of bank issuing the card.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Country" type="ama_ct:StringLength1to99">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Credit Card country of issuance</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CountryCode" type="AlphaNumericStringLength2" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="DateTimeAndLocationType">
+    <xs:attribute name="Date" type="xs:dateTime">
+      <xs:annotation>
+        <xs:documentation>AIR (arrival date for each flight), HTL (check-out date), ATR (attraction end date), CAR (end date), INS (end date)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Location" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>AIR (for each flight segment, the destination), HTL (hotel location), ATR (attraction location), CAR (check-out location)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="AVS_Type">
+    <xs:sequence>
+      <xs:element name="Line" type="ama_ct:StringLength1to199" minOccurs="0" maxOccurs="5">
+        <xs:annotation>
+          <xs:documentation>Street and number on first line. Building, Floor etc... on following lines</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="CityName" type="ama_ct:StringLength1to99" />
+    <xs:attribute name="PostalCode" type="ama_ct:StringLength1to30">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Post Office Code number.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Country" type="ama_ct:StringLength1to99">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">ISO 3166 code for the country</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="CardType">
+    <xs:annotation>
+      <xs:documentation>Credit or Debit Cards</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AddressVerificationSystemValue" type="AVS_Type" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Credit Card holder's address</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MagneticTrack" minOccurs="0" maxOccurs="4">
+        <xs:annotation>
+          <xs:documentation>Contains Data of the Magnetic Stripe of the Credit Card</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="Type">
+                <xs:simpleType>
+                  <xs:restriction base="TrackType" />
+                </xs:simpleType>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Issuance" type="CardIssuanceInformationType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Information about the issuing bank and country</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PrimaryAccountNumber" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Credit card number embossed on the front of the card.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="AlphaNumericStringLength0to30">
+              <xs:attribute name="KnoxID" type="ama_ct:AlphaNumericStringLength1to30">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">KnoxID of the Primary Acount Number</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CVV" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Verification digits printed on the back of the card usually (CardVerificationValue).</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="AlphaNumericStringLength0to10">
+              <xs:attribute name="KnoxID" type="ama_ct:AlphaNumericStringLength1to30">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">KnoxID of the CVV</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Validity" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="StartDate" type="iata:MMYYDate">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Indicates the starting date.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="EndDate" type="iata:MMYYDate">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Indicates the ending date.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Vendor" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Full Name of the credit car vendor</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="StringLength0to30">
+              <xs:attribute name="Code" type="AlphaNumericStringLength2">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">The 2 character code of the credit card issuer.</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Program" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Full Name of the credit card subvendor</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="StringLength0to30">
+              <xs:attribute name="Code" type="ama_ct:StringLength1to30">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en">The 2 character code of the credit card issuer.</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="HolderName" type="ama_ct:StringLength1to99">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Name of credit card holder.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="SubType">
+      <xs:annotation>
+        <xs:documentation>Credit or Debit card</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="30" />
+          <xs:minLength value="1" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Process" type="ama_ct:StringLength1to30" />
+    <xs:attribute name="AccountType">
+      <xs:annotation>
+        <xs:documentation>Indicates if the card is a corporate Card or a personal card</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="CardAccountTypeType" />
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="TierLevel" type="ama_ct:StringLength1to30">
+      <xs:annotation>
+        <xs:documentation>Tier Level of the card, for example Platinium, Gold...</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="AlternativeMethodsType">
+    <xs:annotation>
+      <xs:documentation>Other methods of payment that are processed by Amadeus</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="SubType" type="ama_ct:StringLength1to30">
+      <xs:annotation>
+        <xs:documentation>Identify the process subtype</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Process" type="ama_ct:StringLength1to30" use="optional" />
+    <xs:attribute name="Vendor" type="ama_ct:StringLength1to30">
+      <xs:annotation>
+        <xs:documentation>Identify the brand of the AlternativeMethod provider</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Program" type="ama_ct:StringLength1to30">
+      <xs:annotation>
+        <xs:documentation>Used to identify if a Vendor offers different sub-programs/brands.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Identifier" type="ama_ct:StringLength1to99" use="optional">
+      <xs:annotation>
+        <xs:documentation>This identifier can be, depending of the type of Method, an account ID, a unique reference etc...</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CountryCode" type="AlphaNumericStringLength2" use="optional">
+      <xs:annotation>
+        <xs:documentation>Country of the owner of the method of payment</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ChequeType">
+    <xs:sequence>
+      <xs:element name="Number" type="ama_ct:StringLength1to99" minOccurs="0" />
+      <xs:element name="Issuance" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>When and where the cheque has been used.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="Date" type="xs:date" />
+          <xs:attribute name="Location" type="ama_ct:StringLength1to30" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Payer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The entity (person or company) that owns the account from which the cheque will be debited.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Address" minOccurs="0">
+              <xs:complexType>
+                <xs:attributeGroup ref="etr:AddressGroup" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="Name" type="ama_ct:StringLength1to35" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Vendor" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The bank or the company issuing the cheque.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Address" minOccurs="0">
+              <xs:complexType>
+                <xs:attributeGroup ref="etr:AddressGroup" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="Name" type="ama_ct:StringLength1to35" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="SubType" type="ama_ct:StringLength1to30" />
+  </xs:complexType>
+  <xs:attributeGroup name="InstalmentAttributeGroup">
+    <xs:attribute name="Number" type="xs:integer">
+      <xs:annotation>
+        <xs:documentation>Number of instalments</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="InterestRate" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation>Interests in % of the instalment</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Supplier" type="ama_ct:StringLength1to99">
+      <xs:annotation>
+        <xs:documentation>Supplier of the instalment</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Frequency" type="InstalmentFrequencyType">
+      <xs:annotation>
+        <xs:documentation>Type of instalment's frequency type. Can be Daily, Weekly or Monthly. Multiply by FrequencyMultiplier to calculate the time between two instalments</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="FrequencyMultiplier" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation>Multiplier of the frequency : if the value is set to "2" and frequency is set to "W", then the instalment cycle is two weeks.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="FirstDueDate" type="xs:dateTime">
+      <xs:annotation>
+        <xs:documentation>The date when the first instalment is to be paid.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Code">
+      <xs:annotation>
+        <xs:documentation>Instalment plan code</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:maxLength value="20" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="PointAttributeGroup">
+    <xs:attribute name="Amount" type="xs:integer">
+      <xs:annotation>
+        <xs:documentation>Number of points</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="PriceAttributeGroup">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Price Group is the definition of a fare with some
+				special properties. It contains: - A Type (string), mandatory - An Amount (decimal),
+				optional - A Currency Code (3 alphas), optional - A Decimal Place (positive
+				integer), optional</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="AmountCurrencyAndDecimalPlaceGroup" />
+    <xs:attribute name="MiscValue" type="ama_ct:StringLength1to30">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">This group is used when price component is returned without an amount, but with an additional data, e.g. exempted</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="FareType" type="ama_ct:StringLength1to30" use="optional">
+      <xs:annotation>
+        <xs:documentation>Defines the price, e.g. for base fare, total...</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="AmountCurrencyAndDecimalPlaceGroup">
+    <xs:attributeGroup ref="iata:CurrencyCodeGroup" />
+    <xs:attribute name="Amount" type="xs:integer">
+      <xs:annotation>
+        <xs:documentation>Defines the amount without decimal separator (i.e. Amount=8500 and
+					DecimalPlace=2 represent 85.00)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="StatusDescriptionAttributeGroup">
+    <xs:attribute name="Description" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Used to store a more detailled status, for example the reason of the error</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Code" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The canned message number</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:simpleType name="TrackType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Raw" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FOPStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Old" />
+      <xs:enumeration value="Active" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AuthorizationStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Approved" />
+      <xs:enumeration value="Denied" />
+      <xs:enumeration value="Pending" />
+      <xs:enumeration value="Error" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FraudStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK" />
+      <xs:enumeration value="KO" />
+      <xs:enumeration value="Review" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ThreeDSecureStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Approved" />
+      <xs:enumeration value="Denied" />
+      <xs:enumeration value="Pending" />
+      <xs:enumeration value="Error" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DirectoryServerType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Visa" />
+      <xs:enumeration value="Mastercard" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DirectoryServerCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VIDS" />
+      <xs:enumeration value="CADS" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="VERESStatusCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Y" />
+      <xs:enumeration value="N" />
+      <xs:enumeration value="U" />
+      <xs:enumeration value="E" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PARESStatusCodeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Y" />
+      <xs:enumeration value="N" />
+      <xs:enumeration value="U" />
+      <xs:enumeration value="A" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="NumericStringLength1to30">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used for Numeric Strings, length 1 to 30.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{1,30}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PaymentGroupFunctionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FP" />
+      <xs:enumeration value="SFP" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="TransactionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Authorization" />
+      <xs:enumeration value="FraudScreening" />
+      <xs:enumeration value="Validation" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AuthorizationProviderType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="1A" />
+      <xs:enumeration value="External Automated System" />
+      <xs:enumeration value="Manual" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CheckResultType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK" />
+      <xs:enumeration value="KO" />
+      <xs:enumeration value="Not Performed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ValueCategoryType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ISO_Currency" />
+      <xs:enumeration value="Loyalty_Currency" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ValidationStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FormOfPaymentProcessType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IRU" />
+      <xs:enumeration value="AMOP" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FormOfPaymentProcessSubType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Paypal" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CardSubTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Credit" />
+      <xs:enumeration value="Debit" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AccountSubTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Points" />
+      <xs:enumeration value="Frequent Flyer" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlternativeMethodsSubTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="E-Wallet" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlternativeMethodsVendorType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Paypal" />
+      <xs:enumeration value="PagosMisCuentas" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MiscellaneousSubTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Cash" />
+      <xs:enumeration value="Cheque" />
+      <xs:enumeration value="Invoice" />
+      <xs:enumeration value="Net Remit" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="URLUseCaseType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Success" />
+      <xs:enumeration value="Failure" />
+      <xs:enumeration value="Cancel" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="InstalmentFrequencyType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="D" />
+      <xs:enumeration value="W" />
+      <xs:enumeration value="M" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CardAccountTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Corporate" />
+      <xs:enumeration value="Personal" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="String0">
+    <xs:annotation>
+      <xs:documentation>Used for String length 0</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0" />
+      <xs:maxLength value="0" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="formOfPaymentType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AlternativeMethods" />
+      <xs:enumeration value="Card" />
+      <xs:enumeration value="Loyalty" />
+      <xs:enumeration value="Miscellaneous" />
+      <xs:enumeration value="Account" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength2">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="2" />
+      <xs:maxLength value="2" />
+      <xs:pattern value="([0-9a-zA-Z])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength2orString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an Alphanumeric Lenght 2 or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="AlphaNumericStringLength2 String0" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength0to30">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="30" />
+      <xs:pattern value="([0-9a-zA-Z])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength0to10">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10" />
+      <xs:pattern value="([0-9a-zA-Z])*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength0to30">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0" />
+      <xs:maxLength value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="StringLength0to99">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0" />
+      <xs:maxLength value="99" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DateOrDateTimeType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">A construct to validate either a date or a dateTime value.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="xs:date xs:dateTime" />
+  </xs:simpleType>
+</xs:schema>
+

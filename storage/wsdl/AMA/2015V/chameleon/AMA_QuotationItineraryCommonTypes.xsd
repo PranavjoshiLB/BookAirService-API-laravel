@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" elementFormDefault="qualified" version="2.001" id="AMA2015V">
+  <xs:include schemaLocation="AMA_QuotationGenericCommonTypes.xsd" />
+  <!--*******************************************************************-->
+  <!-- Declaration of QtItinerary type that includes the real data (group) -->
+  <!--*******************************************************************-->
+  <xs:group name="ItineraryPricingInfoGroup">
+    <xs:sequence>
+      <xs:group ref="GenericPricingInfoGroup" />
+      <xs:element name="PFCTaxes" minOccurs="0" maxOccurs="999">
+        <xs:annotation>
+          <xs:documentation>Airport breakdown tax at coupon level.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attributeGroup ref="TaxAttributeGroup" />
+          <xs:attribute name="Airport" type="CityCodeType" use="required" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="ItineraryTicketingInfoGroup">
+    <xs:sequence>
+      <xs:element name="LastDateTime" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Last Date to Ticket in UTC</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="QtItineraryGroup">
+    <xs:sequence>
+      <xs:group ref="QtElementGroup" />
+      <xs:element name="PricingInfo" minOccurs="0" maxOccurs="2">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="ItineraryPricingInfoGroup" />
+          </xs:sequence>
+          <xs:attributeGroup ref="GenericPricingInfoAttributeGroup" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TicketingInfo" minOccurs="0" maxOccurs="2">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="ItineraryTicketingInfoGroup" />
+          </xs:sequence>
+          <xs:attributeGroup ref="GenericTicketingInfoAttributeGroup" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <!--xs:element name="QtItinerary">
+		<xs:complexType>
+			<xs:sequence minOccurs="1" maxOccurs="1">
+				<xs:group ref="QtItineraryGroup"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element-->
+</xs:schema>
+

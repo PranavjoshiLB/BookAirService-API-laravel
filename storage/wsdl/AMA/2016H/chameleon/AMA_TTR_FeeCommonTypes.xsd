@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:etr="http://xml.amadeus.com/2010/06/ETR_Types_v4" xmlns:pnr="http://xml.amadeus.com/2010/06/PNR_Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.002" id="AMA2016H">
+  <xs:import namespace="http://xml.amadeus.com/2010/06/ETR_Types_v4" schemaLocation="../AMA_ETR_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:complexType name="TTR_FeeType">
+    <xs:sequence>
+      <xs:element name="validity" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="startDateTime" type="etr:DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Date from which the Fee applies is valid.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="endDateTime" type="etr:DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Date until which the Fee applies is valid.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="creation" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="dateTime" type="etr:DateTimeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Creation date time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="modification" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="dateTime" type="etr:DateTimeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Creation date time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="description" type="ama_ct:StringLength1to199orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32999">DESCRIPTION FIELD TOO LONG</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Description or Free Text</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="category" type="ama_ct:StringLength1to30orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation>The type of the Fee (Cancellation, Change, Booking, Service, Discount).</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="purpose" type="ama_ct:StringLength1to30orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation>Purpose of the Fee. Additional cost for: Air international, Hotel domestic, ...</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="applied" type="etr:BooleanOrString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Indicate if the fee is applied (true) or just informative (false)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>
+

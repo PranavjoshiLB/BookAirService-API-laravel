@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iata="http://www.iata.org/IATA/2007/00/IATA2010.1" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:pnr="http://xml.amadeus.com/2010/06/PNR_Types_v3" xmlns:etr="http://xml.amadeus.com/2010/06/ETR_Types_v4" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.002" id="AMA2016H">
+  <xs:import namespace="http://www.iata.org/IATA/2007/00/IATA2010.1" schemaLocation="../../../IATA/2010.1/IATA_Proxy.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/ETR_Types_v4" schemaLocation="../AMA_ETR_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:complexType name="AttachmentType">
+    <xs:annotation>
+      <xs:documentation>Structure of attachment element</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Document" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Information realted to the attached document</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Type" minOccurs="0">
+              <xs:complexType>
+                <xs:attribute name="code" use="optional">
+                  <xs:annotation>
+                    <xs:documentation>Specifies the type of document in the attachment. 3 letter code (PIC, INV, OTH, VOU).</xs:documentation>
+                  </xs:annotation>
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="OTH">
+                        <xs:annotation>
+                          <xs:documentation>Other</xs:documentation>
+                        </xs:annotation>
+                      </xs:enumeration>
+                      <xs:enumeration value="INV">
+                        <xs:annotation>
+                          <xs:documentation>Invoice</xs:documentation>
+                        </xs:annotation>
+                      </xs:enumeration>
+                      <xs:enumeration value="PIC">
+                        <xs:annotation>
+                          <xs:documentation>Picture</xs:documentation>
+                        </xs:annotation>
+                      </xs:enumeration>
+                      <xs:enumeration value="VOU">
+                        <xs:annotation>
+                          <xs:documentation>Voucher</xs:documentation>
+                        </xs:annotation>
+                      </xs:enumeration>
+                      <xs:enumeration value="" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="desc" type="xs:string">
+                  <xs:annotation>
+                    <xs:documentation>Can only be used if Type code is Other.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Source" minOccurs="0">
+              <xs:complexType>
+                <xs:attribute name="code" use="optional">
+                  <xs:annotation>
+                    <xs:documentation>Specifies the source of document in the attachment i.e. who issued the document. 3 letter code (TRA, TRL, PRO, OTH).</xs:documentation>
+                  </xs:annotation>
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="OTH">
+                        <xs:annotation>
+                          <xs:documentation>Other</xs:documentation>
+                        </xs:annotation>
+                      </xs:enumeration>
+                      <xs:enumeration value="TRL">
+                        <xs:annotation>
+                          <xs:documentation>Traveller</xs:documentation>
+                        </xs:annotation>
+                      </xs:enumeration>
+                      <xs:enumeration value="PRO">
+                        <xs:annotation>
+                          <xs:documentation>Provider</xs:documentation>
+                        </xs:annotation>
+                      </xs:enumeration>
+                      <xs:enumeration value="TRA">
+                        <xs:annotation>
+                          <xs:documentation>Travel Agent</xs:documentation>
+                        </xs:annotation>
+                      </xs:enumeration>
+                      <xs:enumeration value="" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="desc" type="xs:string">
+                  <xs:annotation>
+                    <xs:documentation>Can only be used if Source is Other.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Content" type="xs:base64Binary" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Content of the attachment in Base 64 format</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:group ref="etr:CreationData" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="ama_ct:StringLength1to128orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Specifies the name of the attachment.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Encoding">
+      <xs:annotation>
+        <xs:documentation>Specifies the content encoding of the  file in the attachment. 3 letter code (JPG, PDF, PNG, GIF, TXT)</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="TXT" />
+          <xs:enumeration value="DOC" />
+          <xs:enumeration value="GIF" />
+          <xs:enumeration value="PNG" />
+          <xs:enumeration value="PDF" />
+          <xs:enumeration value="JPG">
+            <xs:annotation>
+              <xs:documentation>Including JPEG</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Size" type="etr:positiveIntegerOrString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">The size of the attachment, in bytes.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="url" type="etr:anyURLorString0">
+      <xs:annotation>
+        <xs:documentation>URL to download the attachment</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="typeFamily" type="xs:string" use="optional" fixed="ATTItinerary">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Filled with ATTItinerary to indicate that the element is an ATT itinerary product</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>
+

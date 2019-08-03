@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 rel. 3 (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.003" id="AMA2016H">
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:include schemaLocation="AMA_ETR_CommonTypes.xsd" />
+  <xs:complexType name="ETR_VisaType">
+    <xs:sequence>
+      <xs:element name="serviceProvider" type="ProviderType" minOccurs="0" />
+      <xs:element name="start" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="dateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">The date when the VISA has been delivered</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="validity" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="startDateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Date from which the VISA is valid.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="endDateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Date until which the VISA is valid.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="countryCode" type="ama_ct:AlphaNumericStringLength2orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="47">INVALID COUNTRY CODE</ama:error>
+                <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Destination country of the VISA (2 character standard IATA country code)</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="entryIndicator" type="BooleanOrString0" use="optional">
+            <xs:annotation>
+              <xs:documentation>Unique or Multiple entry in the country indicator</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:group ref="ETRCommonElements" />
+    </xs:sequence>
+    <xs:attribute name="description" type="ama_ct:StringLength1to199orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32999">DESCRIPTION FIELD TOO LONG</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Description or Free Text</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="name" type="ama_ct:StringLength1to99orString0">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error facet="use" code="31942">MANDATORY NAME/TITLE MISSING</ama:error>
+          <ama:error code="1778">NAME/TITLE TOO LONG</ama:error>
+          <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+        </xs:appinfo>
+        <xs:documentation>Title of the VISA</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="NIP" type="ama_ct:NumericStringLength1to99orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="31979">INVALID QUANTITY</ama:error>
+          <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+        </xs:appinfo>
+        <xs:documentation>Number of VISA</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="category" type="ama_ct:StringLength1to30orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation>The type of the VISA (Business, Tourism).</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="purpose" type="ama_ct:StringLength1to30orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation>Purpose of the requested VISA (Work in USA)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="processType" type="ama_ct:StringLength1to30orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation>Specifies how the Visa request is processed (regular, urgent...)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="status" type="ETRStatusCodeOrString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">status code (usual list, allowed values are HK, HX, HN, HL, TT, NB)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attributeGroup ref="ETRCommonAttributes" />
+  </xs:complexType>
+</xs:schema>
+

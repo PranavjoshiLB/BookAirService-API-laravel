@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota_2011A="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:iata="http://www.iata.org/IATA/2007/00/IATA2010.1" xmlns:qt="http://xml.amadeus.com/2010/06/QuotationTypes_v2" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:pnr="http://xml.amadeus.com/2010/06/PNR_Types_v4" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.006" id="AMA2016H">
+  <xs:import namespace="http://xml.amadeus.com/2010/06/PNR_Types_v4" schemaLocation="../AMA_PNR_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/QuotationTypes_v2" schemaLocation="../AMA_QuotationCommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://www.iata.org/IATA/2007/00/IATA2010.1" schemaLocation="../../../IATA/2010.1/IATA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:simpleType name="AlphaNumericStringLength6OrNumericStringLength10">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either an AlphaNumericStringLength6 or numeric10.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="ama_ct:AlphaNumericStringLength6 ama_ct:NumericStringLength10" />
+  </xs:simpleType>
+  <xs:simpleType name="TripIDType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used to validate the format of Trip ID. Either 6 alphanum, 16 alphanum or 10 num.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="ama_ct:AlphaNumericStringLength6 ama_ct:NumericStringLength10 AlphaNumericStringLength16" />
+  </xs:simpleType>
+  <xs:simpleType name="AlphaNumericStringLength16">
+    <xs:annotation>
+      <xs:documentation>Used for  Alpha-Numeric Strings, length 16</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="16" />
+      <xs:maxLength value="16" />
+      <xs:pattern value="[0-9a-zA-Z]{16}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="OriginChannelDataManagedGroupType">
+    <xs:annotation>
+      <xs:documentation>Used in order to validate OriginChannelData created along with ETR, TRQ, ATT, OFR or EOF.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="OriginChannelData" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attributeGroup ref="pnr:ManagedElement" />
+          <xs:attribute name="ByPassBillingIndicator" type="xs:boolean" use="optional">
+            <xs:annotation>
+              <xs:documentation>Allows superseding the billing information</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="ToolInformationType" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation>Defines the type of the tool used for element creation</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="ToolInformationDescription" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation>Provides additional information on the tool used for element creation</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="CreatorType" type="xs:string" use="required">
+            <xs:annotation>
+              <xs:documentation>Defines the creator</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="CreatorDescription" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation>Provides description on the creator</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="SourceType" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation>Defines the source</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="SourceDescription" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation>Provides description on the source</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="TravelAgencyResponsibility" type="xs:boolean" use="required">
+            <xs:annotation>
+              <xs:documentation>Indicates whether the element is under the Travel Agency responsibility and affects her accountancy or not</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OriginChannelDataDisplayedGroupType">
+    <xs:annotation>
+      <xs:documentation>Used in order to validate OriginChannelData displayed along with ETR, TRQ, ATT, or EOF.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="OriginChannelData" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attributeGroup ref="pnr:DisplayedElement" />
+          <xs:attribute name="ToolProcess" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation>Tool or Process used at creation of ETR, ATT, EOF, TRQ</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="ToolInformationType" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation>Information on the tool used for ATR, ATT, EOF or TRQ element creation</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="ToolInformationDescription" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation>Additional information on the tool used for ATR, ATT, EOF or TRQ element creation</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="CreatorType" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation>Creator</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="CreatorDescription" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation>Description of the creator</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="SourceType" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation>Source</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="SourceDescription" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation>Description of the source</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="TravelAgencyResponsibility" type="xs:boolean" use="optional">
+            <xs:annotation>
+              <xs:documentation>Indicates whether the element is under the Travel Agency responsibility and affects her accountancy or not</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AlphabeticDateType">
+    <xs:annotation>
+      <xs:documentation>This type is used to tell a Date expressed in an alphabetic form. Allowed values are enumerated (e.g. ARRIVAL_DATE).</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ARRIVAL_DATE" />
+      <xs:enumeration value="" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DateOrDateTimeOrString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a date or a date Time or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="ota_2011A:DateOrDateTimeType ama_ct:String0" />
+  </xs:simpleType>
+  <xs:simpleType name="DateOrTimeOrDateTimeOrString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a date or a time or a date Time or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="ota_2011A:DateOrTimeOrDateTimeType ama_ct:String0" />
+  </xs:simpleType>
+  <xs:simpleType name="CategoryListType">
+    <xs:list itemType="RestrictedSubCategoryType" />
+  </xs:simpleType>
+  <xs:simpleType name="ClientType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OPS" />
+      <xs:enumeration value="ESS" />
+      <xs:enumeration value="" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DurationOrString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a Duration or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="xs:duration ama_ct:String0" />
+  </xs:simpleType>
+  <xs:simpleType name="RestrictedCategoryType">
+    <xs:annotation>
+      <xs:documentation>This type specifies what is the category of the rule. For products other than Air Travel, it can be only one of the following: CANCELLATION or REFUND or CHANGE.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CHANGE" />
+      <xs:enumeration value="REFUND" />
+      <xs:enumeration value="CANCELLATION" />
+      <xs:enumeration value="" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RestrictedCategoryListType">
+    <xs:restriction base="CategoryListType">
+      <xs:minLength value="1" />
+      <xs:maxLength value="5" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RestrictedSubCategoryType">
+    <xs:annotation>
+      <xs:documentation>Within a given category(e.g. refund), this type is used to tell the context to which the rule refers to, and it can be: BEFORE_DEPARTURE or AFTER_DEPARTURE or NO_SHOW_IN_FIRST_FLIGHT or NO_SHOW_IN_SUBSEQUENT_FLIGHT.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BEFORE_DEPARTURE" />
+      <xs:enumeration value="AFTER_DEPARTURE" />
+      <xs:enumeration value="NO_SHOW_IN_FIRST_FLIGHT" />
+      <xs:enumeration value="NO_SHOW_IN_SUBSEQUENT_FLIGHT" />
+      <xs:enumeration value="" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:group name="TripSummary">
+    <xs:sequence>
+      <xs:element name="title" type="ama_ct:StringLength0to128orString0" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Trip label or Name</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" type="ama_ct:StringLength0to140orString0" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Trip description</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="start" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Start Trip Location IATA code</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="address" minOccurs="0">
+              <xs:complexType>
+                <xs:attribute name="stateCode" type="ama_ct:AlphaNumericStringLength2orString0">
+                  <xs:annotation>
+                    <xs:documentation>State code (2 character standard IATA country code)</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="stateName" type="ama_ct:StringLength0to64orString0">
+                  <xs:annotation>
+                    <xs:documentation>State Name</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="countryCode" type="ama_ct:AlphaNumericStringLength2orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="47">INVALID COUNTRY CODE</ama:error>
+                      <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">Country code (2 character standard IATA country code)</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="countryName" type="ama_ct:StringLength0to64orString0">
+                  <xs:annotation>
+                    <xs:documentation>Country Name</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="DateOrDateTimeOrString0">
+            <xs:annotation>
+              <xs:documentation>Start date of the trip</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="locationName" type="ama_ct:StringLength0to64orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Name of the departure city</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="itinerary" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="via" minOccurs="0" maxOccurs="99">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>End Trip Location IATA code</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="address" minOccurs="0">
+                    <xs:complexType>
+                      <xs:attribute name="stateCode" type="ama_ct:AlphaNumericStringLength2orString0">
+                        <xs:annotation>
+                          <xs:documentation>State code (2 character standard IATA country code)</xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
+                      <xs:attribute name="stateName" type="ama_ct:StringLength0to64orString0">
+                        <xs:annotation>
+                          <xs:documentation>State Name</xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
+                      <xs:attribute name="countryCode" type="ama_ct:AlphaNumericStringLength2orString0" use="optional">
+                        <xs:annotation>
+                          <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                            <ama:error code="47">INVALID COUNTRY CODE</ama:error>
+                            <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                          </xs:appinfo>
+                          <xs:documentation xml:lang="en">Country code (2 character standard IATA country code)</xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
+                      <xs:attribute name="countryName" type="ama_ct:StringLength0to64orString0">
+                        <xs:annotation>
+                          <xs:documentation>Country Name</xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:attribute name="dateTime" type="DateOrDateTimeOrString0">
+                  <xs:annotation>
+                    <xs:documentation>End date of the trip</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="locationName" type="ama_ct:StringLength0to64orString0" use="optional">
+                  <xs:annotation>
+                    <xs:documentation xml:lang="en">Name of the Arrival City</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="duration" type="xs:duration" use="optional" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="to" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>End Trip Location IATA code</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="address" minOccurs="0">
+              <xs:complexType>
+                <xs:attribute name="stateCode" type="ama_ct:AlphaNumericStringLength2orString0">
+                  <xs:annotation>
+                    <xs:documentation>State code (2 character standard IATA country code)</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="stateName" type="ama_ct:StringLength0to64orString0">
+                  <xs:annotation>
+                    <xs:documentation>State Name</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="countryCode" type="ama_ct:AlphaNumericStringLength2orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="47">INVALID COUNTRY CODE</ama:error>
+                      <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">Country code (2 character standard IATA country code)</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="countryName" type="ama_ct:StringLength0to64orString0">
+                  <xs:annotation>
+                    <xs:documentation>Country Name</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="DateOrDateTimeOrString0">
+            <xs:annotation>
+              <xs:documentation>End date of the trip</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="locationName" type="ama_ct:StringLength0to64orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Name of the Arrival City</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="end" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>End Trip Location IATA code</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="address" minOccurs="0">
+              <xs:complexType>
+                <xs:attribute name="stateCode" type="ama_ct:AlphaNumericStringLength2orString0">
+                  <xs:annotation>
+                    <xs:documentation>State code (2 character standard IATA country code)</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="stateName" type="ama_ct:StringLength0to64orString0">
+                  <xs:annotation>
+                    <xs:documentation>State Name</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="countryCode" type="ama_ct:AlphaNumericStringLength2orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="47">INVALID COUNTRY CODE</ama:error>
+                      <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                    </xs:appinfo>
+                    <xs:documentation xml:lang="en">Country code (2 character standard IATA country code)</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="countryName" type="ama_ct:StringLength0to64orString0">
+                  <xs:annotation>
+                    <xs:documentation>Country Name</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="DateOrDateTimeOrString0">
+            <xs:annotation>
+              <xs:documentation>End date of the trip</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="locationName" type="ama_ct:StringLength0to64orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Name of the Arrival City</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="purpose" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Business or Leisure</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="ama_ct:StringLength0to15orString0">
+            <xs:enumeration value="Leisure">
+              <xs:annotation>
+                <xs:documentation>Leisure</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Business">
+              <xs:annotation>
+                <xs:documentation>Business</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Both">
+              <xs:annotation>
+                <xs:documentation>Both Leisure and Business</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="privacy" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Public or Private - Type to be defined</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="ama_ct:StringLength0to15orString0">
+            <xs:enumeration value="PUB">
+              <xs:annotation>
+                <xs:documentation>Public</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PRI">
+              <xs:annotation>
+                <xs:documentation>Private</xs:documentation>
+              </xs:annotation>
+            </xs:enumeration>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:complexType name="TermsAndCondtionsType">
+    <xs:annotation>
+      <xs:documentation>This is used to store all conditions and applicable terms for one given product or one given package.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ModificationRule" type="ModificationRuleType" maxOccurs="99" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ModificationRuleType">
+    <xs:sequence>
+      <xs:element name="validity">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="start" type="ExtendedDateTimeType" minOccurs="0" />
+            <xs:element name="end" type="ExtendedDateTimeType" minOccurs="0" />
+          </xs:sequence>
+          <xs:attribute name="duration" type="DurationOrString0" use="optional">
+            <xs:annotation>
+              <xs:documentation>This is used to determine the Validity Period after/before a date (e.g. -P2D meaning 2 days before a date). If both a start date and an end date are specified, then this "Duration" attribute should not be used.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Terms" minOccurs="0">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:documentation>This is used to list all the Terms of the rule (e.g. Penalty).</xs:documentation>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element name="Penalty" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Price" type="qt:PriceType" minOccurs="0" maxOccurs="10">
+                    <xs:annotation>
+                      <xs:documentation>(Only for Air Travel)The "Type" attribute in "PriceType" must be used to specify if the Penalty is for "ADV" or "BDV" or ...</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="Tax" type="qt:TaxType" minOccurs="0" maxOccurs="10">
+                    <xs:annotation>
+                      <xs:documentation>(Only for Air Travel)The "Type" attribute in "PriceType" must be used to specify if the Penalty is for "ADV" or "BDV" or ...</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="modification" type="RestrictedCategoryType" use="required">
+      <xs:annotation>
+        <xs:documentation>This is mandatory for all products.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="circumstances" type="RestrictedCategoryListType" use="optional">
+      <xs:annotation>
+        <xs:documentation>This is normally used for air travel.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ExtendedDateTimeType">
+    <xs:annotation>
+      <xs:documentation>This type is used to specify a Date(with or without offset) expressed in a standard format in addition to the name of an associated event.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="dateTime" type="DateOrTimeOrDateTimeOrString0" use="optional" />
+    <xs:attribute name="name" type="AlphabeticDateType" use="optional" />
+    <xs:attribute name="offset" type="DurationOrString0" use="optional" />
+  </xs:complexType>
+</xs:schema>
+

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:pay="http://xml.amadeus.com/2010/06/PAY_Types_v1" targetNamespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.000" id="AMA2017E">
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_Types_v1" schemaLocation="AMA_PAY_CommonTypes_Proxy.xsd" />
+  <xs:element name="AMA_PAY_GetVirtualCardDetailsRS">
+    <xs:annotation>
+      <xs:documentation>Return detailed information of a specific virtual card</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element name="Success">
+          <xs:annotation>
+            <xs:documentation>In case the query succeeded, this element is present and contains the list of virtual card that matches the query</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VirtualCard" type="pay:VirtualCardDetailsType" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>Information linked to the card</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Transactions" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>Transactions made on the card</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Transaction" minOccurs="0" maxOccurs="100">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Values" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Used to define the amounts linked to the transaction</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Value" type="pay:VirtualCardAmountType" maxOccurs="6" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Details" minOccurs="0">
+                            <xs:annotation>
+                              <xs:documentation>Additional information of the transaction</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Detail" minOccurs="0" maxOccurs="99">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="ama_ct:StringLength1to256">
+                                        <xs:attribute name="Type" type="ama_ct:AlphaNumericStringLength1to99">
+                                          <xs:annotation>
+                                            <xs:documentation>Type of information</xs:documentation>
+                                          </xs:annotation>
+                                        </xs:attribute>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Reference" type="ama_ct:StringLength1to128">
+                          <xs:annotation>
+                            <xs:documentation>A unique identifier associiated with each transaction.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="Type" type="ama_ct:StringLength1to99" use="required">
+                          <xs:annotation>
+                            <xs:documentation>Type of transaction component, could be CREATE_CARD, DELETE CARD, etc. Refer to user guide for exhaustive list.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="Timestamp" type="ota:DateOrDateTimeType">
+                          <xs:annotation>
+                            <xs:documentation>The timestamp of transaction</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="FundsTransfer" type="pay:FundsTransferDetailsType" minOccurs="0" maxOccurs="100">
+                      <xs:annotation>
+                        <xs:documentation>Requested funds transfer requested through Amadeus via the PAY_CreateFundsTransferRQ</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Notifications" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>The notifications sent to service provider for a reservation. It contains payment and booking information</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Notification" type="pay:NotificationDetailsType" maxOccurs="50" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ReportingInfo" type="pay:ReportingInfoType" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>Supplementatry information related to the card</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Reservation" type="pay:ReservationType" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>Description of the trip that the travellers will be performing. If present, it replaces all previous reservation info.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Warnings" type="ama_ct:GenericWarningsType" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>This element is present in case that only partial results are returned in the reply or no virtual card is found.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Failure" type="ama_ct:GenericErrorsType">
+          <xs:annotation>
+            <xs:documentation>This element in case the query failed. The content provides the details of the error.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:choice>
+      <xs:attributeGroup ref="ota:OTA_PayloadStdAttributes" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:pay="http://xml.amadeus.com/2010/06/PAY_Types_v1" targetNamespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.000" id="AMA2017E">
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_Types_v1" schemaLocation="../2017E/AMA_PAY_CommonTypes_Proxy.xsd" />
+  <xs:element name="AMA_PAY_UpdateVirtualCardRQ">
+    <xs:annotation>
+      <xs:documentation>Generic Update Virtual Card Number request</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="VirtualCard">
+          <xs:annotation>
+            <xs:documentation>Parameters used to defined the Virtual Card to be updated</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:annotation>
+              <xs:documentation>Parameters of the Virtual Card to be generated</xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element name="References">
+                <xs:annotation>
+                  <xs:documentation>References of the Virtual Card that are used in order to update it</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Reference" maxOccurs="2">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="ama_ct:StringLength1to128">
+                            <xs:attribute name="Type" type="ama_ct:AlphaNumericStringLength1to99" use="required">
+                              <xs:annotation>
+                                <xs:documentation>Gives the type of reference. Amadeus or External.</xs:documentation>
+                              </xs:annotation>
+                            </xs:attribute>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Limitations" type="pay:CardRestrictionsType" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>Limitation of the usage of the card. If present, it replaces all previous limitations.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="ReturnCVV" type="xs:boolean">
+              <xs:annotation>
+                <xs:documentation>Used in order to define whether the CVV should be returned</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="CardStatus" type="ama_ct:AlphaNumericStringLength1to10">
+              <xs:annotation>
+                <xs:documentation>Used in order to freeze and activate a Virtual Card</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="CreditLimit" type="xs:nonNegativeInteger">
+              <xs:annotation>
+                <xs:documentation>For credit only. If provided, amount will replace the amount requested at generation time. It corresponds to the card credit limit.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="DecimalPlaces" type="xs:nonNegativeInteger">
+              <xs:annotation>
+                <xs:documentation>Indicate the number of decimal for the provided amount</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="CurrencyCode" type="ota:AlphaLength3">
+              <xs:annotation>
+                <xs:documentation>Uppercase ISO 4217 Currency of the amount</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Notification" type="pay:NotificationType" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>For Fax/sms/mail reception of the Virtual Card in case the update is successful. If present, it replaces previous notification</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ReportingInfo" type="pay:ReportingInfoType" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Supplementatry information related to the settlement (e.g DBIs ...). If present, it replaces all previous reportingInfo.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Reservation" type="pay:ReservationType" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Description of the trip that the travellers will be performing. If present, it replaces all previous reservation info.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Reason" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Free text giving additional information for the update</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="ama_ct:StringLength1to256">
+                <xs:attribute name="Label" type="ama_ct:AlphaNumericStringLength1to70" />
+                <xs:attribute name="Language" type="xs:language" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attributeGroup ref="ota:OTA_PayloadStdAttributes" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+

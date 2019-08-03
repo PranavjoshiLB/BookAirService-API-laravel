@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:iata="http://www.iata.org/IATA/2007/00/IATA2010.1" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:pnr="http://xml.amadeus.com/2010/06/PNR_Types_v4" xmlns:xml="http://www.w3.org/XML/1998/namespace" elementFormDefault="qualified" version="4.002" id="AMA2016H">
+	<xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd"/>
+	<xs:import namespace="http://www.iata.org/IATA/2007/00/IATA2010.1" schemaLocation="../../../IATA/2010.1/IATA_Proxy.xsd"/>
+	<xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd"/>
+	<xs:import namespace="http://xml.amadeus.com/2010/06/PNR_Types_v4" schemaLocation="../AMA_PNR_CommonTypes_Proxy.xsd"/>
+	<xs:simpleType name="accomodationGuaranteePaymentForm">
+		<xs:annotation>
+			<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+				<ama:error code="2213">INVALID FORM OF PAYMENT</ama:error>
+			</xs:appinfo>
+			<xs:documentation xml:lang="en">Authorized forms of payment for Guarantee are: 1-Credit Card, 10-Travel Agent identification, ID-Customer ID, 6-Check, 4-MCO, 12-Company Name</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="10"/>
+			<xs:enumeration value="ID"/>
+			<xs:enumeration value="6"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="accomodationGuaranteePaymentFormOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a accomodationGuaranteePaymentForm or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="accomodationGuaranteePaymentForm ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="accomodationDepositPaymentForm">
+		<xs:annotation>
+			<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+				<ama:error code="2213">INVALID FORM OF PAYMENT</ama:error>
+			</xs:appinfo>
+			<xs:documentation xml:lang="en">. Authorized forms of payment for Deposit are : 1-Credit Card, ADV-Advanced deposit, 6-Check, 4-MCO</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="ADV"/>
+			<xs:enumeration value="6"/>
+			<xs:enumeration value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="accomodationDepositPaymentFormOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a accomodationDepositPaymentForm or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="accomodationDepositPaymentForm ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="anyURLorString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either an URL or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="xs:anyURI ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="BooleanOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a boolean or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="xs:boolean ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="BookingChannelOption">
+		<xs:annotation>
+			<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+				<xs:documentation xml:lang="en">This attribute provides the code of the booking channel. EMA=E-mail, FAX=Fax, N1A=GDS non Amadeus, OTH=Other, PHO=Telephone, WEB=Web page, TEL=Tele Sales, B2B=B2B</xs:documentation>
+				<ama:error code="31771">INVALID BOOKING CHANNEL</ama:error>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EMA"/>
+			<xs:enumeration value="FAX"/>
+			<xs:enumeration value="N1A"/>
+			<xs:enumeration value="OTH"/>
+			<xs:enumeration value="PHO"/>
+			<xs:enumeration value="WEB"/>
+			<xs:enumeration value="TEL"/>
+			<xs:enumeration value="B2B"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BookingChannelOptionOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a BookingChannelOption or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="BookingChannelOption ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="DateOrDateTimeTypeOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a DateOrDateTimeType or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="ota:DateOrDateTimeType ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="DateOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a Date or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="xs:date ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="DateTimeOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a DateTime or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="xs:dateTime ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="DecimalOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a Decimal or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="xs:decimal ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="DurationOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a Duration or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="xs:duration ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="ETRStatusCode">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Status code. The status indicates the state of the EC in the external provider’s system. However this attribute is given for information purpose only since there is no synchronisation between the provider system and Amadeus. Full list of possible values, used by much of ETR elements. 
+HK: confirmed. This status should be used when the EC is confirmed in the provider's system.
+HL: Waitlisted. This status should be used when the EC is on wait list in the provider's system. 
+HX: Cancelled. This status should be used when the EC is cancelled in the provider's system. 
+HN: On Request. This status should be used when the EC is on request in the provider's system. 
+TT: Time to Think. This status should be used when the EC is only an Option in the provider's system. 
+NB: Not bookable, not booked. This status should be used when an ETR is used to carry information that can be part of the itinerary, but does not represent an effective booking done outside Amadeus.</xs:documentation>
+			<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+				<ama:error code="811">INVALID STATUS CODE</ama:error>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HK"/>
+			<xs:enumeration value="HX"/>
+			<xs:enumeration value="HN"/>
+			<xs:enumeration value="HL"/>
+			<xs:enumeration value="TT"/>
+			<xs:enumeration value="NB"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ETRStatusCodeOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a ETRStatusCode or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="ETRStatusCode ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="ETRStatusCodeWithoutHL">
+		<xs:annotation>
+			<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+				<xs:documentation xml:lang="en">Status code. The status indicates the state of the EC in the external provider’s system. However this attribute is given for information purpose only since there is no synchronisation between the provider system and Amadeus. List without HL values used for some ETR elements.
+HK: confirmed. This status should be used when the EC is confirmed in the provider's system.
+HX: Cancelled. This status should be used when the EC is cancelled in the provider's system. 
+HN: On Request. This status should be used when the EC is on request in the provider's system. 		
+TT: Time to Think. This status should be used when the EC is only an Option in the provider's system. 		
+NB: Not bookable, not booked. This status should be used when an ETR is used to carry information that can be part of the itinerary, but does not represent an effective booking done outside Amadeus.</xs:documentation>
+				<ama:error code="811">INVALID STATUS CODE</ama:error>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HK"/>
+			<xs:enumeration value="HX"/>
+			<xs:enumeration value="HN"/>
+			<xs:enumeration value="TT"/>
+			<xs:enumeration value="NB"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ETRStatusCodeWithoutHLorString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a ETRStatusCodeWithoutHL or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="ETRStatusCodeWithoutHL ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="ISO3166orString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a ISO3166 (Country Code) or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="ota:ISO3166 ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="IATA_CodeTypeOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a IATA_CodeType (Location Code) or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="iata:IATA_CodeType ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="MileageUnitType">
+		<xs:restriction base="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Mileage Unit</xs:documentation>
+			</xs:annotation>
+			<xs:enumeration value="KM">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Kilometers</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MI">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Miles</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MileageUnitTypeOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a MileageUnitType or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="MileageUnitType ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="nonNegativeIntegerOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a nonNegativeInteger or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="xs:nonNegativeInteger ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="OriginSystemTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">List of allowed values for Origin System Type.</xs:documentation>
+			</xs:annotation>
+			<xs:enumeration value="TripConcierge Manual"/>
+			<xs:enumeration value="Amadeus Integrated Partner"/>
+			<xs:enumeration value="AeTM Web"/>
+			<xs:enumeration value="AeTM Mobile"/>
+			<xs:enumeration value="ePower"/>
+			<xs:enumeration value="eRetail"/>
+			<xs:enumeration value="Sell Classic"/>
+			<xs:enumeration value="Sell Connect"/>
+			<xs:enumeration value="Cross-Sell Notifier"/>
+			<xs:enumeration value="TOMA"/>
+			<xs:enumeration value="IRIS"/>
+			<xs:enumeration value="B2W"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OriginSystemTypeEnumOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a OriginSystemTypeEnum or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="OriginSystemTypeEnum ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="positiveIntegerOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a positiveInteger or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="xs:positiveInteger ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="RoomTypeEnum">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Definition of possible values for the Room Type: PUB = public, PRI = private</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PUB"/>
+			<xs:enumeration value="PRI"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RoomTypeEnumOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a RoomTypeEnum or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="RoomTypeEnum ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:simpleType name="TimeOrString0">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Used in order to validate either a Time or String0.</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="xs:time ama_ct:String0"/>
+	</xs:simpleType>
+	<xs:complexType name="BookingChannelType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Booking Channel</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="code" type="BookingChannelOptionOrString0" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Booking channel. Refer to the OTA Booking Channel Type (BCT) codeset list.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="description" type="ama_ct:StringLength1to35orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Booking channel description</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ExternalSystemType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Information about the external System corresponding to this ETR</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="creation" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="dateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+						<xs:annotation>
+							<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+								<ama:error code="24806">INVALID DATE</ama:error>
+								<!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+							</xs:appinfo>
+							<xs:documentation xml:lang="en">Booking date in the external system with optional time</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="bkgReference" minOccurs="0" maxOccurs="10">
+				<xs:complexType>
+					<xs:attribute name="Owner" type="ama_ct:StringLength1to99" use="optional"/>
+					<xs:attribute name="Number" type="ama_ct:AlphaNumericStringLength1to19orString0" use="optional"/>
+					<xs:attribute name="additionalInformation" type="ama_ct:StringLength1to99" use="optional"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GenericExternalSystemType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Information about the external System corresponding to this ETR which is not necessarily a booking</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="reference" minOccurs="0" maxOccurs="10">
+				<xs:complexType>
+					<xs:attribute name="Owner" type="ama_ct:StringLength1to99" use="optional"/>
+					<xs:attribute name="Number" type="ama_ct:AlphaNumericStringLength1to19orString0" use="optional"/>
+					<xs:attribute name="additionalInformation" type="ama_ct:StringLength1to99" use="optional"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExternalOfferType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Information about the external System corresponding to this Offer</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="reference" minOccurs="0" maxOccurs="10">
+				<xs:complexType>
+					<xs:attribute name="Owner" type="ama_ct:StringLength1to99" use="optional"/>
+					<xs:attribute name="Number" type="ama_ct:AlphaNumericStringLength1to19orString0" use="optional"/>
+					<xs:attribute name="additionalInformation" type="ama_ct:StringLength1to99" use="optional"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MileageType">
+		<xs:attribute name="distance" type="ama_ct:NumericStringLength1to8orString0">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="24155">INVALID MILEAGE AMOUNT</ama:error>
+				</xs:appinfo>
+				<xs:documentation xml:lang="en">Mileage: Distance of the trip</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="unit" type="MileageUnitTypeOrString0">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="987">MILEAGE TYPE MUST BE MILES/KILOMETERS</ama:error>
+				</xs:appinfo>
+				<xs:documentation xml:lang="en">Mileage Unit: Unit of distance</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="OriginSystemType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Information about the origin system</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="type" type="OriginSystemTypeEnumOrString0" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Type of the origin system: TripConcierge Manual, Amadeus Integrated Partner, AeTM Web, AeTM Mobile, ePower, eRetail, Sell Classic, Sell Connect, Cross-Sell Notifier, TOMA, IRIS, Other</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="description" type="ama_ct:StringLength1to99orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Description of the origin system (notably in case of Other)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ProviderType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Provider Type for almost all elements except specificities needed for ETR Air, Train, Coach, etc.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="ref" type="ama_ct:AlphaNumericStringLength1to6orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation>Provides provider's profile reference</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" type="ama_ct:StringLength1to70orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation>provider name</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="code" type="ama_ct:AlphaNumericStringLength1to35orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation>provider code</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="externalRef" type="ama_ct:AlphaNumericStringLength1to10orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation>External profile reference for imported profiles</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="RailProviderType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Provider Type for ETR Train, Coach &amp; Transfer</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="ref" type="ama_ct:AlphaNumericStringLength1to6orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation>Provides provider's profile reference</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="name" type="ama_ct:StringLength1to70orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation>provider name</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="code" type="ama_ct:AlphaNumericStringLength1to35orString0" use="optional">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="24198">INVALID PROVIDER CODE</ama:error>
+				</xs:appinfo>
+				<xs:documentation>provider code</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="externalRef" type="ama_ct:AlphaNumericStringLength1to10orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation>External profile reference for imported profiles</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ReferralType">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Booking Channel</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="partner" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="identifier" type="ama_ct:StringLength1to60orString0">
+						<xs:annotation>
+							<xs:documentation>Affiliated ID of the partner which redirects the traveller to client website</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="url" type="anyURLorString0">
+						<xs:annotation>
+							<xs:documentation>URL of the website that has redirected the user to the client application</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="onlineFlow" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Flow used to create the booking: Multiple Destinations, CrossSell, UpSell, Shopping Cart, Package</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:attributeGroup name="AddressWithCommonAttributesGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Group containing the attributes common to all the Addresses (there are differences between Accomodation addresses and other addresses because the city name is mandatory for Accomodation while it is optional for other ETR).</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="line" type="ama_ct:StringLength1to70orString0" use="optional">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="11823">INVALID FIELD LENGTH ADDRESS LINE1</ama:error>
+				</xs:appinfo>
+				<xs:documentation xml:lang="en">address line with street, number, building, etc.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="complement" type="ama_ct:StringLength1to70orString0" use="optional">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="11826">INVALID FIELD LENGTH ADDRESS LINE2</ama:error>
+				</xs:appinfo>
+				<xs:documentation xml:lang="en">complement to address line, if not enough space</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="zip" type="ama_ct:StringLength1to20orString0" use="optional">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="11834">INVALID FIELD LENGTH ZIP OR POST CODE</ama:error>
+				</xs:appinfo>
+				<xs:documentation xml:lang="en">Post Office Code number.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="countryCode" type="ama_ct:AlphaNumericStringLength2orString0" use="optional">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="47">INVALID COUNTRY CODE</ama:error>
+					<!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+				</xs:appinfo>
+				<xs:documentation xml:lang="en">Country code (2 character standard IATA country code)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="latitude" type="DecimalOrString0" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Latitude (geographic coordinate) expressed in decimal degree.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="longitude" type="DecimalOrString0" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Longitude (geographic coordinate) expressed in decimal degree.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="AddressGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Standard address used by a lot of element with all attributes as optional</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="AddressWithCommonAttributesGroup"/>
+		<xs:attribute name="cityCode" type="ama_ct:StringLength1to20orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">City code</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="cityName" type="ama_ct:StringLength1to35orString0" use="optional">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="11829">INVALID FIELD LENGTH CITY NAME</ama:error>
+				</xs:appinfo>
+				<xs:documentation xml:lang="en">City (e.g. Dublin), town, or postal station (i.e. a postal service territory, often used in a military address).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="countryName" type="ama_ct:StringLength1to35orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation>Country name</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="stateCode" type="ama_ct:AlphaNumericStringLength1to2orString0" use="optional">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="11260">INVALID STATE CODE FOR COUNTRY SPECIFIED</ama:error>
+					<!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+				</xs:appinfo>
+				<xs:documentation>State code (2 characters standard IATA state code)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="stateName" type="ama_ct:StringLength1to35orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation>State name</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="postalBox" type="ama_ct:StringLength1to20orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation>Number or ID of the postal box if applicable.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="AddressWithMandatoryCityNameGroup">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Standard address used by a lot of element with all attributes as optional</xs:documentation>
+		</xs:annotation>
+		<xs:attributeGroup ref="AddressWithCommonAttributesGroup"/>
+		<xs:attribute name="cityName" type="ama_ct:StringLength1to35orString0" use="required">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error facet="use" code="11257">NEED CITY NAME</ama:error>
+					<ama:error code="11829">INVALID FIELD LENGTH CITY NAME</ama:error>
+				</xs:appinfo>
+				<xs:documentation xml:lang="en">City (e.g. Dublin), town, or postal station (i.e. a postal service territory, often used in a military address). Mandotory for some elements like ETR Hotel.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="stateCode" type="ama_ct:AlphaNumericStringLength1to2orString0" use="optional">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="12701">INVALID STATE CODE</ama:error>
+					<!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+				</xs:appinfo>
+				<xs:documentation>State code (2 characters standard IATA state code)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="ETRCommonAttributes">
+		<xs:attribute name="confirmNbr" type="ama_ct:AlphaNumericStringLength1to20orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Confirmation Number</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="cancelNbr" type="ama_ct:AlphaNumericStringLength1to20orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Cancellation Number</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<!-- status not here as there are 2 dilfferent possible value list -->
+		<xs:attribute name="overrideStatus" type="ama_ct:AlphaNumericStringLength1to2orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">Enable to override status code (e.g. for Offers)</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<!-- NIP is not defined there but in each Element because the error code can different (NIP or quantity) -->
+		<xs:attribute name="MBOProductCode" type="ama_ct:StringLength1to20orString0" use="optional">
+			<xs:annotation>
+				<xs:documentation xml:lang="en">MBO product code = freetext on 20 char. Sub product of the MBO. E.g. for EC Air : international, domestic, european</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:complexType name="SystemInformation">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Value and Description</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="code" type="ama_ct:StringLength1to99" use="optional"/>
+		<xs:attribute name="description" type="ama_ct:StringLength1to99" use="optional"/>
+	</xs:complexType>
+	<xs:group name="ETRCommonElements">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Group containing the attributes common to all ETR, represented as XSD elements, except the ServiceProvider which is specific for some ETR elements like ETR Air and description which is mandatory for some ETR elements</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="creation" type="CreationType" minOccurs="0"/>
+			<xs:element name="modification" type="ModificationType" minOccurs="0"/>
+			<xs:element name="confirmation" type="ConfirmationType" minOccurs="0"/>
+			<xs:element name="descriptions" minOccurs="0" maxOccurs="100">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="ProductDescriptionType"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:group ref="CreationData"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="CreationType">
+		<xs:attribute name="dateTime" type="DateTimeOrString0" use="optional">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="24806">INVALID DATE</ama:error>
+					<!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+				</xs:appinfo>
+				<xs:documentation xml:lang="en">Creation date time</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ModificationType">
+		<xs:attribute name="dateTime" type="DateTimeOrString0" use="optional">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="24806">INVALID DATE</ama:error>
+					<!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+				</xs:appinfo>
+				<xs:documentation xml:lang="en">Modification date time</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ConfirmationType">
+		<xs:attribute name="deadline" type="DateTimeOrString0" use="optional">
+			<xs:annotation>
+				<xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+					<ama:error code="24806">INVALID DATE</ama:error>
+					<!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+				</xs:appinfo>
+				<xs:documentation xml:lang="en">Confirmation date time limit for Option</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ProductDescriptionType">
+		<xs:choice maxOccurs="50">
+			<xs:element name="text">
+				<xs:annotation>
+					<xs:documentation>Indicates the text compound</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="language" type="xs:language"/>
+							<xs:attribute name="type">
+								<xs:annotation>
+									<xs:documentation>Text type (i.e.i.e. html, shortDescription, longDescription...)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:maxLength value="32"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="media">
+				<xs:annotation>
+					<xs:documentation>
+            Indicates image coumpound. html
+            <img/>
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="name">
+						<xs:annotation>
+							<xs:documentation xml:lang="en">The name of the image</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="99"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="type">
+						<xs:annotation>
+							<xs:documentation>Text type (i.e.i.e. html, shortDescription, longDescription...)</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="32"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="encoding">
+						<xs:annotation>
+							<xs:documentation>Specifies the content encoding 3 letter code (JPG, PNG, GIF)</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="TXT"/>
+								<xs:enumeration value="DOC"/>
+								<xs:enumeration value="GIF"/>
+								<xs:enumeration value="PNG"/>
+								<xs:enumeration value="PDF"/>
+								<xs:enumeration value="JPG">
+									<xs:annotation>
+										<xs:documentation>Including JPEG</xs:documentation>
+									</xs:annotation>
+								</xs:enumeration>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute name="size" type="xs:positiveInteger" use="optional">
+						<xs:annotation>
+							<xs:documentation xml:lang="en">The size of the content in bytes.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="src" type="xs:anyURI">
+						<xs:annotation>
+							<xs:documentation>source</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="ID" type="ama_ct:AlphaNumericStringLength1to10"/>
+					<xs:attribute name="width" type="xs:nonNegativeInteger"/>
+					<xs:attribute name="height" type="xs:nonNegativeInteger"/>
+					<xs:attribute name="caption" type="ama_ct:StringLength1to128" use="optional">
+						<xs:annotation>
+							<xs:documentation xml:lang="en">The caption associated to a specific image which can be provided in different languages.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="language" type="xs:language"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="iframe">
+				<xs:annotation>
+					<xs:documentation>
+            Indicates the iframe compound.                         html
+            <ifame/>
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="name" type="xs:string"/>
+					<xs:attribute name="src" type="xs:anyURI"/>
+					<xs:attribute name="width" type="xs:nonNegativeInteger"/>
+					<xs:attribute name="height" type="xs:nonNegativeInteger"/>
+					<xs:attribute name="border" type="xs:nonNegativeInteger"/>
+					<xs:attribute name="srcdoc" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>source doc</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:simpleType name="PropertiesListType">
+		<xs:list itemType="xs:string"/>
+	</xs:simpleType>
+	<xs:group name="CreationData">
+		<xs:sequence>
+			<xs:element name="bkgChannel" type="BookingChannelType" minOccurs="0"/>
+			<xs:element name="creationChannel" type="pnr:FullOriginSystemType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Provides information on the CLAPP - Client Application.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="externalSystem" type="ExternalSystemType" minOccurs="0"/>
+			<xs:element name="creator" type="SystemInformation" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Identifies the application used to create the element. For example: Amadeus Cross-Sell Notifier Travel Agent Traveller Travel Arranger System</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="properties" type="PropertiesListType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Possible values: 
+- TravelAgencyResp which Indicates whether the element is under the Travel Agency responsibility and affects her accountancy or not.
+- ByPassBillingIndicator which allows superseding the billing information.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+</xs:schema>

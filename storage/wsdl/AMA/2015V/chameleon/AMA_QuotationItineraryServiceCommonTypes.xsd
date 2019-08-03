@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" elementFormDefault="qualified" version="2.001" id="AMA2015V">
+  <xs:include schemaLocation="AMA_QuotationElementCommonTypes.xsd" />
+  <!--*********************************************************************-->
+  <!-- Declaration of QtItiService type that includes the real data (group) -->
+  <!--*********************************************************************-->
+  <xs:complexType name="QtItineraryServiceType">
+    <xs:annotation>
+      <xs:documentation>This is the Quotation Itinerary Pricing Record Type declaration. it is used for TST pricing record. It includes Quotation Pricing Record Type.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:group ref="QtElementGroup" />
+      <xs:element name="PricingInfo" minOccurs="0" maxOccurs="2">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="PricingInfoGroup" />
+          </xs:sequence>
+          <xs:attributeGroup ref="TypedContextAttributeGroup" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="TypedContextAttributeGroup" />
+  </xs:complexType>
+  <xs:element name="QtItineraryService" type="QtItineraryServiceType" />
+  <!--    Uncomment this to be able to use auto-instance generation
+    <xs:element name="ListQtItiService">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="QtItiService" type="QtItineraryServiceType" minOccurs="2" maxOccurs="2"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+     -->
+</xs:schema>
+<!--  -->
+

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" elementFormDefault="qualified" version="2.001" id="AMA2015V">
+  <xs:include schemaLocation="AMA_QuotationCommonTypes.xsd" />
+  <xs:include schemaLocation="AMA_QuotationCouponCommonTypes.xsd" />
+  <!--*********************************************************************-->
+  <!-- Declaration of QtItiCoupon type that includes the real data (group) -->
+  <!--*********************************************************************-->
+  <xs:group name="ItineraryCouponPricingInfoGroup">
+    <xs:sequence>
+      <xs:group ref="CouponPricingInfoGroup" />
+      <xs:element name="PricedPTC" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Indicates which Passenger Type Code SSP has used for computing the price returned. Ex: ADT, CHD</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9]{2,3}" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="FareBasis" type="FareBasisType" minOccurs="0" />
+      <xs:element name="ClassOfService" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Class of Service at Pricing/Repricing time</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9A-Za-z]{1,7}" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="BaggageAllowance" type="BaggageAllowanceType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free Baggage allowance information details</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="ItineraryCouponTicketingInfoGroup">
+    <xs:sequence>
+      <xs:element name="FlightReference" type="DisruptionFlightsType" minOccurs="0" maxOccurs="999" />
+    </xs:sequence>
+  </xs:group>
+  <xs:complexType name="QtCouponItineraryType">
+    <xs:annotation>
+      <xs:documentation>This is the Quotation Itinerary Coupon Type declaration. Quotation Itinerary Coupon
+                is a quotation type to store specific data at Coupon level for TST representation.
+                This means that any data added at this level is not accessible to Document Coupon,
+                avoiding useless data at unwanted level. It includes, Quotation Coupon Element.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:group ref="QtElementGroup" />
+      <xs:element name="PricingInfo" minOccurs="0" maxOccurs="2">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="ItineraryCouponPricingInfoGroup" />
+          </xs:sequence>
+          <xs:attributeGroup ref="TypedContextAttributeGroup" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ProductInfo" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="ProductGroup" />
+          </xs:sequence>
+          <xs:attributeGroup ref="TypedContextAttributeGroup" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TicketingInfo" minOccurs="0" maxOccurs="2">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:group ref="ItineraryCouponTicketingInfoGroup" />
+          </xs:sequence>
+          <xs:attributeGroup ref="TypedContextAttributeGroup" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="TypedContextAttributeGroup" />
+  </xs:complexType>
+  <xs:element name="QtCouponItinerary" type="QtCouponItineraryType" />
+  <!--    Uncomment this to be able to use auto-instance generation
+    <xs:element name="ListQtItiCoupon">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="QtItiCoupon" type="QtCouponItineraryType" minOccurs="2" maxOccurs="2"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+     -->
+</xs:schema>
+

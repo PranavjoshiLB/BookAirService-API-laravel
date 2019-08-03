@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.amadeus.com/2010/06/ETR_Types_v4" targetNamespace="http://xml.amadeus.com/2010/06/ETR_Types_v4" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.002" id="AMA2016H">
+  <xs:include schemaLocation="chameleon/AMA_ETR_MeetingCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_ParkingCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_BikeCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_CarCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_InsuranceCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_AirCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_ServiceMiscellaneousCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_FerryCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_ShowAndEventCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_ServiceCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_VisaCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_EatAndDrinkMiscellaneousCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_TrainSeatCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_UrbanTransportationCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_LocalServiceCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_LeisureEquipmentCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_VaccineCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_SportActivityCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_SleepMiscellaneousCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_TrainCommonTypes.xsd" />
+  <xs:include schemaLocation="../2016G/chameleon/AMA_ETR_ActivityMiscellaneousCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_TaxiCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_CruiseCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_MoveMiscellaneousCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_DocumentationCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_HotelCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_CoachCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_ApartmentCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_TransferCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_GoodiesCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_ExcursionCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_RestaurantCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_CommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_VisitCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_ETR_AirSeatCommonTypes.xsd" />
+</xs:schema>
+

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2015 rel. 4 sp1 (x64) (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.003" id="AMA2016H">
+  <xs:include schemaLocation="AMA_ETR_CommonTypes.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:complexType name="ETR_ApartmentType">
+    <xs:sequence>
+      <xs:element name="serviceProvider" type="ProviderType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Service provider information (Apartment chain information)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="start" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error code="11177">INVALID CITY / AIRPORT IATA CODE</ama:error>
+                  <!-- NB: this is defined there only for the case when the value does not match the grammar format. Then, the real check against RFD is under creation BE's responsibility -->
+                </xs:appinfo>
+                <xs:documentation xml:lang="en">Location(city) code</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="address" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="en">Location address</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attributeGroup ref="AddressGroup" />
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="contact" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Apartment's onwer phone information.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:attribute name="phone" type="ama_ct:StringLength1to20orString0" use="optional">
+                  <xs:annotation>
+                    <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                      <ama:error code="32804">INVALID PHONE NUMBER</ama:error>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="DateOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error facet="use" code="32097">MANDATORY CHECK-IN DATE MISSING</ama:error>
+                <ama:error code="4412">INVALID CHECK-IN DATE</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Check-in date (service date)  - Only date is stored for Apartment in this attribute</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="end" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="dateTime" type="DateOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error facet="use" code="32098">MANDATORY CHECK-OUT DATE MISSING</ama:error>
+                <ama:error code="4413">INVALID CHECK-OUT DATE</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Check-out date - Only date is stored for Apartement in this attribute</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="checkIn" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="startDateTime" type="TimeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="31980">INVALID CHECK-IN TIME</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Check-in time (indicates the expected time limit (local time) from when the guests can arrive at the property on check-in day) - Only time is stored for Apartment in this attribute</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="checkOut" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="endDateTime" type="TimeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32105">INVALID CHECK-OUT TIME</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Check-out time (indicates the time limit (local time) when the guests should leave the property on check-out day)  - Only time is stored for Apartment in this attribute</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="customers" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Description of the guests: number of adults, number of children by age</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="adults" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error code="32101">NUMBER OF ADULTS IS TOO HIGH</ama:error>
+                </xs:appinfo>
+                <xs:documentation xml:lang="en">number of adults</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="ama_ct:NumericStringLength1to2orString0">
+                  <xs:pattern value="([0-9])*" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
+            <xs:element name="children" minOccurs="0" maxOccurs="9">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error code="32102">NUMBER OF CHILDREN IS TOO HIGH</ama:error>
+                </xs:appinfo>
+                <xs:documentation xml:lang="en">number of children (for the age in attribute)</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="ama_ct:NumericStringLength1to2orString0">
+                    <xs:attribute name="age" type="ama_ct:NumericStringLength1to2orString0" use="optional">
+                      <xs:annotation>
+                        <xs:documentation xml:lang="en">age of children</xs:documentation>
+                        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                          <ama:error code="3171">CHECK AGES</ama:error>
+                        </xs:appinfo>
+                      </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="ageCode" type="ama_ct:StringLength1to64orString0" use="optional">
+                      <xs:annotation>
+                        <xs:documentation xml:lang="en">ageCode (specific to Apartment property)</xs:documentation>
+                      </xs:annotation>
+                    </xs:attribute>
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="guarantee" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Guarantee information</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:annotation>
+            <xs:documentation xml:lang="en">Form of payment</xs:documentation>
+          </xs:annotation>
+          <xs:attribute name="paymentForm" type="accomodationGuaranteePaymentFormOrString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Form of Payment to guarantee the booking</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="paymentDetails" type="ama_ct:StringLength1to31orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Payment details</xs:documentation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="11883">INVALID FORMAT ENTERED FOR FOP ELEMENT</ama:error>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deposit" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Deposit information</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:annotation>
+            <xs:documentation xml:lang="en">Form of Payment how the deposit was done for the booking</xs:documentation>
+          </xs:annotation>
+          <xs:attribute name="paymentForm" type="accomodationDepositPaymentFormOrString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Form of payment used to perform the deposit</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="paymentDetails" type="ama_ct:StringLength1to31orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Payment details</xs:documentation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="11883">INVALID FORMAT ENTERED FOR FOP ELEMENT</ama:error>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:group ref="ETRCommonElements">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">ServiceProvider contains chain information</xs:documentation>
+        </xs:annotation>
+      </xs:group>
+    </xs:sequence>
+    <xs:attribute name="description" type="ama_ct:StringLength1to199orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error facet="use" code="3481">DESCRIPTION MISSING</ama:error>
+          <ama:error code="32999">DESCRIPTION FIELD TOO LONG</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Description or Free Text</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="name" type="ama_ct:StringLength1to99orString0">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error facet="use" code="32100">MANDATORY ACCOMMODATION NAME MISSING</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Residence name/Reference Name</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="bkgClass" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="10474">INVALID ROOM CATEGORY</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Apartement category: U-Unknown (value by default), B-Budget, T-Standard, S-Superior, X-Deluxe 
+Temporary solution waiting to define Apartement as real elements linkned to the ETR Apartement and Pax.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[UBTSXEJDI]" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="accomodationType" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="9441">INVALID ROOM TYPE</ama:error>
+        </xs:appinfo>
+        <xs:documentation>Apartment type: U-Unknown (value by default), S-Studio, D-2-bedroom apartment, R-3-bedroom apartment, F- 4-bedroom apartment
+Temporary solution waiting to define Apartment as real elements linkned to the ETR Apartment and Pax</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[USDRY]" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="status" type="ETRStatusCodeOrString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">status code (usual list, allowed values are HK, HX, HN, HL, TT,NB)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="NIP" type="ama_ct:NumericStringLength1to99orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="10915">INVALID NUMBER OF ROOMS</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Quantity (number of apartments)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="additionalServices" type="ama_ct:StringLength1to70orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32104">INVALID FIELD LENGTH ADDITIONAL SERVICES</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">This attribute indicates the additional services that have been requested by the Travel Agent. Additional services are services booked on top of the apartment (generally meal -breakfast, fullboard- or extra bed-crib, ...)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="roomRateDescription" type="ama_ct:StringLength1to256orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32107">INVALID FIELD LENGTH ROOM RATE DESCRIPTION</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Room/Rate description</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="cancelPolicies" type="ama_ct:StringLength1to256orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32108">INVALID FIELD LENGTH CANCELLATION POLICIES</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Cancellation policy</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="inclusions" type="ama_ct:StringLength1to256orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32109">INVALID FIELD LENGTH RATE INCLUSIONS</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Rate inclusions</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="otherRules" type="ama_ct:StringLength1to256orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32110">INVALID FIELD LENGTH OTHER INFORMATION</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Other rules</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attributeGroup ref="ETRCommonAttributes" />
+  </xs:complexType>
+</xs:schema>
+

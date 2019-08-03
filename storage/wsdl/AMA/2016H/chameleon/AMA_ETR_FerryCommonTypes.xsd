@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 rel. 3 (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.003" id="AMA2016H">
+  <xs:include schemaLocation="AMA_ETR_CommonTypes.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:complexType name="FerryLocationCodeType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Location Code: when the "type" attribute is not present (or present with value IATA), then the Location Code value is IATA (in this case, the IATA location code is checked against RFD). Else, the location code value is not IATA. In this case, the "type"  attribute gives an indication about the type of location code. For ETR Ferry, the Location Code value must be 3 for the port code.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ota:StringLength3">
+        <xs:attribute name="type" type="ama_ct:AlphaNumericStringLength3to7" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FerryLocationCodeTypeOrString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Location Code: when the "type" attribute is not present (or present with value IATA), then the Location Code value is IATA (in this case, the IATA location code is checked against RFD). Else, the location code value is not IATA. In this case, the "type"  attribute gives an indication about the type of location code. For ETR Ferry, the Location Code value must be 3 for the port code.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="ama_ct:StringLength3orString0">
+        <xs:attribute name="type" type="ama_ct:AlphaNumericStringLength3to7orString0" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ETR_FerryType">
+    <xs:sequence>
+      <xs:element name="serviceProvider" type="ProviderType" minOccurs="0" />
+      <xs:element name="start" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="FerryLocationCodeTypeOrString0" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error facet="use" code="31766">MANDATORY DEPARTURE POINT MISSING</ama:error>
+                </xs:appinfo>
+                <xs:documentation>departure port code.when the "type" attribute is not present (or present with value IATA), then the Location Code value is IATA. Else, the location code value is not IATA. In this case, the "type"  attribute gives an indication about the type of location code.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error facet="use" code="31768">MANDATORY DEPARTURE DATE MISSING</ama:error>
+                <ama:error code="32682">INVALID DEPARTURE DATE/TIME</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Sailing Departure date (Service date) with optional time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="locationName" type="ama_ct:StringLength1to60orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error facet="use" code="31766">MANDATORY DEPARTURE POINT MISSING</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Name of the departure port</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="end" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="FerryLocationCodeTypeOrString0" minOccurs="0">
+              <xs:annotation>
+                <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                  <ama:error facet="use" code="31767">MANDATORY ARRIVAL POINT MISSING</ama:error>
+                </xs:appinfo>
+                <xs:documentation xml:lang="en">Arrival portcode</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="32684">INVALID ARRIVAL DATE/TIME</ama:error>
+                <!-- NB: here only the reg expr of ota:DateOrDateTimeType is checked. Full validation of validity date is done on creation BEs -->
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Arrival date with optional time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="locationName" type="ama_ct:StringLength1to60orString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error facet="use" code="31767">MANDATORY ARRIVAL POINT MISSING</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Name of the arrival port</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="checkIn" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="startDateTime" type="TimeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="31980">INVALID CHECK-IN TIME</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">boarding time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="endDateTime" type="TimeOrString0" use="optional">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="31980">INVALID CHECK-IN TIME</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">boarding deadline time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="vehicle" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="name" type="ama_ct:StringLength1to35orString0">
+            <xs:annotation>
+              <xs:documentation>Ship name</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="code" type="ama_ct:AlphaNumericStringLength1to2orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Ship code</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="description" type="ama_ct:StringLength1to70orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Ship description</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ticket" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="number" type="ama_ct:AlphaNumericStringLength1to35orString0">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="7121">TICKET NUMBER</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Ticket number</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="issuanceDate" type="DateOrString0">
+            <xs:annotation>
+              <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+                <ama:error code="24806">INVALID DATE</ama:error>
+              </xs:appinfo>
+              <xs:documentation xml:lang="en">Ticket Issuance date</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="mileage" type="MileageType" minOccurs="0" />
+      <xs:element name="travelerVehicle" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="type">
+            <xs:annotation>
+              <xs:documentation>vehicule type: car, bike, motocycle, campingcar...</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="ama_ct:StringLength1to60orString0">
+                <xs:enumeration value="Bicycle" />
+                <xs:enumeration value="Car" />
+                <xs:enumeration value="Camper with bicycle" />
+                <xs:enumeration value="Camper" />
+                <xs:enumeration value="Coach" />
+                <xs:enumeration value="Motorcycle with sidecar" />
+                <xs:enumeration value="Car with bicycle" />
+                <xs:enumeration value="Minibus" />
+                <xs:enumeration value="Multi-passenger vehicle" />
+                <xs:enumeration value="Motorbike" />
+                <xs:enumeration value="Road haulage vehicle" />
+                <xs:enumeration value="Short vehicle" />
+                <xs:enumeration value="Sport leisure vehicle" />
+                <xs:enumeration value="Van" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="ref" type="ama_ct:AlphaNumericStringLength1to20orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation>vehicula plate</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="description" type="ama_ct:StringLength1to70orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">vehicule description or length</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:group ref="ETRCommonElements" />
+    </xs:sequence>
+    <xs:attribute name="description" type="ama_ct:StringLength1to199orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="32999">DESCRIPTION FIELD TOO LONG</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Description or Free Text</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="bkgClass" type="ama_ct:AlphaNumericStringLength1to2orString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Booking class</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="status" type="ETRStatusCodeOrString0" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">status code (usual list, allowed values are HK, HX, HN, HL, TT, NB)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="NIP" type="ama_ct:NumericStringLength1to99orString0" use="optional">
+      <xs:annotation>
+        <xs:appinfo source="http://xml.amadeus.com/ErrorCodes">
+          <ama:error code="1194">INVALID NUMBER IN PARTY</ama:error>
+        </xs:appinfo>
+        <xs:documentation xml:lang="en">Number in party</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attributeGroup ref="ETRCommonAttributes" />
+    <!-- NB: the cruise adds-on such as packages (hotel, shore excursion), dining, transfers and insurance should be handled in the appropriate extended content product type: Hotel, Excursion, Insurance, Restaurant and Transfer and then linked to the Cruise ETR. -->
+  </xs:complexType>
+</xs:schema>
+

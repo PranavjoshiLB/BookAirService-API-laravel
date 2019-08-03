@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.amadeus.com/2010/06/PNR_Types_v4" targetNamespace="http://xml.amadeus.com/2010/06/PNR_Types_v4" elementFormDefault="qualified" attributeFormDefault="unqualified" version="4.002" id="AMA2016H">
+  <xs:include schemaLocation="chameleon/AMA_PNR_CommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_PNR_TicketingArrangementCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_PNR_ReceivedFromCommonTypes.xsd" />
+  <xs:include schemaLocation="../2014S/chameleon/AMA_QueueCommonType.xsd" />
+  <xs:include schemaLocation="../2016F/chameleon/AMA_PNR_SpecialServiceRequestCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_PNR_PointOfSalesCommonTypes.xsd" />
+</xs:schema>
+

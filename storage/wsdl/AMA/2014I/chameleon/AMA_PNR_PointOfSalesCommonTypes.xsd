@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.001" id="AMA2014I">
+  <xs:attributeGroup name="CommonOfficeTypeGroup">
+    <xs:attribute name="ID">
+      <xs:annotation>
+        <xs:documentation>OfficeId for Amadeus or external Id in case of TTY POS</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1" />
+          <xs:maxLength value="9" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="NumericId">
+      <xs:annotation>
+        <xs:documentation>IATA code</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[0-9]{1,9}" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="City">
+      <xs:annotation>
+        <xs:documentation>IATA City or Airport code</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="3" />
+          <xs:maxLength value="3" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="SystemCode">
+      <xs:annotation>
+        <xs:documentation>IATA airline code or GDS code</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="2" />
+          <xs:maxLength value="3" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Country">
+      <xs:annotation>
+        <xs:documentation>IATA Coutry Code</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="2" />
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="AgentType">
+      <xs:annotation>
+        <xs:documentation>Agent, System, etc</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="0" />
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="AgentLoginTypeGroup">
+    <xs:attribute name="Sign" use="required">
+      <xs:annotation>
+        <xs:documentation>Numeric and Alpha sign</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[0-9]{4}[0-9A-Z]{2}" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="DutyCode" use="required">
+      <xs:annotation>
+        <xs:documentation>Duty code such as SU, PR</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="2" />
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="DCDTypeGroup">
+    <xs:attribute name="AccessType" use="required">
+      <xs:annotation>
+        <xs:documentation>DCD Information</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="999" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Product" use="required">
+      <xs:annotation>
+        <xs:documentation>DCD Information</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="999" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="SubProduct" use="required">
+      <xs:annotation>
+        <xs:documentation>DCD Information</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="999" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:complexType name="PointOfSaleType">
+    <xs:annotation>
+      <xs:documentation>PointOfSale data. This is an internal representation only, please use PointOfSale definition from AMA_CommonTypes to show POS data outside of Amadeus</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Office">
+        <xs:complexType>
+          <xs:attributeGroup ref="CommonOfficeTypeGroup" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Login" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Channel" minOccurs="0">
+              <xs:complexType>
+                <xs:attributeGroup ref="DCDTypeGroup" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attributeGroup ref="AgentLoginTypeGroup" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Actor" use="required">
+      <xs:annotation>
+        <xs:documentation>Type: Owner, Creator, Updator</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Creator" />
+          <xs:enumeration value="Owner" />
+          <xs:enumeration value="Updator" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>
+

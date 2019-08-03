@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" targetNamespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.000" id="AMA2017E">
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:element name="AMA_PAY_CancelVirtualCardLoadRQ">
+    <xs:annotation>
+      <xs:documentation>Generic Cancel Scheduled Funds Transfer request</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="FundsTransfer">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Reason" minOccurs="0" maxOccurs="9">
+                <xs:annotation>
+                  <xs:documentation>Free text giving additional information for the generation</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="ama_ct:StringLength1to256">
+                      <xs:attribute name="Label" type="ama_ct:AlphaNumericStringLength1to70" />
+                      <xs:attribute name="Language" type="xs:language" />
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Reference" type="ota:StringLength1to128" use="required">
+              <xs:annotation>
+                <xs:documentation>Unique Amadeus reference for the schedule funds transfer to cancel</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attributeGroup ref="ota:OTA_PayloadStdAttributes" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+

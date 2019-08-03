@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<!-- Edited with Notepad++ (true men use no tools) by Giuliano Quarta & Simon Ruiz - Approved by Mehdi Lefouili -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:iata="http://www.iata.org/IATA/2007/00/IATA2010.1" elementFormDefault="qualified" version="2.001" id="AMA2015V">
+  <xs:import namespace="http://www.iata.org/IATA/2007/00/IATA2010.1" schemaLocation="../../../IATA/2010.1/IATA_Proxy.xsd" />
+  <xs:include schemaLocation="AMA_QuotationElementCommonTypes.xsd" />
+  <!--*******************************************************************-->
+  <!-- Declaration of QtGeneric type that includes the real data (group) -->
+  <xs:group name="ComponentPricingInfoGroup">
+    <xs:annotation>
+      <xs:documentation>This is the Quotation Generic Pricing context Type declaration.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:group ref="PricingInfoGroup" />
+      <xs:element name="Location" minOccurs="0" maxOccurs="2">
+        <xs:annotation>
+          <xs:documentation>Location information</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attributeGroup ref="TypedLocationGroup" />
+        </xs:complexType>
+      </xs:element>
+      <!-- Those two has been merged in Location : they now have a "Type" attribute (From or To)
+                        <xs:element name="Origin"                           type="CityCodeType"            minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="Destination"                      type="CityCodeType"            minOccurs="0" maxOccurs="1"/>-->
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="ComponentPricingInfoAttributeGroup">
+    <xs:attributeGroup ref="TypedContextAttributeGroup" />
+    <xs:attribute name="Seasonality" type="iata:AlphaLength1" use="optional">
+      <xs:annotation>
+        <xs:documentation>Define the Seasonality (e.g. High, Low...)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+</xs:schema>
+

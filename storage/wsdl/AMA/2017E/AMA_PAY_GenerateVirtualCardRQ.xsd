@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:pay="http://xml.amadeus.com/2010/06/PAY_Types_v1" targetNamespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.000" id="AMA2017E">
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_Types_v1" schemaLocation="AMA_PAY_CommonTypes_Proxy.xsd" />
+  <xs:element name="AMA_PAY_GenerateVirtualCardRQ">
+    <xs:annotation>
+      <xs:documentation>Generic Generate Virtual Card Number request</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="VirtualCard" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Parameters used to defined the Virtual Card to be generated</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:annotation>
+              <xs:documentation>Parameters of the Virtual Card to be generated</xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element name="Account" type="pay:VirtualCardAccountType" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>Parameter used to select or override a specific account to generate a virtual card</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element name="Limitations" type="pay:CardRestrictionsType" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>Limitation of the usage of the card</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="CardName" type="ama_ct:StringLength1to35">
+              <xs:annotation>
+                <xs:documentation>Friendly name to be given to the card. Should be unique.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="SubType" type="ama_ct:AlphaNumericStringLength1to30">
+              <xs:annotation>
+                <xs:documentation>Prepaid, Debit, Credit etc...</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="VendorCode" type="ama_ct:AlphaNumericStringLength2">
+              <xs:annotation>
+                <xs:documentation>Vendor code of the Virtual Card</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="ReturnCVV" type="xs:boolean">
+              <xs:annotation>
+                <xs:documentation>Used in order to define whether the CVV should be returned</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="Amount" type="xs:nonNegativeInteger">
+              <xs:annotation>
+                <xs:documentation>For Debit: Amount to put on the card. For credit: cumulative amount which the Virtual Card is able to pay (if 0, it is not limited)</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="DecimalPlaces" type="xs:nonNegativeInteger">
+              <xs:annotation>
+                <xs:documentation>Indicate the number of decimal for the provided amount</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="CurrencyCode" type="ota:AlphaLength3">
+              <xs:annotation>
+                <xs:documentation>Uppercase ISO 4217 Currency of the amount</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Notification" type="pay:NotificationType" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>For Fax/sms/mail reception of the Virtual Card in case the generation is successful</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="ReportingInfo" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Supplementatry information related to the settlement (e.g DBIs ...)</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:complexContent>
+              <xs:extension base="pay:ReportingInfoType">
+                <xs:sequence>
+                  <xs:element name="Fees" minOccurs="0">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="PurchasePrice" type="pay:VirtualCardAmountType">
+                          <xs:annotation>
+                            <xs:documentation>Information about the amount to be paid. Price does not contain the card fees.</xs:documentation>
+                          </xs:annotation>
+                        </xs:element>
+                        <xs:element name="Fee" maxOccurs="9">
+                          <xs:annotation>
+                            <xs:documentation>Fee details to be added to the purchase price depending on the card type</xs:documentation>
+                          </xs:annotation>
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element name="Value" type="pay:VirtualCardAmountType" />
+                              <xs:element name="VendorCode" type="ama_ct:AlphaNumericStringLength2" minOccurs="0">
+                                <xs:annotation>
+                                  <xs:documentation>Vendor code of the Virtual Card</xs:documentation>
+                                </xs:annotation>
+                              </xs:element>
+                              <xs:element name="CardType" type="ama_ct:StringLength1to199" minOccurs="0">
+                                <xs:annotation>
+                                  <xs:documentation>Consumer Debit, Consumer Credit, Commercial Debit, Commercial Credit</xs:documentation>
+                                </xs:annotation>
+                              </xs:element>
+                            </xs:sequence>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:extension>
+            </xs:complexContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Reservation" type="pay:ReservationType" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Description of the trip that the travellers will be performing</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+      <xs:attributeGroup ref="ota:OTA_PayloadStdAttributes" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+

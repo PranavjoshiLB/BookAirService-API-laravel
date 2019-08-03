@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:fop="http://xml.amadeus.com/2010/06/FOP_Types_v6" xmlns:pay="http://xml.amadeus.com/2010/06/PAY_Types_v1" targetNamespace="http://xml.amadeus.com/2010/06/PAY_VirtualCard_v2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.000" id="AMA2017E">
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/PAY_Types_v1" schemaLocation="AMA_PAY_CommonTypes_Proxy.xsd" />
+  <xs:element name="AMA_PAY_ListVirtualCardsRS">
+    <xs:annotation>
+      <xs:documentation>Result of the request to display a list of Virtual cards responding the searching criterias</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element name="Success">
+          <xs:annotation>
+            <xs:documentation>In case the query succeeded, this element is present and contains the list of virtual card that matches the query</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VirtualCard" minOccurs="0" maxOccurs="100">
+                <xs:annotation>
+                  <xs:documentation>Different parameters associated to a virtual card number</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:extension base="pay:VirtualCardDetailsType">
+                      <xs:sequence>
+                        <xs:element name="Reservation" minOccurs="0">
+                          <xs:annotation>
+                            <xs:documentation>Reservation information linked to this virtual card</xs:documentation>
+                          </xs:annotation>
+                          <xs:complexType>
+                            <xs:attribute name="ID" type="ama_ct:AlphaNumericStringLength1to10">
+                              <xs:annotation>
+                                <xs:documentation>Identifier of the trip (either a PNR or a booking identified by an ID of 6 or 10 characters long)</xs:documentation>
+                              </xs:annotation>
+                            </xs:attribute>
+                            <xs:attribute name="ExternalID">
+                              <xs:annotation>
+                                <xs:documentation>Identifier of the trip in an external system (eg GLC)</xs:documentation>
+                              </xs:annotation>
+                              <xs:simpleType>
+                                <xs:restriction base="xs:NMTOKEN">
+                                  <xs:minLength value="1" />
+                                  <xs:maxLength value="16" />
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:attribute>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:extension>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Warnings" type="ama_ct:GenericWarningsType" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>This element is present in case the query could obnly be partially completed (e.g. no virtual card found for given criteria)</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Failure" type="ama_ct:GenericErrorsType">
+          <xs:annotation>
+            <xs:documentation>This element in case the query failed. The content provides the details of the error.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:choice>
+      <xs:attributeGroup ref="ota:OTA_PayloadStdAttributes" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+

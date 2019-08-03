@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:iata="http://www.iata.org/IATA/2007/00/IATA2010.1" xmlns:pnr="http://xml.amadeus.com/2010/06/PNR_Types_v4" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.003" id="AMA2016H">
+  <xs:include schemaLocation="../../2015V/chameleon/AMA_QuotationElementCommonTypes.xsd" />
+  <xs:include schemaLocation="../../2014I/chameleon/AMA_PNR_PointOfSalesCommonTypes.xsd" />
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/PNR_Types_v4" schemaLocation="../AMA_PNR_CommonTypes_Proxy.xsd" />
+  <xs:include schemaLocation="../../2015V/chameleon/AMA_QuotationCommonTypes.xsd" />
+  <xs:import namespace="http://www.iata.org/IATA/2007/00/IATA2010.1" schemaLocation="../../../IATA/2010.1/IATA_Proxy.xsd" />
+  <xs:complexType name="QuotationTreeGenericType">
+    <xs:annotation>
+      <xs:documentation>Generic type for the quotation tree display. It is basically a list of Quotation linked through ID/RefIDs.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Quotation" minOccurs="1" maxOccurs="999">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="QuotationGenericElementType">
+              <xs:attributeGroup ref="pnr:DisplayedElement" />
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="QuotationGenericElementType">
+    <xs:annotation>
+      <xs:documentation>Generic type to describe all types of branch of the quotation tree</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:group ref="QtElementGroup" />
+      <xs:element name="PricingInfo" minOccurs="0" maxOccurs="2">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Number" type="nonNegativeIntegerOrString0" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>Numeric ID</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:group ref="PricingRecordPricingInfoGenericGroup" minOccurs="0" />
+            <xs:group ref="ItineraryPricingInfoGenericGroup" minOccurs="0" />
+            <xs:group ref="FareComponentPricingInfoGenericGroup" minOccurs="0" />
+            <xs:group ref="ItineraryCouponPricingInfoGenericGroup" minOccurs="0" />
+          </xs:sequence>
+          <xs:attribute name="Type" use="optional">
+            <xs:annotation>
+              <xs:documentation>Type attribute is used to provide info on how the pricing was returned. Possible values are: Global (for a global price including all travellers) and Individual (price is for one person applicable to each linked travellers).</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Individual" />
+                <xs:enumeration value="Global" />
+                <xs:enumeration value="" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attributeGroup ref="TypedContextAttributeGroup" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ConvertRate" type="ConversionRateType" minOccurs="0" maxOccurs="3" />
+    </xs:sequence>
+    <xs:attribute name="PassengerType">
+      <xs:annotation>
+        <xs:documentation>Inherited from former AMA_QuotationExtendedTypes in order not to break Backward Compatibility</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Passenger" />
+          <xs:enumeration value="Infant" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:group name="PricingRecordPricingInfoGenericGroup">
+    <xs:annotation>
+      <xs:documentation>group containing pricing information specific to Quotation Pricing Record</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Indicator" type="IndicatorType" minOccurs="0" maxOccurs="99">
+        <xs:annotation>
+          <xs:documentation>Used to store indicators that are not boolean such as the Issuance Indicator, FCPI, TST Pricing indicator</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UseCase" type="UseCaseType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Define the use case leading to the creation of the Quotation: ATC, ATU, First Pricing, Best pricer...
+
+And also a sub type if needed: Dynamic Waiver, Irregular flag...</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Originator" type="PointOfSaleType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Defines the pricing office</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PassengerTypeCode" type="PassengerTypeCodeType" minOccurs="0" maxOccurs="3">
+        <xs:annotation>
+          <xs:documentation>Defines the different types of PTC: PTC in PNR, PricedPTC, PricingPTC</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="ItineraryPricingInfoGenericGroup">
+    <xs:annotation>
+      <xs:documentation>group containing pricing information specific to Quotation Itinerary</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LoyaltyProgram" type="LoyaltyProgramType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Represent the Loyalty program used:
+
+0 Undefined,
+
+1 Miles and Cash,
+
+2 Promo Certificate,
+
+3 Transitional Certificate,
+
+4 Companions Certificate,
+
+5 Award Pricing</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PFCTaxes" minOccurs="0" maxOccurs="999">
+        <xs:annotation>
+          <xs:documentation>Airport breakdown tax at coupon level.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attributeGroup ref="TaxAttributeGroup" />
+          <xs:attribute name="Airport" type="CityCodeType" use="required" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="FareComponentPricingInfoGenericGroup">
+    <xs:annotation>
+      <xs:documentation>group containing pricing information specific to Quotation Fare Component</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Location" minOccurs="0" maxOccurs="2">
+        <xs:annotation>
+          <xs:documentation>Location information</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attributeGroup ref="TypedLocationGroup" />
+        </xs:complexType>
+      </xs:element>
+      <!-- Same as Upsell: some future info may come in there -->
+      <xs:element name="Upsell" type="UpsellType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Upsell is sales technique whereby a seller induces the customer to purchase more expensive items</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FareFamily" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Fare Family groups certain number of fares</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="Code" type="iata:AlphaNumericStringLength1to30" use="optional">
+            <xs:annotation>
+              <xs:documentation>Code</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="Owner" type="ota:AlphaNumericStringLength1to3">
+            <xs:annotation>
+              <xs:documentation>CompanyOwner</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="ItineraryCouponPricingInfoGenericGroup">
+    <xs:annotation>
+      <xs:documentation>group containing pricing information specific to Quotation Itinerary Coupon</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="FareBasis" type="FareBasisType" minOccurs="0" />
+      <xs:element name="ClassOfService" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Class of Service at Pricing/Repricing time</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9A-Za-z]{1,7}" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="BaggageAllowance" type="BaggageAllowanceType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Free Baggage Allowance defined by a weight, a number of pieces or nothing: 23K, 2PC, NO, XX, NIL</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+</xs:schema>
+

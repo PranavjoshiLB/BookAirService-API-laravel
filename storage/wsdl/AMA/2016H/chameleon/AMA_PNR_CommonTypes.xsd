@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" elementFormDefault="qualified" attributeFormDefault="unqualified" version="5.002" id="AMA2016H">
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:complexType name="FullOriginSystemType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Information about the origin system</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="type" type="ama_ct:StringLength1to99" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Origin system determined from the CLAPP.
+Possible values: TripConcierge Manual, Amadeus Integrated Partner, AeTM Web, AeTM Mobile, ePower, eRetail, Sell Classic, Sell Connect, Cross-Sell Notifier, TOMA, IRIS...</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="class" type="ama_ct:StringLength1to20" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Identifies the system class that sent the request (G=customer GUI, E=end user GUI, M=middleware, R=robot),</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="category" type="ama_ct:StringLength1to20" use="optional">
+      <xs:annotation>
+        <xs:documentation>Identifies the business type of the origin system (e.g IBE=Internet Booking Engine, CM=Customer Managementm KSK=Kiosk).</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="owner" type="ama_ct:StringLength1to20" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">System owner code or name (e.g. IATA code, LSS organisation). Examples: 1A, AF, MCG-MMT, OPO.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="accessPoint" type="ama_ct:StringLength1to30" use="optional">
+      <xs:annotation>
+        <xs:documentation>Full name of the service access point (SAP) as defined in the service integrator (SI) database.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:attributeGroup name="DisplayedElement">
+    <xs:annotation>
+      <xs:documentation>Common attributes for element display</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="ID" type="xs:NMTOKEN" use="optional">
+      <xs:annotation>
+        <xs:documentation source="Universal Unique ID" />
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="TID" type="xs:NMTOKEN" use="optional">
+      <xs:annotation>
+        <xs:documentation source="Temporary Unique ID" />
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="RefIDs" type="ReferenceListType" use="optional">
+      <xs:annotation>
+        <xs:documentation source="Simple space separated list of UUIDs that this element is linked to." />
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="LegacyID" type="xs:NMTOKEN" use="optional">
+      <xs:annotation>
+        <xs:documentation source="Tattoo type for usage in legacy PNRACC based messages." />
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="ManagedElement">
+    <xs:annotation>
+      <xs:documentation>Common attributes for element addition</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="ID" type="xs:NMTOKEN" use="optional">
+      <xs:annotation>
+        <xs:documentation source="Temporary ID, just for association purpose during the element addition." />
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="TID" type="xs:ID" use="optional">
+      <xs:annotation>
+        <xs:documentation source="Temporary ID, just for association purpose during the element addition." />
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="RefIDs" type="ReferenceListType" use="optional">
+      <xs:annotation>
+        <xs:documentation source="Simple space separated list of UUIDs that this element is linked to." />
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="RefTIDs" type="xs:IDREFS" use="optional">
+      <xs:annotation>
+        <xs:documentation source="Simple space separated list of TIDs that this element is linked to." />
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="CommonOfficeTypeGroup">
+    <xs:attribute name="ID">
+      <xs:annotation>
+        <xs:documentation>OfficeId for Amadeus or external Id in case of TTY POS</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1" />
+          <xs:maxLength value="9" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="NumericId">
+      <xs:annotation>
+        <xs:documentation>IATA code</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[0-9]{1,9}" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="City">
+      <xs:annotation>
+        <xs:documentation>IATA City or Airport code</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="3" />
+          <xs:maxLength value="3" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="SystemCode">
+      <xs:annotation>
+        <xs:documentation>IATA airline code or GDS code</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="2" />
+          <xs:maxLength value="3" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Country">
+      <xs:annotation>
+        <xs:documentation>IATA Coutry Code</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="2" />
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="AgentType">
+      <xs:annotation>
+        <xs:documentation>Agent, System, etc</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="0" />
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="AgentLoginTypeGroup">
+    <xs:attribute name="Sign" use="required">
+      <xs:annotation>
+        <xs:documentation>Numeric and Alpha sign</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[0-9]{4}[0-9A-Z]{2}" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="DutyCode" use="required">
+      <xs:annotation>
+        <xs:documentation>Duty code such as SU, PR</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="2" />
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:simpleType name="TattooReferenceListType">
+    <xs:list>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="([a-zA-Z0-9]{6})?:?(OT|OOT|ST|OST|PT):[1-9][0-9]{0,4}" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:list>
+  </xs:simpleType>
+  <xs:simpleType name="ReferenceListType">
+    <xs:list itemType="xs:NMTOKEN" />
+  </xs:simpleType>
+  <xs:complexType name="PassengerNameType">
+    <xs:annotation>
+      <xs:documentation>Type representing an Individual Name</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Name" minOccurs="0" maxOccurs="5">
+        <xs:complexType>
+          <xs:attribute name="Type" type="xs:string" />
+          <xs:attribute name="IsRef" type="BooleanOrString0" />
+          <xs:attribute name="LastName" type="xs:string" />
+          <xs:attribute name="FirstName" type="xs:string" />
+          <xs:attribute name="Title" type="xs:string" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="PTC" type="xs:string" />
+    <xs:attribute name="StaffType" type="xs:string" />
+    <xs:attribute name="DateOfBirth" type="DateOrString0" />
+    <xs:attribute name="Age" type="nonNegativeIntegerOrString0" />
+    <xs:attribute name="SpecialSeat" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>CBBG or EXST</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="IdentificationCode" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>ID or CR field</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="ScheduleInfoType">
+    <xs:annotation>
+      <xs:documentation>Contains scheduling informations, e.g. ticketing arrangement elements, options.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ActionOffice" type="ota:StringLength1to16" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>IATA code of the queuing/cancellation office.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ActionDate" type="xs:date" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Date of queuing/canellation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ActionTime" type="xs:time" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Time of queuing/canellation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="QueueNbr" type="ota:Numeric0to4" minOccurs="0" />
+      <xs:element name="QueueCategory" type="ota:Numeric0to4" minOccurs="0" />
+      <xs:element name="Text" type="ota:StringLength0to255" minOccurs="0" />
+      <xs:element name="CreatorOffice" type="ota:StringLength1to16" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The office (IATA code) which creates this scheduling item.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CorporateOffices" type="ota:StringLength1to16" minOccurs="0" maxOccurs="99">
+        <xs:annotation>
+          <xs:documentation>The offices (IATA code) which have some rights on this scheduling item.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PrintOptions" minOccurs="0" maxOccurs="15">
+        <xs:annotation>
+          <xs:documentation>It is possible to add free text for more precised information.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="ota:StringLength0to32">
+              <xs:attribute name="DocToPrint" type="ota:OTA_CodeType">
+                <xs:annotation>
+                  <xs:documentation>Contains the diffetent print options. e.g. ticket print, invoice print... Refer to the TPO list.</xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="TravelerRefNbrRPH_List" type="ota:ListOfRPH" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">One or more travelers to whom this item applies.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="SegmentRefNbrRPH_List" type="ota:ListOfRPH">
+      <xs:annotation>
+        <xs:documentation>Flight or other resevation to which this item applies.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="AirlineAssociation" type="ota:AlphaLength1to2">
+      <xs:annotation>
+        <xs:documentation>Contains the airline corporate  code associated to the scheduling information.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ServiceRefNbrRPH_List" type="ota:ListOfRPH">
+      <xs:annotation>
+        <xs:documentation>Contains the RPH lis of the services accociated to the scheduling element.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ManualSchedulingInfo" type="xs:boolean">
+      <xs:annotation>
+        <xs:documentation>True if the element has been added manualy by a travel agent. False if it was added by a system.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ActionType" type="ota:OTA_CodeType">
+      <xs:annotation>
+        <xs:documentation>Contains the action to perform, e.g. Cancellation... Refer to the Amadeus codeset list Scheduling Action Type (SAT).</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="FunctionalPurpose" type="ota:OTA_CodeType">
+      <xs:annotation>
+        <xs:documentation>Contains a code which correspond to the functional purpose of the actions to perform. Refer to the Sceduling Functional Purpose codeset list (SFP).</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="RemarksType">
+    <xs:annotation>
+      <xs:documentation>Used to convey all remarks.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Content" type="ama_ct:StringLength1to128" />
+    </xs:sequence>
+    <xs:attribute name="category" use="optional">
+      <xs:annotation>
+        <xs:documentation>A-Z or *</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:length value="1" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="description" type="xs:string" use="required" />
+  </xs:complexType>
+  <xs:complexType name="PNR_TravelerType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Information about the person traveling.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PersonName" type="ama_ct:PersonNameType" minOccurs="0" maxOccurs="5">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Name information of the person traveling.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustLoyalty" minOccurs="0" maxOccurs="99">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Identifies the loyalty program(s) that the customer belongs to and associated information.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="SegAssocData" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="RedemptionAndUpgardeInfo" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>Contains redemption or upgrade information. It must be filled only when the InfoType is equal to "redemption" or "upgrade".</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="AwardCode" type="ota:AlphaNumericStringLength1to14" minOccurs="0" />
+                        <xs:element name="CertificateNbr" type="ota:AlphaNumericStringLength1to14" minOccurs="0" />
+                        <xs:element name="StockControlNbr" type="ota:AlphaNumericStringLength1to14" minOccurs="0" />
+                        <xs:element name="PriceInMiles" type="ota:NumericStringLength1to16" minOccurs="0" />
+                        <xs:element name="OldClass" type="ota:AlphaLength1" minOccurs="0" />
+                        <xs:element name="NewClass" type="ota:AlphaLength1" minOccurs="0" />
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:attribute name="SegmentRefNbrRPH_List" type="ota:ListOfRPH">
+                  <xs:annotation>
+                    <xs:documentation>Segment to which this loyalty progam applies.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="InfoType" type="ota:OTA_CodeType" use="required">
+                  <xs:annotation>
+                    <xs:documentation>It contains the use type of the information given in this CustLoyalty element (accrual, Upgarde...). Refer to the Amadeus codeset list CLT.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="RPH" type="ota:RPH_Type" use="optional">
+                  <xs:annotation>
+                    <xs:documentation xml:lang="en">A reference placeholder for this loyalty information.</xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attributeGroup ref="ota:CustomerLoyaltyGroup" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="RPH" type="ota:RPH_Type" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Unique id for this traveler.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attributeGroup ref="ota:GenderGroup" />
+    <xs:attribute name="BirthDate" type="xs:date" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Traveler's date of birth.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CurrencyCode" type="ota:AlphaLength3" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Specifies the code for the currency units.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CitizenShipCountryCode" type="ota:ISO3166">
+      <xs:annotation>
+        <xs:documentation>Contains the ISO code of the citizenship country of the traveler.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PassengerTypeCode" type="ota:AlphaLength3" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Code used to indicate the type of traveler that will be traveling (e.g., ADT, CHD, INF, GRP, NCG, COG ; the two last ones means Non Commercial Group and Corporate Group).</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="VIP_Flag" type="xs:boolean" />
+    <xs:attribute name="AccompaniedByInfant" type="xs:boolean" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Indicates if an infant accompanying a traveler is with or without a seat.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="GroupTypeUnassignedQty" type="ota:Numeric0to99">
+      <xs:annotation>
+        <xs:documentation>In the case of a group passenger type code, it indicates the number of unassigned names in the group.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="AdultRefRPH" type="ota:RPH_Type">
+      <xs:annotation>
+        <xs:documentation>Reference of an adult passenger RPH to precise the assocition with an adult in the case of the traveler is an infant.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ReferenceName" type="ama_ct:CodePatternType">
+      <xs:annotation>
+        <xs:documentation>Specify the name that is the reference in the PNR. Refer to the Amadeus codeset list NAT (Name Type). only UN or NN1 are authorized.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:simpleType name="nonNegativeIntegerOrString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a nonNegativeInteger or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="xs:nonNegativeInteger ama_ct:String0" />
+  </xs:simpleType>
+  <xs:simpleType name="BooleanOrString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a boolean or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="xs:boolean ama_ct:String0" />
+  </xs:simpleType>
+  <xs:simpleType name="DateOrString0">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Used in order to validate either a Date or String0.</xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="xs:date ama_ct:String0" />
+  </xs:simpleType>
+</xs:schema>
+

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 rel. 3 (http://www.altova.com) by AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.amadeus.com/2010/06/FOP_Types_v6" targetNamespace="http://xml.amadeus.com/2010/06/FOP_Types_v6" elementFormDefault="qualified" attributeFormDefault="unqualified" version="6.006" id="AMA2016H">
+  <xs:include schemaLocation="../2014S/chameleon/AMA_FOP_FormOfPaymentCommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_FOP_CommonTypes.xsd" />
+</xs:schema>
+

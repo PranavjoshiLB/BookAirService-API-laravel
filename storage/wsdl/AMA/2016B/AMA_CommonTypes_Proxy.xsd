@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.amadeus.com/2010/06/Types_v3" targetNamespace="http://xml.amadeus.com/2010/06/Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="3.004" id="AMA2016B">
+  <xs:include schemaLocation="chameleon/AMA_CommonTypes.xsd" />
+</xs:schema>
+

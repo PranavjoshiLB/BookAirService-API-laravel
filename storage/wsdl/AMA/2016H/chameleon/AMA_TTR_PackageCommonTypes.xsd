@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama="http://xml.amadeus.com/ErrorCodes" xmlns:ota="http://www.opentravel.org/OTA/2003/05/OTA2011A" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:etr="http://xml.amadeus.com/2010/06/ETR_Types_v4" xmlns:pnr="http://xml.amadeus.com/2010/06/PNR_Types_v3" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.002" id="AMA2016H">
+  <xs:import namespace="http://www.opentravel.org/OTA/2003/05/OTA2011A" schemaLocation="../../../OTA/2011A/OTA_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:import namespace="http://xml.amadeus.com/2010/06/ETR_Types_v4" schemaLocation="../AMA_ETR_CommonTypes_Proxy.xsd" />
+  <xs:complexType name="TTR_PackageType">
+    <xs:sequence>
+      <xs:element name="externalSystem" minOccurs="0">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="etr:ExternalSystemType">
+              <xs:sequence>
+                <xs:element name="identifier" minOccurs="0">
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:string">
+                        <xs:attribute name="type" type="xs:string" />
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="modification" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="dateTime" type="etr:DateTimeOrString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Creation date time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="creation" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="dateTime" type="etr:DateTimeOrString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Creation date time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="start" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="en">Departure Location IATA code</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="etr:DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Departure date (Service date) with optional time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="locationName" type="ama_ct:StringLength1to60orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Name of the departure city</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="end" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="locationCode" type="ama_ct:StringLength3orString0" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation xml:lang="en">Arrival Location IATA code</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="dateTime" type="etr:DateOrDateTimeTypeOrString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Arrival date with optional time</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="locationName" type="ama_ct:StringLength1to60orString0" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">Name of the arrival city</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="name" type="ama_ct:StringLength1to99orString0">
+      <xs:annotation>
+        <xs:documentation>Name of the Package</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>
+

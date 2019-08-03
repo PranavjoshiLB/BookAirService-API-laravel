@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://xml.amadeus.com/2010/06/PAY_Types_v1" targetNamespace="http://xml.amadeus.com/2010/06/PAY_Types_v1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.000" id="AMA2017E">
+  <xs:include schemaLocation="chameleon/AMA_PAY_CommonTypes.xsd" />
+  <xs:include schemaLocation="chameleon/AMA_PAY_VirtualCardCommonTypes.xsd" />
+</xs:schema>
+

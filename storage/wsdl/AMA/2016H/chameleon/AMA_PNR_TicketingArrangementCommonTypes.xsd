@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 rel. 2 sp2 (x64) (http://www.altova.com) by ﻿AMADEUS s.a.s. (AMADEUS s.a.s.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ama_ct="http://xml.amadeus.com/2010/06/Types_v3" xmlns:altova="http://www.altova.com/xml-schema-extensions" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.000" id="AMA2016H">
+  <xs:import namespace="http://xml.amadeus.com/2010/06/Types_v3" schemaLocation="../../2016B/AMA_CommonTypes_Proxy.xsd" />
+  <xs:complexType name="TicketingArrangementType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">To specify an Amadeus PNR Ticket element</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="sitaAddress" minOccurs="0" maxOccurs="5">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">SITA addresses</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="ama_ct:AlphaNumericStringLength1to7">
+            <xs:minLength value="7" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="passengerType" type="ama_ct:AlphaNumericStringLength1to3">
+      <xs:annotation>
+        <xs:documentation>Passenger type  PAX for Passenger  INF for Infant not occupying a seat</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="TKType" use="required">
+      <xs:annotation>
+        <xs:documentation>Ticketing type  
+- AT: airport ticketing
+- DO: domestic flight
+- IN: international flight
+- MA: mail
+- OK: ticketed
+- PT: prepaid ticket
+- SS: self service
+- ST: satellite ticketing
+- TL: time limit
+- TR: revalidation
+- XL: automatic PNR cancellation</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="ama_ct:AlphaNumericStringLength1to2">
+          <xs:enumeration value="AT">
+            <xs:annotation>
+              <xs:documentation>airport ticketing</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="DO">
+            <xs:annotation>
+              <xs:documentation>domestic flight</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="IN">
+            <xs:annotation>
+              <xs:documentation>international flight</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MA">
+            <xs:annotation>
+              <xs:documentation>mail</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="OK">
+            <xs:annotation>
+              <xs:documentation>ticketed</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PT">
+            <xs:annotation>
+              <xs:documentation>prepaid ticket</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="SS">
+            <xs:annotation>
+              <xs:documentation>self service</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ST">
+            <xs:annotation>
+              <xs:documentation>satellite ticketing</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TL">
+            <xs:annotation>
+              <xs:documentation>time limit</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TR">
+            <xs:annotation>
+              <xs:documentation>revalidation</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="XL">
+            <xs:annotation>
+              <xs:documentation>automatic PNR cancellation</xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="date" type="xs:date">
+      <xs:annotation>
+        <xs:documentation>Ticketing date</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="time" type="xs:time">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Ticketing time</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="officeId" type="ama_ct:AlphaNumericStringLength1to10">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Office Id</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="freetext" type="ama_ct:AlphaNumericStringLength1to14">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Free flow text</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="transactionFlag" type="ama_ct:AlphaNumericStringLength1to9">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Air France flag (e.g. //TELEPAYE for MINITEL)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="electronicTicketFlag" type="ama_ct:AlphaNumericStringLength1to2">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Electronic ticketing flag + airline code (e.g. //ETLH)  ET for Electronic ticket candidate</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="airlineCode" type="ama_ct:AlphaNumericStringLength1to3">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Airline code</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="queueNumber" type="ama_ct:AlphaNumericStringLength1to3">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Alternate Queue number</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="queueCategory" type="ama_ct:AlphaNumericStringLength1to3">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">Alternate queue Category number</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="printOptions" type="ama_ct:StringLength1to128" />
+  </xs:complexType>
+</xs:schema>
+
